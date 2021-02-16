@@ -12,24 +12,23 @@ class mealdbAPI(object):
     # Pull the lists of ingredients, areas, and categories
     # Do this once to avoid repeated requests for the same information
     def set_lists(self):
-        self.ingredients = self.get_list('ingredients')
-        self.areas = self.get_list('ingredients')
-        self.categories = self.get_list('categoeies')
 
-
-    # List all items in a category
-    def get_list(self, category):
-        if category not in QueryKeys.filters:
-            return {}
-        parameters = {QueryKeys.filters[category]: 'list'}
+        parameters = {'i': 'list'}
         response = self.get_request('list', parameters)
-        result = {}
+        self.ingredients = {}
         for item in response:
-            result[item['strIngredient']] = {
+            self.ingredients[item['strIngredient']] = {
                 'id': item['idIngredient'],
                 'description': item['strDescription']
             }
-        return result
+
+        parameters = {'a': 'list'}
+        response = self.get_request('list', parameters)
+        self.areas = [item["strArea"] for item in response]
+
+        parameters = {'c': 'list'}
+        response = self.get_request('list', parameters)
+        self.categories = [item["strCategory"] for item in response]
     
 
     # Search the ingredient list for a specific ingredient
@@ -51,13 +50,20 @@ class mealdbAPI(object):
     def filter_by_ingredient(self, ingredientName):
         parameters = {QueryKeys.filters['ingredients']: ingredientName}
         response = self.get_request('filter', parameters)
+        if not response:
+            return {}
         meals = {}
         for meal in response:
-            meals[meal['strMeal']] = {
-                'id': meal['idMeal'],
+            meals[meal['idMeal']] = {
+                'name': meal['strMeal'],
                 'image': meal['strMealThumb']
             }
         return meals
+
+
+    # Search ingredient list for any key that starts with the search string
+    def search_ingredients(self, searchstr):
+        return [key for key in self.ingredients if key.lower().startswith(searchstr.lower())]
 
 
     def get_meal_info(self, mealID):
