@@ -18,6 +18,14 @@ function ShowIngredients (props) {
   }
 }
 
+function CheckError(response) {
+  if (response.status >= 200 && response.status <= 299) {
+    return response.json();
+  } else {
+    throw Error(response.statusText);
+  }
+}
+
 class IngredientSearch extends React.Component {
   constructor(props) {
     super(props)
@@ -34,12 +42,12 @@ class IngredientSearch extends React.Component {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?'
     const params = {'i': 'list'}
     fetch(url + new URLSearchParams(params))
-      .then(response => response.json())
+      .then(CheckError)
       .then(result => {
         const ingredientList = result['meals'];
         this.processIngredients(ingredientList);
-        this.render();
       })
+      .catch(error => console.log(error));
   }
 
   processIngredients(ingredientList) {

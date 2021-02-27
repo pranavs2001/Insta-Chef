@@ -2,7 +2,8 @@ import React from 'react'
 import Modal from 'react-modal'
 import './App.css';
 import Search from './search';
-import IngredientSearch from './ingredientsearch'
+import IngredientSearch from './Components/MealDB/ingredientsearch'
+import Tile from './tile'
 
 Modal.setAppElement(document.getElementById('root'))
 
@@ -38,6 +39,9 @@ function App() {
       </Modal>
       <div>
         <Search />
+      </div>
+      <div>
+        <Tile recipeid={52772}/>
       </div>
     </div>
   );
