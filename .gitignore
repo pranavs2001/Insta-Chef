@@ -3,4 +3,8 @@ insta-chef-ed314-firebase-adminsdk.json
 /node_modules
 /insta-chef/node_modules
 
+.idea/
+__pycache__/
+
 .env
+
