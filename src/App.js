@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Pantry from './Components/Pantry/Pantry';
 
+
 function App() {
   return (
     <Router>
