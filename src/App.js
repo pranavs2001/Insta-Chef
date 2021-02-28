@@ -12,62 +12,62 @@ import Pantry from './Components/Pantry/Pantry';
 function App() {
   Modal.setAppElement(document.getElementById('root'))
 
-  function App() {
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    // Called when modal is opened
-    function openModal() {
-      setIsOpen(true);
-    }
-
-    function afterOpenModal() {
-      // Stylistic changes after modal window opens
-    }
-
-    // called when modal is closed
-    function closeModal() {
-      setIsOpen(false);
-    }
-
-
-    return (
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/Login" component={LoginPage} />
-            <Route path="/Search" component={Search} />
-            <Route path="/Pantry" component={Pantry} />
-            <p>Insta-chef</p>
-            <LoginPage />
-          </Switch>
-          <button onClick={openModal}>Add new Ingredient</button>
-          <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            contentLabel="Ingredient Search Box"
-          >
-            <button onClick={closeModal}>Done</button>
-            <IngredientSearch />
-          </Modal>
-          <div>
-            <Search />
-          </div>
-          <div>
-            <Tile recipeid={52772} />
-          </div>
-
-        </div>
-      </Router>
-
-    );
+  // Called when modal is opened
+  function openModal() {
+    setIsOpen(true);
   }
+
+  function afterOpenModal() {
+    // Stylistic changes after modal window opens
+  }
+
+  // called when modal is closed
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/Login" component={LoginPage} />
+          <Route path="/Search" component={Search} />
+          <Route path="/Pantry" component={Pantry} />
+          <p>Insta-chef</p>
+          <LoginPage />
+        </Switch>
+        <button onClick={openModal}>Add new Ingredient</button>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          contentLabel="Ingredient Search Box"
+        >
+          <button onClick={closeModal}>Done</button>
+          <IngredientSearch />
+        </Modal>
+        <div>
+          <Search />
+        </div>
+        <div>
+          <Tile recipeid={52772} />
+        </div>
+
+      </div>
+    </Router>
+
+  );
+}
 
   const Home = () => (
     <div>
       <h1> Home Page</h1>
     </div>
   )
+
   export default App;
