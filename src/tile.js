@@ -1,6 +1,6 @@
 import React from 'react';
-import './tile.css';
-import RecipeWindow from './Components/MealDB/recipewindow.js'
+import styles from './tile.css';
+import RecipeWindow from './Components/MealDB/recipewindow.js';
 
 function CheckError(response) {
   if (response.status >= 200 && response.status <= 299) {
@@ -28,7 +28,7 @@ class Tile extends React.Component {
   componentDidMount() {
     // Fetch the list of valid ingredients
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?';
-    const params = {'i': this.props.recipeid};
+    const params = { 'i': this.props.recipeid };
     fetch(url + new URLSearchParams(params))
       .then(CheckError)
       .then(result => {
@@ -56,17 +56,17 @@ class Tile extends React.Component {
       'source': recipeInfo['strSource']
     };
     this.setState({
-      loaded:true,
+      loaded: true,
       recipe: data,
     });
   }
 
-
-  flipTile() {
-    this.setState({
-      flipped: !this.state.flipped,
-    });
-  }
+  //old function used to indicate to "flip" tile after a user's click
+  // flipTile() {
+  //   this.setState({
+  //     flipped: !this.state.flipped,
+  //   });
+  // }
 
   // Modal window control
   openRecipe() {
@@ -79,16 +79,18 @@ class Tile extends React.Component {
     // Stylistic changes after modal window opens
   }
 
+  //close modal window
   closeRecipe() {
     this.setState({
       recipeOpen: false,
     });
   }
 
+  //old function used to format ingredients
   ingredList(ingred, meas) {
     var listItems = ""
 
-    for(let i = 0; i < ingred.length; i++) {
+    for (let i = 0; i < ingred.length; i++) {
       listItems = listItems + " " + ingred[i] + " " + "(" + meas[i] + ")" + ","
     }
 
@@ -96,41 +98,43 @@ class Tile extends React.Component {
   }
 
   render() {//button composed of image, the name of recipe, then link
-    const flip = this.state.flipped;
+    //const flip = this.state.flipped;
 
     return (
       <div>
-        <button className="tile-back" onClick={this.openRecipe}>
-        View Detailed Info
+        <button className="styles.tile_back" onClick={this.openRecipe}>
+          <img src={this.state.recipe.image} width="130" height="130" alt="Recipe Image"></img>
+            <h2>{this.state.recipe.name}</h2>
+            <br/><br/>
         </button>
-        <RecipeWindow
-          loaded={this.state.loaded}
-          isOpen={this.state.recipeOpen}
-          afterOpen={this.afterOpenRecipe}
-          closeModal={this.closeRecipe}
-          recipe={this.state.recipe}
-        />
+          <RecipeWindow
+            loaded={this.state.loaded}
+            isOpen={this.state.recipeOpen}
+            afterOpen={this.afterOpenRecipe}
+            closeModal={this.closeRecipe}
+            recipe={this.state.recipe}
+          />
       </div>
 
 
     );
     // if(flip) {
-    //   <button class="tile-back" onClick={this.flipTile}>
-    //     <h5>Ingredients:</h5>
-    //     <br/>
-    //     <p>{this.ingredList(this.props.ingred, this.props.meas)}</p>
-    //     <br/>
-    //     <p>{this.props.instr}</p>
-    //   </button>
-    // } else {
-      // <button class="tile-front" onClick={this.flipTile}>
-      //   <img src={this.props.image} width="100" height="100"/>
-      //   <br/>
-      //   <h3>{this.props.title}</h3>
-      //   <br/>
-      //   <input type="button" target="_blank" rel="noopener noreferrer" onclick={this.props.link} value="Video" />
-      // </button>
-  }
+          //   <button class="tile-back" onClick={this.flipTile}>
+          //     <h5>Ingredients:</h5>
+          //     <br/>
+          //     <p>{this.ingredList(this.props.ingred, this.props.meas)}</p>
+          //     <br/>
+          //     <p>{this.props.instr}</p>
+          //   </button>
+          // } else {
+          // <button class="tile-front" onClick={this.flipTile}>
+          //   <img src={this.props.image} width="100" height="100"/>
+          //   <br/>
+          //   <h3>{this.props.title}</h3>
+          //   <br/>
+          //   <input type="button" target="_blank" rel="noopener noreferrer" onclick={this.props.link} value="Video" />
+          // </button>
+        }
 }
 
 export default Tile;
