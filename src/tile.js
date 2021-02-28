@@ -1,14 +1,7 @@
 import React from 'react';
 import './tile.css';
-import RecipeWindow from './Components/MealDB/recipewindow.js'
-
-function CheckError(response) {
-  if (response.status >= 200 && response.status <= 299) {
-    return response.json();
-  } else {
-    throw Error(response.statusText);
-  }
-}
+import RecipeWindow from './Components/MealDB/recipewindow'
+import CheckError from "./Components/MealDB/checkerror";
 
 class Tile extends React.Component {
   constructor(props) {

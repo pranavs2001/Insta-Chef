@@ -2,11 +2,11 @@ import React from 'react'
 import Modal from 'react-modal'
 import './App.css';
 import LoginPage from './Components/SignIn/LoginPage';
-import Search from './search';
+import Search from './Components/MealDB/search';
+import Navbar from './Components/Navbar';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import IngredientSearch from './Components/MealDB/ingredientsearch'
 import Tile from './tile'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Navbar from './Components/Navbar';
 
 Modal.setAppElement(document.getElementById('root'))
 

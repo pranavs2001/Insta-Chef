@@ -1,4 +1,5 @@
 import React from 'react'
+import CheckError from "./checkerror";
 
 function ShowIngredients (props) {
   if (props.loaded == false) {
@@ -15,14 +16,6 @@ function ShowIngredients (props) {
         <li key={ingredient['id']}>{ingredient['name']}</li>
       )
     )
-  }
-}
-
-function CheckError(response) {
-  if (response.status >= 200 && response.status <= 299) {
-    return response.json();
-  } else {
-    throw Error(response.statusText);
   }
 }
 
@@ -97,7 +90,7 @@ class IngredientSearch extends React.Component {
       <div>
         <input
          style={BarStyling}
-         key="random1"
+         key="ingredientSearch"
          value={keyword}
          placeholder={"Search for an ingredient"}
          onChange={(e) => this.updateSearch(e.target.value)}

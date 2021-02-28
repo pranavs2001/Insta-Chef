@@ -38,7 +38,6 @@ function RecipeWindow(props) {
       </Modal>
     );
   }
-
 }
 
 export default RecipeWindow;
