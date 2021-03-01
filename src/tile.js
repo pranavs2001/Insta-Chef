@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './tile.css';
 import RecipeWindow from './Components/MealDB/recipewindow.js';
-import IngredientSearch from './Components/MealDB/ingredientsearch.js';
+import IngSearch from "./Components/MealDB/ingredientsearch.js";
 
 class Tile extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Tile extends React.Component {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?';
     const params = { 'i': this.props.recipeid };
     fetch(url + new URLSearchParams(params))
-      .then(IngredientSearch.CheckError)
+      .then(CheckError)
       .then(result => {
         const recipeinfo = result['meals'][0];
         this.processMeal(recipeinfo);
