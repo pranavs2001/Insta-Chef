@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './tile.css';
 import RecipeWindow from './Components/MealDB/recipewindow.js';
-import IngSearch from "./Components/MealDB/ingredientsearch.js";
+import CheckError from "./Components/MealDB/checkerror";
 
 class Tile extends React.Component {
   constructor(props) {
