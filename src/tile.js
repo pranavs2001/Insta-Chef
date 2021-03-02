@@ -111,22 +111,6 @@ class Tile extends React.Component {
 
 
     );
-    // if(flip) {
-          //   <button class="tile-back" onClick={this.flipTile}>
-          //     <h5>Ingredients:</h5>
-          //     <br/>
-          //     <p>{this.ingredList(this.props.ingred, this.props.meas)}</p>
-          //     <br/>
-          //     <p>{this.props.instr}</p>
-          //   </button>
-          // } else {
-          // <button class="tile-front" onClick={this.flipTile}>
-          //   <img src={this.props.image} width="100" height="100"/>
-          //   <br/>
-          //   <h3>{this.props.title}</h3>
-          //   <br/>
-          //   <input type="button" target="_blank" rel="noopener noreferrer" onclick={this.props.link} value="Video" />
-          // </button>
         }
 }
 
