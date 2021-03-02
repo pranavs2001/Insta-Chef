@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './tile.css';
+import './tile.css';
 import RecipeWindow from './Components/MealDB/recipewindow.js';
 import CheckError from "./Components/MealDB/checkerror";
 
@@ -7,7 +7,6 @@ class Tile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flipped: false,
       recipe: {},
       loaded: false,
       recipeOpen: false,
@@ -76,7 +75,7 @@ class Tile extends React.Component {
 
     return (
       <div>
-        <button className="styles.tile_back" onClick={this.openRecipe}>
+        <button className="tile-front" onClick={this.openRecipe}>
           <img src={this.state.recipe.image} width="130" height="130" alt="Recipe Image"></img>
             <h2>{this.state.recipe.name}</h2>
             <br/><br/>
