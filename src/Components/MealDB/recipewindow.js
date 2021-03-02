@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import styles from './recipewindow.css';
+import './recipewindow.css';
 
 
 // Modal.setAppElement(document.getElementById('root'))
@@ -36,7 +36,7 @@ function RecipeWindow(props) {
         <h4>Ingredients:</h4>
         <ListIngredients ingredients={props.recipe.ingredients}/>
         <h4>Steps:</h4>
-        <p class="steps">{props.recipe.instructions}</p>
+        <p className="steps">{props.recipe.instructions}</p>
       </Modal>
     );
   }
