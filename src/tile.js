@@ -54,13 +54,6 @@ class Tile extends React.Component {
     });
   }
 
-  //old function used to indicate to "flip" tile after a user's click
-  // flipTile() {
-  //   this.setState({
-  //     flipped: !this.state.flipped,
-  //   });
-  // }
-
   // Modal window control
   openRecipe() {
     this.setState({
@@ -91,7 +84,6 @@ class Tile extends React.Component {
   }
 
   render() {//button composed of image, the name of recipe, then link
-    //const flip = this.state.flipped;
 
     return (
       <div>
