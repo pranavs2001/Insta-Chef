@@ -1,27 +1,26 @@
-/*style sheet for recipe tiles*/
+/*style sheet for recipe instructions*/
 
-/*figure out and fix css for front and back of tile*/
-
-.tile-front{
-    width: 150px;
-    height: 300px;
+.tile_front{
+    width: 100px;
+    height: 200px;
     border: 4px solid #999; 
     padding: 5px;
     font-size: 20px;
     text-align: center;
 }
 
-button{
-    width: 150px;
-    height: 300px;
+.button-style{
+    width: 80px;
+    height: 40px;
     border: 4px solid #999; 
     padding: 5px;
     font-size: 12px;
     font-style: 4097aa;
     text-align: center;
+    align-self: 'center';
 }
 
-h2{
-    color: #4097aa;
+.steps{
+    /*color: rgb(0, 0, 0);*/
     font-size: 16px;
 }

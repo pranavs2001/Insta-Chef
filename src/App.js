@@ -39,7 +39,7 @@ function App() {
       <LoginPage/>
       </Switch>
 
-      <button onClick={openModal}>Add new Ingredient</button>
+      <button className="pantry-add" onClick={openModal}>Add new Ingredient</button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -52,8 +52,9 @@ function App() {
       <div>
         <Search />
       </div>
-      <div>
+      <div className="tile-style">
         <Tile recipeid={52772}/>
+        <Tile recipeid={52771}/>
       </div>
     </div>
     </Router>

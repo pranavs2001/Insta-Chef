@@ -1,5 +1,6 @@
-import React from 'react'
-import Modal from 'react-modal'
+import React from 'react';
+import Modal from 'react-modal';
+import './recipewindow.css';
 
 
 // Modal.setAppElement(document.getElementById('root'))
@@ -24,17 +25,18 @@ function RecipeWindow(props) {
         isOpen={props.isOpen}
         onAfterOpen={props.afterOpen}
         onRequestClose={props.closeModal}
+        animationType="fade"
+        transparent={true}
         contentLabel="Recipe Info"
       >
-        <button onClick={props.closeModal}>Close</button>
-        <h2>{props.recipe.name}</h2>
+        <button className="button-style" onClick={props.closeModal}>← Close</button>
+        <h1>{props.recipe.name}</h1>
         <h4>Category: {props.recipe.category}</h4>
         <h4>Area: {props.recipe.area}</h4>
         <h4>Ingredients:</h4>
         <ListIngredients ingredients={props.recipe.ingredients}/>
         <h4>Steps:</h4>
-        <p>{props.recipe.instructions}
-        </p>
+        <p className="steps">{props.recipe.instructions}</p>
       </Modal>
     );
   }
