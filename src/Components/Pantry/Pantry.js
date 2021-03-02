@@ -1,6 +1,7 @@
 import React from 'react';
 import fire from "../SignIn/fire"
 import "firebase/database"
+import AddIngredModal from './AddIngredModal'
 
 class Pantry extends React.Component {
     constructor(props) {
@@ -11,10 +12,10 @@ class Pantry extends React.Component {
             itemAdded: '',
             loggedIn: false,
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
         this.viewPantry = this.viewPantry.bind(this);
-        this.addItemForm = this.addItemForm.bind(this);
+        // this.addItemForm = this.addItemForm.bind(this);
     }
 
    componentDidMount() {
@@ -45,58 +46,59 @@ class Pantry extends React.Component {
                 return <li key={index}>{elem.item}</li>
             })
         } else {
-            return null;
+            return (
+                <div>
+                    <h3>You need to login before viewing your pantry</h3>
+                </div>
+            );
         }
     }
 
-    handleChange(e) {
-        this.setState({ itemAdded: e.target.value });
-    }
-
-    // add item to pantry on submit
-    handleSubmit(e) {
-        e.preventDefault();
-        if(this.state.loggedIn)
-        {
-            console.log('An item was submitted: ' + this.state.itemAdded);
-            var itemRef = fire.database().ref(this.state.uid + 'pantryItems/');
+    /** 
+     * addItemToPantry: add an item to the user's pantry, if the item is already present alert the user
+     * @param {string} item item to be added to the user's pantry
+     * @param {boolean} loggedIn whether the user is logged in or not
+     * @param {string} uid  the current user's uid
+    */
+    addItemToPantry(item, loggedIn, uid) {
+        if(loggedIn) {
+            var itemRef = fire.database().ref(uid + 'pantryItems/');
+            var items = itemRef.orderByChild('items');
+            var itemAlreadyInPantry = false;
+            items.on('value', (snapshot) => {
+                let items = [];
+                snapshot.forEach((childSnapshot) => {
+                    let val = childSnapshot.val();
+                    items.push(val);
+                })
+                items.forEach(elem => {
+                    if(elem.item.toString().localeCompare(item) == 0) {
+                        itemAlreadyInPantry = true;
+                    }
+                });
+            });
+            if(itemAlreadyInPantry)
+            {
+                alert(`${item} is already in your pantry`);
+                return;
+            }
+            console.log('An item was submitted: ' + item);
             var newItemRef = itemRef.push();
             newItemRef.set({
-                item: this.state.itemAdded,
+                item: item,
             })
-            this.setState({
-                itemAdded: '',
-            })
-        } 
-    }
-
-    addItemForm() {
-        if(this.state.loggedIn) {
-            return(
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Add an item to your Pantry:
-                            <input type="text" value={this.state.itemAdded} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Add" />
-                </form>
-            )
-        } else {
-            return(
-                <h3>You need to login before viewing your Pantry.</h3>
-            )
         }
     }
 
     render() {
         return (
             <div className="test">
-                <this.addItemForm/>
                 <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
-                    {/* <button onClick={this.viewPantry}> view pantry </button> */}
                     <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
                         <this.viewPantry/>
                     </div>
+                    <AddIngredModal addItemToPantry={this.addItemToPantry} 
+                    loggedIn={this.state.loggedIn} uid={this.state.uid}/>
                 </div>
             </div>
         );
