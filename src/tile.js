@@ -72,17 +72,6 @@ class Tile extends React.Component {
     });
   }
 
-  //old function used to format ingredients
-  ingredList(ingred, meas) {
-    var listItems = ""
-
-    for (let i = 0; i < ingred.length; i++) {
-      listItems = listItems + " " + ingred[i] + " " + "(" + meas[i] + ")" + ","
-    }
-
-    return listItems
-  }
-
   render() {//button composed of image, the name of recipe, then link
 
     return (
