@@ -1,6 +1,6 @@
 import React from 'react';
 import './tile.css';
-import RecipeWindow from './Components/MealDB/recipewindow.js';
+import RecipeWindow from './Components/MealDB/recipewindow'
 import CheckError from "./Components/MealDB/checkerror";
 
 class Tile extends React.Component {
