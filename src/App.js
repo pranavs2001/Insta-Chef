@@ -1,9 +1,7 @@
 import React from 'react'
-import Modal from 'react-modal'
 import './App.css';
 import LoginPage from './Components/SignIn/LoginPage';
-import Search from './search';
-import Tile from './tile'
+import Search from './Components/MealDB/search';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Pantry from './Components/Pantry/Pantry';
