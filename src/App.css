@@ -14,3 +14,17 @@
   color: white;
 }
 
+.pantry-add {
+  width: 100px;
+  height: 50px;
+  border: 4px solid #999; 
+  padding: 5px;
+  font-size: 12px;
+  font-style: 4097aa;
+  text-align: center;
+}
+
+.tile-style {
+  flex-direction: row;
+  text-align: left;
+}

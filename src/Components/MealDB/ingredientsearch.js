@@ -1,4 +1,5 @@
 import React from 'react'
+import CheckError from "./checkerror";
 
 function ShowIngredients (props) {
   if (props.loaded == false) {
@@ -10,19 +11,16 @@ function ShowIngredients (props) {
       <p>No matching ingredients</p>
     )
   } else {
+    console.log(props.ingredients);
     return (
-      props.ingredients.map((ingredient) =>
-        <li key={ingredient['id']}>{ingredient['name']}</li>
+      props.ingredients.map((ingredient) => 
+        <div key={ingredient['id']}>
+          <button onClick={() => {props.addItemToPantry(ingredient['name'], props.loggedIn, props.uid)}}>
+          Add {ingredient['name']}</button>
+          {/* <li>{ingredient['name']}</li> */}
+        </div>
       )
     )
-  }
-}
-
-function CheckError(response) {
-  if (response.status >= 200 && response.status <= 299) {
-    return response.json();
-  } else {
-    throw Error(response.statusText);
   }
 }
 
@@ -34,6 +32,9 @@ class IngredientSearch extends React.Component {
       validIngredients: [],
       keyword: '',
       loaded: false,
+      addItemToPantry: props.addItemToPantry,
+      loggedIn: props.loggedIn,
+      uid: props.uid,
     }
   }
 
@@ -97,12 +98,13 @@ class IngredientSearch extends React.Component {
       <div>
         <input
          style={BarStyling}
-         key="random1"
+         key="ingredientSearch"
          value={keyword}
          placeholder={"Search for an ingredient"}
          onChange={(e) => this.updateSearch(e.target.value)}
         />
-        <ShowIngredients ingredients={validIngredients} loaded={this.state.loaded}/>
+        <ShowIngredients ingredients={validIngredients} loaded={this.state.loaded} 
+        addItemToPantry={this.state.addItemToPantry} loggedIn={this.state.loggedIn} uid={this.state.uid}/>
       </div>
     );
   }
