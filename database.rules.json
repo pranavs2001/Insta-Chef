@@ -1,0 +1,8 @@
+{
+  "rules": {
+    // ".read": "now < 1616914800000",  // 2021-3-28
+    // ".write": "now < 1616914800000",  // 2021-3-28
+    ".read": "auth.uid != null",
+    ".write": "auth.uid != null"
+  }
+}
