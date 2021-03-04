@@ -5,5 +5,5 @@ insta-chef-ed314-firebase-adminsdk.json
 
 .idea/
 __pycache__/
-
+.firebase/
 .env
