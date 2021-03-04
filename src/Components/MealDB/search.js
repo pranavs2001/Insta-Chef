@@ -12,9 +12,20 @@ class Search extends React.Component {
       validRecipes: {},
       // TODO: Get firebase credentials
     }
+    this.timeout =  0;
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
     // validrecipes is a list of recipes that match the keyword
+  }
+
+  doSearch(evt){
+    var modSearchText = evt.target.value + "  "; // this is the search text
+    var searchText = evt.target.value;
+    if(this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.updateSearch(modSearchText);
+      this.updateSearch(searchText);
+    }, 1);
   }
 
   componentDidMount() {
@@ -60,7 +71,7 @@ class Search extends React.Component {
          key="recipeSearch"
          value={keyword}
          placeholder={"Search for a recipe"}
-         onChange={(e) => this.updateSearch(e.target.value)}
+         onChange={(e) => this.doSearch(e)}
         />
         {/* <ListRecipes recipes={matchingrecipes}/> */}
         <ListTiles recipes={matchingrecipes}/>
