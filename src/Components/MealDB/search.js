@@ -9,6 +9,7 @@ class Search extends React.Component {
       keyword: '',
       recipes: data,
       validRecipes: {},
+      // TODO: Get firebase credentials
     }
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
