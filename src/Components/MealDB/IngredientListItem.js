@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {Fragment} from 'react'
+import Dropdown from 'react-dropdown'
 import './ingredientSearch.css'
 
 class IngredientListItem extends React.Component {
@@ -12,23 +13,35 @@ class IngredientListItem extends React.Component {
 
   render() {
     const ingredientName = this.props.item['name'];
+    const options = this.props.categories;
     return (
       <div>
-        <button
-          className="add-button"
-          onClick={() => this.props.requestAdd(ingredientName, this.state.category)}
-          size="sm"
-        >
-          Add Item
-        </button>
-        {ingredientName}
-        {/*<input>Select category</input>*/}
+
+        <td>
+          <button
+            className="add-button"
+            onClick={() => this.props.requestAdd(ingredientName, this.state.category)}
+          >
+            Add Item
+          </button>
+        </td>
+        <td>
+          <Dropdown
+            options={options}
+            value={this.state.category}
+            onChange={(selectedOption) => {
+              this.setState({
+                category: selectedOption['value'],
+              })
+            }}
+          />
+        </td>
+        <td>
+          {ingredientName}
+        </td>
       </div>
     );
   }
 }
-
-// TODO: Function to specify category
-// Pass in existing list of categories and give option to list new ones
 
 export default IngredientListItem

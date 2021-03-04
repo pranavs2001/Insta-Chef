@@ -7,3 +7,8 @@
     text-align: center;
     /*align-self: 'center';*/
 }
+
+.dropdown-item {
+    flex-direction: row;
+    display: inline;
+}

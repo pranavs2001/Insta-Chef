@@ -16,6 +16,7 @@ npm install firebase
 npm install react-icons
 npm install react-router-dom
 npm install styled-components
+npm install react-dropdown
 ```
 To run the program :
 ```

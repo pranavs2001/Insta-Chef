@@ -13,19 +13,19 @@ function ShowIngredients (props) {
     )
   } else {
     return (
-      props.ingredients.map((ingredient) =>
-        <div key={ingredient['id']}>
-          <IngredientListItem
-            item={ingredient}
-            requestAdd={props.requestAdd}
-            categories={props.categories}
-          />
-          {/* TODO: Specify ingredient category*/}
-          {/*<button onClick={() => {props.addItemToPantry(ingredient['name'])}}>*/}
-          {/*Add {ingredient['name']}</button>*/}
-          {/* <li>{ingredient['name']}</li> */}
-        </div>
-      )
+      <table>
+        <tbody>
+          {props.ingredients.map((ingredient) =>
+            <tr key={ingredient['id']}>
+              <IngredientListItem
+                item={ingredient}
+                requestAdd={props.requestAdd}
+                categories={props.categories}
+              />
+            </tr>
+          )}
+        </tbody>
+      </table>
     )
   }
 }
