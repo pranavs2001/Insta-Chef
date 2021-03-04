@@ -8,6 +8,7 @@ class IngredientListItem extends React.Component {
     this.state = {
       category: 'Other',
     };
+    console.log(props.categories)
     // this.getMealIDs = this.getMealIDs.bind(this);
   }
 
@@ -26,6 +27,7 @@ class IngredientListItem extends React.Component {
           </button>
         </td>
         <td>
+          {/*TODO: format dropdown*/}
           <Dropdown
             options={options}
             value={this.state.category}

@@ -74,7 +74,6 @@ class IngredientSearch extends React.Component {
   }
 
   updateSearch(value) {
-    // console.log(value);
     const searchStr = value;
     let matches = [];
     // Make sure ingredient list is not empty
