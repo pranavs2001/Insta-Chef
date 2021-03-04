@@ -1,0 +1,14 @@
+.add-button{
+    width: 80px;
+    height: 50px;
+    /*padding: 5px;*/
+    font-size: 12px;
+    /*font-style: 4097aa;*/
+    text-align: center;
+    /*align-self: 'center';*/
+}
+
+.dropdown-item {
+    flex-direction: row;
+    display: inline;
+}

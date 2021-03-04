@@ -1,24 +1,31 @@
 import React from 'react'
 import CheckError from "./checkerror";
+import IngredientListItem from "./IngredientListItem";
 
 function ShowIngredients (props) {
-  if (props.loaded == false) {
+  if (props.loaded === false) {
     return (
       <p>Loading ingredients...</p>
     )
-  } else if (props.ingredients.length == 0) {
+  } else if (Object.keys(props.ingredients).length === 0) {
     return (
       <p>No matching ingredients</p>
     )
   } else {
     return (
-      props.ingredients.map((ingredient) => 
-        <div key={ingredient['id']}>
-          <button onClick={() => {props.addItemToPantry(ingredient['name'], props.loggedIn, props.uid)}}>
-          Add {ingredient['name']}</button>
-          {/* <li>{ingredient['name']}</li> */}
-        </div>
-      )
+      <table>
+        <tbody>
+          {props.ingredients.map((ingredient) =>
+            <tr key={ingredient['id']}>
+              <IngredientListItem
+                item={ingredient}
+                requestAdd={props.requestAdd}
+                categories={props.categories}
+              />
+            </tr>
+          )}
+        </tbody>
+      </table>
     )
   }
 }
@@ -28,12 +35,9 @@ class IngredientSearch extends React.Component {
     super(props)
     this.state = {
       baseIngredients: {},
-      validIngredients: [],
+      validIngredients: {},
       keyword: '',
       loaded: false,
-      addItemToPantry: props.addItemToPantry,
-      loggedIn: props.loggedIn,
-      uid: props.uid,
     }
   }
 
@@ -57,7 +61,7 @@ class IngredientSearch extends React.Component {
       const ingredientData = ingredientList[item]
       const data = {
         'id': ingredientData['idIngredient'],
-        'description': ingredientData['strDescription'],
+        // 'description': ingredientData['strDescription'],
       }
       ingredients[ingredientData['strIngredient']] = data
     }
@@ -66,6 +70,7 @@ class IngredientSearch extends React.Component {
       baseIngredients: ingredients,
       loaded: true,
     });
+
   }
 
   updateSearch(value) {
@@ -101,8 +106,12 @@ class IngredientSearch extends React.Component {
          placeholder={"Search for an ingredient"}
          onChange={(e) => this.updateSearch(e.target.value)}
         />
-        <ShowIngredients ingredients={validIngredients} loaded={this.state.loaded} 
-        addItemToPantry={this.state.addItemToPantry} loggedIn={this.state.loggedIn} uid={this.state.uid}/>
+        <ShowIngredients
+          ingredients={validIngredients}
+          loaded={this.state.loaded}
+          requestAdd={this.props.requestAdd}
+          categories={this.props.categories}
+        />
       </div>
     );
   }

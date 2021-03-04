@@ -35,7 +35,10 @@ function AddIngredModal (props) {
                     contentLabel="Ingredient Search Box"
                 >
                     <button onClick={closeModal}>Done</button>
-                    <IngredientSearch addItemToPantry={props.addItemToPantry} loggedIn={props.loggedIn} uid={props.uid}/>
+                    <IngredientSearch
+                      requestAdd={props.requestAdd}
+                      categories={props.categories}
+                    />
                 </Modal>
             </div>
         )

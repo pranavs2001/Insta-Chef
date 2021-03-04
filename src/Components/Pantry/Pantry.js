@@ -2,134 +2,235 @@ import React from 'react';
 import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
+import CheckError from "../MealDB/checkerror";
 
 class Pantry extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: {},
-            uid: '',
-            itemAdded: '',
-            loggedIn: false,
-        };
-        this.viewPantry = this.viewPantry.bind(this);
-        this.removeItemFromPantry = this.removeItemFromPantry.bind(this);
-        this.addItemToPantry = this.addItemToPantry.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {},
+      categories: ['Other'],
+      uid: '',
+      loggedIn: false,
+    };
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.viewPantry = this.viewPantry.bind(this);
+    this.requestAdd = this.requestAdd.bind(this);
+    this.processMealIDs = this.processMealIDs.bind(this);
+    // this.addItemForm = this.addItemForm.bind(this);
+  }
 
-   componentDidMount() {
-       //get latest pantry items 
-       //if user is logged in
-       if (fire.auth().currentUser) {
-           let uid = fire.auth().currentUser.uid;
-           var itemsRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
-           itemsRef.on('value', (snapshot) => {
-               let items = {};
-               snapshot.forEach((childSnapshot) => {
-                   items[childSnapshot.val().item] = childSnapshot.key
-               })
-                this.setState({
-                    items: items,
-                    uid: uid,
-                    loggedIn: true,
-                });
-            })
+  componentDidMount() {
+    //get latest pantry items
+    //if user is logged in
+    if (fire.auth().currentUser) {
+      let uid = fire.auth().currentUser.uid;
+      // Automatically create "other" category if it doesn't exist
+      let pantryRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
+      pantryRef.on('value', (snapshot) => {
+        let items = {};
+        snapshot.forEach((childSnapshot) => {
+          items[childSnapshot.key] = childSnapshot.val()
+        })
+        this.setState({
+          items: items,
+        })
+      });
+      // Get ingredient categories
+      let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
+      console.log(categoryRef);
+      categoryRef.on('value', (snapshot) => {
+        let categories = [];
+        snapshot.forEach((childSnapshot) => {
+          categories.push(childSnapshot.val());
+          console.log(childSnapshot);
+        });
+        console.log(categories);
+        // Reformat category list to put "Other" at the end
+        const index = categories.indexOf('Other');
+        if (index !== -1) {
+          categories.splice(index,1);
         }
-   }
-
-   componentWillUnmount() {
-
-   }
-
-    viewPantry() {
-        if(this.state.loggedIn) {
-            return (
-                Object.keys(this.state.items).map((item, id) => {
-                    return(
-                        <div>
-                            <button onClick={() => this.removeItemFromPantry(item)}>remove</button>
-                            <li key={this.state.items[item]}>{item}</li>
-                        </div>
-                    )
-                })
-            )
-        } else {
-            return (
-                <div>
-                    <h3>You need to login before viewing your pantry</h3>
-                </div>
-            );
-        }
+        categories.push("Other");
+        this.setState({
+          categories: categories,
+          uid: uid,
+          loggedIn: true,
+        });
+      });
     }
+  }
 
-    /** 
-     * addItemToPantry: add an item to the user's pantry, if the item is already present alert the user
-     * @param {string} item item to be added to the user's pantry
-     * @param {boolean} loggedIn whether the user is logged in or not
-     * @param {string} uid  the current user's uid
-    */
-    addItemToPantry(item, loggedIn, uid) {
-        if(loggedIn) {
-            var itemRef = fire.database().ref(uid + '/pantryItems');
-            var itemsInFire = itemRef.orderByChild('item');
-            var itemAlreadyInPantry = false;
-            // check if item is already in pantry
-            itemsInFire.on('value', (snapshot) => {
-                // loop through firebase
-                snapshot.forEach((childSnapshot) => {
-                    if (childSnapshot.val().item.toString().localeCompare(item) == 0) {
-                        itemAlreadyInPantry = true;
-                    }
-                })
-            });
-            if(itemAlreadyInPantry)
-            {
-                alert(`${item} is already in your pantry`);
-                return;
+  /**
+   * addItemToPantry: add an item to the user's pantry, if the item is already present alert the user
+   * @param {string} ingredient to be added to the user's pantry
+   * @param {string} category to which this ingredient belongs
+   * @param {string} recipeIDs of recipes in which this ingredient is used
+   */
+  addItemToPantry(ingredient, category, recipeIDs) {
+    if (this.state.loggedIn) {
+      let itemRef = fire.database().ref(this.state.uid + '/pantryItems/');
+      let itemsInFire = itemRef.orderByChild('items');
+      let itemAlreadyInPantry = false;
+      itemsInFire.on('value', (snapshot) => {
+        // loop through firebase
+        snapshot.forEach((childSnapshot) => {
+            if (childSnapshot.val().item.toString().localeCompare(ingredient) == 0) {
+                itemAlreadyInPantry = true;
             }
-            // add the item to Firebase
-            var newItemRef = itemRef.push();
-            newItemRef.set({
-                item: item,
-            })
-            // add the item to Pantry's state
-            let key = newItemRef.key;
-            let items = this.state.items;
-            items[item] = key;
-            this.setState({
-                items: items,
-            });
+        })
+      });
+      if(itemAlreadyInPantry)
+      {
+          alert(`${ingredient} is already in your pantry`);
+          return;
+      }
+      // add the item to Firebase
+      let newItemRef = itemRef.push();
+      newItemRef.set({
+        item: ingredient,
+        category: category,
+        recipeIDs: recipeIDs,
+      });
+
+
+      // add the item to Pantry's state
+      let key = newItemRef.key;
+      let items = this.state.items;
+      items[key] = {
+        item: ingredient,
+        category: category,
+        recipeIDs: recipeIDs,
+      };
+      this.setState({
+          items: items,
+      });
+
+      // See if category needs to be added to pantry
+      this.updateCategories(category);
+    }
+  }
+
+  updateCategories(category) {
+    // Search database to see if category exists
+    let categoryRef = fire.database().ref(this.state.uid + '/categories/');
+    let categoriesInFire = categoryRef.orderByChild('items');
+    let categoryPresent = false;
+    categoriesInFire.on('value', (snapshot) => {
+      let vals = [];
+      snapshot.forEach((childSnapshot) => {
+        vals.push(childSnapshot.val());
+      });
+      console.log(vals);
+      vals.forEach(elem => {
+        if (elem.toString() === category) {
+          categoryPresent = true;
         }
+      });
+    });
+    // Do nothing if category is already present
+    if (categoryPresent) {
+      return;
+    }
+    console.log(category)
+    // Add category to firebase
+    let newItemRef = categoryRef.push();
+    newItemRef.set(category);
+
+    // Update local list of categories
+    let categories = this.state.categories;
+    categories.push(category);
+    this.setState({
+      categories: categories,
+    })
+  }
+
+
+  removeItemFromPantry(key) {
+    if(this.state.loggedIn) {
+        let ref = fire.database().ref(this.state.uid + '/pantryItems/' + key.toString());
+        ref.set({item: null})
+            .then( () => {console.log(`${key} removed from pantry`);})
+            .catch(err => {console.log('Error: ', err);});
+    } else {
+        alert(`Can't remove ${key} you need to login first`)
     }
 
-    removeItemFromPantry(item) {
-        if(this.state.loggedIn) {
-            let key = this.state.items[item];
-            var ref = fire.database().ref(this.state.uid + '/pantryItems/' + key.toString());
-            ref.set({item: null})
-                .then( () => {console.log(`${item} removed from pantry`);})
-                .catch(err => {console.log('Error: ', err);});
-        } else {
-            alert(`Can't remove ${item} you need to login first`)
-        }
-    }
+  }
 
-    render() {
-        return (
-            <div className="test">
-                {/* <button onClick={this.removeItemFromPantry}>remove</button> */}
-                <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
-                    <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
-                        <this.viewPantry/>
-                    </div>
-                    <div style={{margin: "50px"}}>
-                        <AddIngredModal addItemToPantry={this.addItemToPantry} 
-                        loggedIn={this.state.loggedIn} uid={this.state.uid}/>
-                    </div>
+
+  /**
+   * requestAdd: Handle a request to add an item to the pantry by fetching matching recipes
+   * @param {string} ingredient to be added to pantry
+   * @param {string} category to which this ingredient belongs
+   */
+  requestAdd(ingredient, category) {
+    // Fetch the list of valid ingredients
+    // console.log("Adding " + ingredient.toString() + " to pantry in category " + category.toString());
+    const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?'
+    const params = {'i': ingredient}
+    fetch(url + new URLSearchParams(params))
+      .then(CheckError)
+      .then(result => {
+        const recipeList = result['meals'];
+        this.addItemToPantry(ingredient, category, this.processMealIDs(recipeList))
+      })
+      .catch(error => console.log(error));
+  }
+
+  /**
+   * processMealIDs: extract recipe IDs from get request
+   * @param recipeList results from the fetch
+   * @returns {[ids]} list of ids of matching recipes
+   */
+  processMealIDs(recipeList) {
+    let ids = [];
+    for (const index in recipeList) {
+      ids.push(recipeList[index]['idMeal'])
+    }
+    return (ids);
+  }
+
+  viewPantry() {
+    if (this.state.loggedIn) {
+      const ingredients = this.state.items;
+      // console.log(ingredients);
+      return (
+        Object.keys(ingredients).map((key, id) => {
+            return(
+                <div>
+                    <button onClick={() => this.removeItemFromPantry(key)}>remove</button>
+                    <li key={key}>{ingredients[key].item}</li>
                 </div>
-            </div>
-        );
+            )
+        })
+    )
+    } else {
+      return (
+        <div>
+          <h3>You need to login before viewing your pantry</h3>
+        </div>
+      );
     }
+  }
+
+  render() {
+    return (
+      <div className="test">
+        <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
+          <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
+            <this.viewPantry/>
+          </div>
+        </div>
+        <AddIngredModal
+          requestAdd={this.requestAdd}
+          loggedIn={this.state.loggedIn}
+          categories={this.state.categories}
+        />
+      </div>
+    );
+  }
 
 }
 
