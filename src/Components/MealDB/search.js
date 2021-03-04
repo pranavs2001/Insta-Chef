@@ -1,5 +1,6 @@
 import React from 'react';
 import data from '../../support/recipelist.json'
+import Tile from '../../tile'
 
 class Search extends React.Component {
   constructor(props) {
@@ -54,6 +55,8 @@ class Search extends React.Component {
          onChange={(e) => this.updateSearch(e.target.value)}
         />
         <ListRecipes recipes={matchingrecipes}/>
+        <ListTiles recipes={matchingrecipes}/>
+        <ListRecipes recipes={matchingrecipes}/>
       </div>
     );
   }
@@ -64,6 +67,14 @@ function ListRecipes(props) {
   return (
     Object.keys(props.recipes).map((id, index) =>
       <li key={props.recipes[index]['id']}>{props.recipes[index]['name']}</li>
+    )
+  );
+}
+
+function ListTiles(props) {
+  return (
+    Object.keys(props.recipes).map((id, index) =>
+      <Tile recipeid={props.recipes[index]['id']}/>
     )
   );
 }
