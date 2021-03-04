@@ -11,7 +11,6 @@ function ShowIngredients (props) {
       <p>No matching ingredients</p>
     )
   } else {
-    console.log(props.ingredients);
     return (
       props.ingredients.map((ingredient) => 
         <div key={ingredient['id']}>
@@ -70,7 +69,6 @@ class IngredientSearch extends React.Component {
   }
 
   updateSearch(value) {
-    // console.log(value);
     const searchStr = value;
     let matches = [];
     // Make sure ingredient list is not empty
