@@ -205,14 +205,9 @@ class Pantry extends React.Component {
                 </div>
             )
         })
-    )
-    } else {
-      return (
-        <div>
-          <h3>You need to login before viewing your pantry</h3>
-        </div>
-      );
-    }
+    )} else {
+        return null;
+      }
   }
 
   render() {
