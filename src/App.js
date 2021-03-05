@@ -2,38 +2,19 @@ import React from 'react'
 import './App.css';
 import './index.css';
 import LoginPage from './Components/SignIn/LoginPage';
-import Search from './Components/MealDB/search';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import Pantry from './Components/Pantry/Pantry';
+// import Search from './Components/MealDB/search';
+// import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+// import Navbar from './Components/Navbar/Navbar';
+// import Pantry from './Components/Pantry/Pantry';
+// import fire from './Components/SignIn/fire';
+
 
 function App() {
-
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/Login" component={LoginPage} />
-          <Route path="/Search" component={Search} />
-          <Route path="/Pantry" component={Pantry} />
-          <p>Insta-chef</p>
-          <LoginPage />
-        </Switch>
-
-        <div>
-          {/* <Search /> */}
-        </div>
-        <div>
-          {/* <Tile recipeid={52772} /> */}
-        </div>
-
-      </div>
-    </Router>
-
+    <LoginPage/>
   );
 }
+drakes/pantry-layout
 
   const Home = () => (
     <div>
@@ -52,4 +33,6 @@ function App() {
     </div>
   )
 
+
+main
   export default App;
