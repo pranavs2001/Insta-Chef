@@ -10,7 +10,7 @@ import Search from '../MealDB/search';
 
 function LoginPage() {
 
-  //set up the initial states
+  //set up the initial states//
   const [user, setUser] = useState(''); 
   const[email, setEmail] = useState(''); 
   const[password, setPassword] = useState('');
@@ -93,7 +93,6 @@ function LoginPage() {
       {/* render Welcome if the user exists, and login if the user doesn't exist */}
       {/* user exists if you've signed up or logged in */}
       {user ? (
-            // <Hero handleLogout={handleLogout}/>
             <Router>
       <div className="App">
         <Navbar loggedIn={fire.auth().currentUser} />
