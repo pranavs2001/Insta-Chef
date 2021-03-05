@@ -32,14 +32,9 @@ const Navbar = () => {
           <NavLink to='/Profile' activeStyle>
             Profile
           </NavLink>
-          {/* <NavLink to='/sign-up' activeStyle>
-            Sign Up
-          </NavLink> */}
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn onClick={handleLogout}>
-          <NavBtnLink to='/SignIn'> Logout </NavBtnLink>
+          <NavBtnLink to='/'> Logout </NavBtnLink>
         </NavBtn>
       </Nav>
     </>
