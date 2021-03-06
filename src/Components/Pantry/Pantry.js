@@ -3,7 +3,6 @@ import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
-
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +19,8 @@ class Pantry extends React.Component {
     this.processMealIDs = this.processMealIDs.bind(this);
     // this.addItemForm = this.addItemForm.bind(this);
   }
+
+  //some CSS stops this, not sure why it doesn't work
 
   componentDidMount() {
     //get latest pantry items
@@ -210,11 +211,16 @@ class Pantry extends React.Component {
       }
   }
 
+
+
   render() {
     return (
-      <div className="test">
-        <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
-          <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
+      <div>
+      <div>
+      <div>
+        {/* <div className="pantry" style={{display: "flex", justifyContent: "center"}}> */}
+          {/* <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}> */}
+          <div>
             <this.viewPantry/>
           </div>
         </div>
@@ -223,10 +229,10 @@ class Pantry extends React.Component {
           loggedIn={this.state.loggedIn}
           categories={this.state.categories}
         />
+        </div>
       </div>
     );
   }
-
 }
 
 export default Pantry;

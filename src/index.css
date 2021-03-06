@@ -47,7 +47,7 @@ code {
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  background-color: inheret;
+  background-color: inherit;
   float: none;
   border: none;
   outline: none;

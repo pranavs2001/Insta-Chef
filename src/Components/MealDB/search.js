@@ -1,6 +1,7 @@
 import React from 'react';
 import data from '../../support/recipelist.json'
 import Tile from '../Tile/tile'
+import CenteredGrid from '../Tile/RecipeGrid'
 
 class Search extends React.Component {
   constructor(props) {
@@ -73,32 +74,16 @@ class Search extends React.Component {
          placeholder={"Search for a recipe"}
          onChange={(e) => this.doSearch(e)}
         />
-        {/* <ListRecipes recipes={matchingrecipes}/> */}
         <ListTiles recipes={matchingrecipes}/>
-        {/* <ListRecipes recipes={matchingrecipes}/> */}
       </div>
     );
   }
 }
 
-// List all matching recipes
-// function ListRecipes(props) {
-//   return (
-//     Object.keys(props.recipes).map((id, index) =>
-//       <li key={props.recipes[index]['id']}>{props.recipes[index]['name']}</li>
-//     )
-//   );
-// }
-
 function ListTiles(props) {
   console.log('props.recipies in listTiles is: ', props.recipes);
   return (
-    Object.keys(props.recipes).map((id, index) => 
-      <div>
-        <p>{id}</p>
-        <Tile recipeid={props.recipes[index]['id']}/>
-      </div>
-    )
+    <CenteredGrid recipes={props.recipes}/>
   );
 }
 
