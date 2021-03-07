@@ -11,7 +11,7 @@ class Profile extends React.Component {
       userEmail: '',
       userName: '',
     };
-    this.callback = this.callback.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
   }
 
   componentDidMount() {
@@ -38,17 +38,12 @@ class Profile extends React.Component {
     }
   }
 
-  // callback is used to update list of favorite recipes when one is removed
-  callback() {
-    this.getFavorites()
-  }
-
   render() {
     return (
       <div>
         <h1>Favorite Recipes</h1>
         <hr/>
-        <RecipeGrid recipes={this.state.favoriteRecipes} callback={this.callback}/>
+        <RecipeGrid recipes={this.state.favoriteRecipes} callback={this.getFavorites}/>
       </div>
     );
   }

@@ -169,7 +169,7 @@ class Pantry extends React.Component {
     // Fetch the list of valid ingredients
     // console.log("Adding " + ingredient.toString() + " to pantry in category " + category.toString());
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?'
-    const params = {'i': ingredient}
+    const params = {'i': ingredient};
     fetch(url + new URLSearchParams(params))
       .then(CheckError)
       .then(result => {

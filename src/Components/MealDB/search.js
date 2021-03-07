@@ -29,27 +29,60 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-      let pantryRef = fire.database().ref('recipes').orderByChild('items');
-      pantryRef.on('value', (snapshot) => {
-        let recipes = {};
-        snapshot.forEach((childSnapshot) => {
-          recipes[childSnapshot.key] = childSnapshot.val()
-        });
-        this.setState({
-          recipes: recipes,
-        });
+    let pantryRef = fire.database().ref('recipes').orderByChild('items');
+    pantryRef.on('value', (snapshot) => {
+      let recipes = {};
+      snapshot.forEach((childSnapshot) => {
+        recipes[childSnapshot.key] = childSnapshot.val()
       });
+      this.setState({
+        recipes: recipes,
+      });
+    });
+    this.getRandomRecipes()
+  }
+
+  getRandomRecipes () {
+    const uid = fire.auth().currentUser.uid;
+    let ingredientRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
+    ingredientRef.on('value', (snapshot) => {
+      let recipes = [];
+      snapshot.forEach((childSnapshot) => {
+        const recipeIDs = childSnapshot.val()['recipeIDs'];
+        // console.log()
+        if (recipeIDs !== undefined) {
+          recipeIDs.map((id) => {
+            recipes.push({
+              'id': id,
+              'name': '',
+            })
+        });
+
+        }
+      });
+
+      // Select 10 random recipes to display
+      let randomRecipes = 0;
+      let randomRecipeIDs = [];
+      while (randomRecipes < 10 && randomRecipeIDs.length <= recipes.length) {
+        randomRecipeIDs.push(recipes.pop(Math.floor(Math.random()*recipes.length)));
+        randomRecipes += 1;
+      }
+      this.setState({
+        validRecipes: randomRecipeIDs,
+      });
+    });
   }
 
   updateSearch(value) {
     // console.log('value is: ', value);
     const searchStr = value;
-    let matches = [];
     // Make sure ingredient list is not empty
-    if (searchStr != '') {
+    if (searchStr !== '') {
+      let matches = [];
       const recipeList = this.state.recipes;
       for (const recipeid in recipeList) {
-        const name = recipeList[recipeid]
+        const name = recipeList[recipeid];
         // if (name.toLocaleLowerCase().startsWith(searchStr.toLowerCase())) {
         //   matches.push({'id': recipeid, 'name': name});
         // }
@@ -59,21 +92,22 @@ class Search extends React.Component {
           matches.push({ 'id': recipeid, 'name': name });
         }
       }
+      this.setState({
+        keyword: value,
+        validRecipes: matches,
+      });
+    } else {
+      this.getRandomRecipes()
     }
-    this.setState({
-      keyword: value,
-      validRecipes: matches,
-    });
-    // console.log(matches);
   }
 
   // Dummy function for tiles to notify parents of change
-  callback() {}
+  callback() {
+  }
 
  render() {
     // get state variables
     const keyword = this.state.keyword;
-    const matchingRecipes = this.state.validRecipes;
     // console.log('matching recipies is: ', matchingrecipes);
     // parameters for search bar
     const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
@@ -86,7 +120,7 @@ class Search extends React.Component {
          placeholder={"Search for a recipe"}
          onChange={(e) => this.doSearch(e)}
         />
-        <RecipeGrid recipes={matchingRecipes} callback={this.callback}/>
+        <RecipeGrid recipes={this.state.validRecipes} callback={this.callback}/>
       </div>
     );
   }
