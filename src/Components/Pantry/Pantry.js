@@ -35,7 +35,7 @@ class Pantry extends React.Component {
         let items = {};
         snapshot.forEach((childSnapshot) => {
           items[childSnapshot.key] = childSnapshot.val()
-        })
+        });
         this.setState({
           items: items,
         })
@@ -79,7 +79,7 @@ class Pantry extends React.Component {
       itemsInFire.on('value', (snapshot) => {
         // loop through firebase
         snapshot.forEach((childSnapshot) => {
-            if (childSnapshot.val().item.toString().localeCompare(ingredient) == 0) {
+            if (childSnapshot.val().item.toString().localeCompare(ingredient) === 0) {
                 itemAlreadyInPantry = true;
             }
         })

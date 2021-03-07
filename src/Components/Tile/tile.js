@@ -59,7 +59,7 @@ class Tile extends React.Component {
   }
 
   processMeal(recipeInfo) {
-    let ingredients = {}
+    let ingredients = {};
     for (let i = 1; i <= 20; i++) {
       if (recipeInfo['strIngredient' + i.toString()]) {
         ingredients[recipeInfo['strIngredient' + i.toString()]] = recipeInfo['strMeasure' + i.toString()];
@@ -114,6 +114,8 @@ class Tile extends React.Component {
         let ref = fire.database().ref(this.state.uid + '/favorites/' + recipeKey);
         ref.set({item: null})
             .catch(err => {console.log('Error: ', err);});
+        // Notify the parent of a removed favorite
+        this.props.callback();
       } else {
         // add the recipe to Firebase
         let itemRef = fire.database().ref(uid + '/favorites');
