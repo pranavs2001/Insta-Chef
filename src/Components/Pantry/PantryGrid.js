@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core';
 import { faSearch, faWindowClose } from "@fortawesome/free-solid-svg-icons";
@@ -6,28 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchInPantryModal from './SearchInPantryModal'
 import fire from '../SignIn/fire';
 import "firebase/database";
-
-const useStyles = makeStyles((theme) => ({
-  button:{
-      flex:1,
-      borderRadius: '8px',
-      borderColor: '#fa9483',
-      // outline: 'none',
-      //outline: '#fa9483',
-      margin: '20px',
-      width: '30%',
-      padding: '6px 6px ',
-      // color: '#fff',
-      color:'#fa9483',
-      fontSize: '10px',
-      letterSpacing: '1px',
-      // background: '#fa9483',
-      background: '#fff',
-      cursor: 'pointer',
-    }
-}));
-
-let recipeIDs = [];
+import './PantryGrid.css'
 
 class PantryGrid extends React.Component {
   constructor(props) {
@@ -36,15 +15,24 @@ class PantryGrid extends React.Component {
       isOpen: false,
       isLoaded: false,
       recipeIDs: [],
-      ingredients: props.ingredients,
       loggedIn: props.loggedIn,
       uid: props.uid,
-      removeItemFromPantry: props.removeItemFromPantry
+      removeItemFromPantry: props.removeItemFromPantry,
+      ingredients: props.ingredients,
+      test: false,
     }
   }
-
+  
   componentDidMount() {
-    // const classes = useStyles();
+  
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.ingredients !== this.props.ingredients) {
+      this.setState({
+        ingredients: this.props.ingredients
+      })
+    }
   }
   
   afterOpen = () => {};
@@ -61,7 +49,7 @@ class PantryGrid extends React.Component {
           recipeIDs.push(childSnapshot.val())
         })
       })
-      console.log('recipeIds in getrecipieIds are: ', recipeIDs);
+      // console.log('recipeIds in getrecipieIds are: ', recipeIDs);
       this.setState({
         loaded: true,
         isOpen: true,
@@ -69,9 +57,11 @@ class PantryGrid extends React.Component {
       })
   };
 
+  //issue is that PantryGrid's ingredient's list doesn't update, on Pantry's componentDidMount
   render () {
+    // console.log('ingredients in render of PantryGrid are: ', this.state.ingredients);
     return(
-      <div>
+      <div key={this.state.ingredients} >
         <div style={{ marginTop: "30px" }} >
           <Grid container spacing={1}>
             {Object.keys(this.state.ingredients).map((key, id) => (

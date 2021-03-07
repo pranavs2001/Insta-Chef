@@ -67,6 +67,7 @@ class Pantry extends React.Component {
    * @param {string} recipeIDs of recipes in which this ingredient is used
    */
   addItemToPantry(ingredient, category, recipeIDs) {
+    // console.log('ingredient in addItemToPantry is: ', ingredient);
     if (this.state.loggedIn) {
       let itemRef = fire.database().ref(this.state.uid + '/pantryItems');
       let itemsInFire = itemRef.orderByChild('items');
@@ -92,7 +93,6 @@ class Pantry extends React.Component {
         recipeIDs: recipeIDs,
       });
 
-
       // add the item to Pantry's state
       let key = newItemRef.key;
       let items = this.state.items;
@@ -101,6 +101,7 @@ class Pantry extends React.Component {
         category: category,
         recipeIDs: recipeIDs,
       };
+      // console.log('items are: ', items);
       this.setState({
           items: items,
       });
@@ -189,11 +190,10 @@ class Pantry extends React.Component {
 
   viewPantry() {
     if (this.state.loggedIn) {
-      const ingredients = this.state.items;
-      // console.log(ingredients);
+      // console.log('items in viewPantry are: ', this.state.items);
       return (
         <PantryGrid
-          ingredients={ingredients}
+          ingredients={this.state.items}
           removeItemFromPantry={this.removeItemFromPantry}
           loggedIn={this.state.loggedIn}
           uid={this.state.uid}
