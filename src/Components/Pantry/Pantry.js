@@ -5,7 +5,6 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
-import SearchWithPantryIngred from './SearchWithPantryIngred'
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -193,10 +192,9 @@ class Pantry extends React.Component {
       const ingredients = this.state.items;
       // console.log(ingredients);
       return (
-        <PantryGrid 
-          ingredients={ingredients} 
-          removeItemFromPantry={this.removeItemFromPantry} 
-          SearchWithPantryIngred={SearchWithPantryIngred}
+        <PantryGrid
+          ingredients={ingredients}
+          removeItemFromPantry={this.removeItemFromPantry}
           loggedIn={this.state.loggedIn}
           uid={this.state.uid}
         />

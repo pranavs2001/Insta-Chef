@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core';
-// import Button from '@material-ui/core/Button'
-import SearchWithPantryIngred from './SearchWithPantryIngred';
-import { useHistory } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { faSearch, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import SearchInPantryModal from './SearchInPantryModal'
+import fire from '../SignIn/fire';
+import "firebase/database";
 
 const useStyles = makeStyles((theme) => ({
   button:{
@@ -29,28 +27,39 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+let recipeIDs = [];
+
 export default function PantryGrid(props) {
   const classes = useStyles();
-  const history = useHistory();
+  const [isOpen, setOpen] = useState(false);
+  const afterOpen = () => {};
+  const closeModal = () => {setOpen(false)};
+  const openModal = () => {setOpen(true)};
+  const [isLoaded, setLoaded] = useState(false);
   return (
     <div>
       <div style={{ marginTop: "30px" }} >
         <Grid container spacing={1}>
           {Object.keys(props.ingredients).map((key, id) => (
             <Grid key={key} item xs={3}>
-              <button className={classes.button} onClick={() => props.removeItemFromPantry(key, props.loggedIn, props.uid)}>
-                Remove {<FontAwesomeIcon icon={faWindowClose} />}
-              </button>
-              {/* <button className={classes.button} onClick={() => props.SearchWithPantryIngred(key, props.uid, history)}>
-                Search
-                </button> */}
               <div>
-                <button className={classes.button} onClick={() => history.push('/Search')}>
-                  Search {<FontAwesomeIcon icon={faSearch} /> }
+                <button className={classes.button} onClick={() => {setLoaded(getRecipeIDs(recipeIDs, props.uid, key, openModal))}}>
+                  Search {<FontAwesomeIcon icon={faSearch} />}
                 </button>
-                {/* <Route path={"/Search"} component={SearchWithPantryIngred}/> */}
+                <SearchInPantryModal
+                  isLoaded={isLoaded}
+                  isOpen={isOpen}
+                  afterOpen={afterOpen}
+                  closeModal={closeModal}
+                  ingredKey={key}
+                  uid={props.uid}
+                  recipeIDs={recipeIDs}
+                />
+                <button className={classes.button} onClick={() => props.removeItemFromPantry(key, props.loggedIn, props.uid)}>
+                  Remove {<FontAwesomeIcon icon={faWindowClose} />}
+                </button>
+                <li style={{marginBottom: "10px"}} key={key}>{props.ingredients[key].item}</li>
               </div>
-              <li key={key}>{props.ingredients[key].item}</li>
             </Grid>
           ))}
         </Grid>
@@ -59,10 +68,17 @@ export default function PantryGrid(props) {
   )
 }
 
-// export default () => {
-//   <div>
-//     <Router>
-//       <Route component={PantryGrid}/>
-//     </Router>
-//   </div>
-// }
+const getRecipeIDs = (recipeIDs, uid, key, openModal) => {
+  let pantryRef = fire.database().ref(uid + '/pantryItems/' + key.toString());
+  let recipesForIngred = pantryRef.child('recipeIDs')
+  recipesForIngred.on('value', (snapshot) => {
+    // loop through ingredient's associated recipeIDs
+    snapshot.forEach((childSnapshot) => {
+      recipeIDs.push(childSnapshot.val())
+    })
+  })
+  console.log('recipeIds in getrecipieIds are: ', recipeIDs);
+  openModal()
+  return true;
+}
+
