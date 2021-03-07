@@ -3,7 +3,6 @@ const Home = () => (
   <div class="box-1">
     <h1>INSTA CHEF</h1>
   </div>
-
   <div class = "box-pantry">
     <h2>About Our Staff:</h2>
     <p1> Drake Cote: hates coffee but was a barista<br /></p1>
