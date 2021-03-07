@@ -4,6 +4,7 @@ import "firebase/database"
 import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
+import PantryGrid from './PantryGrid'
 
 class Pantry extends React.Component {
   constructor(props) {
@@ -148,16 +149,15 @@ class Pantry extends React.Component {
   }
 
 
-  removeItemFromPantry(key) {
-    if(this.state.loggedIn) {
-        let ref = fire.database().ref(this.state.uid + '/pantryItems/' + key.toString());
+  removeItemFromPantry(key, loggedIn, uid) {
+    if(loggedIn) {
+        let ref = fire.database().ref(uid + '/pantryItems/' + key.toString());
         ref.set({item: null})
             .then( () => {console.log(`${key} removed from pantry`);})
             .catch(err => {console.log('Error: ', err);});
     } else {
         alert(`Can't remove ${key} you need to login first`)
     }
-
   }
 
 
@@ -198,54 +198,43 @@ class Pantry extends React.Component {
       const ingredients = this.state.items;
       // console.log(ingredients);
       return (
-        Object.keys(ingredients).map((key, id) => {
-            return(
-                <div>
-                    <button onClick={() => this.removeItemFromPantry(key)}>remove</button>
-                    <li key={key}>{ingredients[key].item}</li>
-                </div>
-            )
-        })
-    )
+        <PantryGrid 
+          ingredients={ingredients} 
+          removeItemFromPantry={this.removeItemFromPantry} 
+          loggedIn={this.state.loggedIn}
+          uid={this.state.uid}
+        />
+      )
     } else {
-      return (
-        <div>
-          <h3>You need to login before viewing your pantry</h3>
-        </div>
-      );
+      return null;
     }
   }
 
   render() {
     return (
       <div>
-      <div className="test">
-        <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
-          <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
-            <this.viewPantry/>
-          </div>
+        <div>
+          <AddIngredModal
+           requestAdd={this.requestAdd}
+            loggedIn={this.state.loggedIn}
+            categories={this.state.categories}
+          />
+          <this.viewPantry/>
         </div>
-        <AddIngredModal
-          requestAdd={this.requestAdd}
-          loggedIn={this.state.loggedIn}
-          categories={this.state.categories}
-        />
-      </div>
-      <Tabs> 
-       <div label="Gator"> 
-         See ya later, <em>Alligator</em>! 
-       </div> 
-       <div label="Croc"> 
-         After 'while, <em>Crocodile</em>! 
-       </div> 
-       <div label="Sarcosuchus"> 
-         Nothing to see here, this tab is <em>extinct</em>! 
-       </div> 
-     </Tabs> 
+        <Tabs> 
+          <div label="Gator"> 
+            See ya later, <em>Alligator</em>! 
+          </div> 
+          <div label="Croc"> 
+            After 'while, <em>Crocodile</em>! 
+          </div> 
+          <div label="Sarcosuchus"> 
+           Nothing to see here, this tab is <em>extinct</em>! 
+          </div> 
+        </Tabs> 
       </div>
     );
   }
-
 }
 
 export default Pantry;
