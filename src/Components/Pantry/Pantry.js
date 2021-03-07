@@ -5,8 +5,7 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
-
-
+import SearchWithPantryIngred from './SearchWithPantryIngred'
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -16,12 +15,9 @@ class Pantry extends React.Component {
       uid: '',
       loggedIn: false,
     };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.viewPantry = this.viewPantry.bind(this);
     this.requestAdd = this.requestAdd.bind(this);
     this.processMealIDs = this.processMealIDs.bind(this);
-    // this.addItemForm = this.addItemForm.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +31,7 @@ class Pantry extends React.Component {
         let items = {};
         snapshot.forEach((childSnapshot) => {
           items[childSnapshot.key] = childSnapshot.val()
+          console.log('val is: ', childSnapshot.val());
         })
         this.setState({
           items: items,
@@ -200,6 +197,7 @@ class Pantry extends React.Component {
         <PantryGrid 
           ingredients={ingredients} 
           removeItemFromPantry={this.removeItemFromPantry} 
+          SearchWithPantryIngred={SearchWithPantryIngred}
           loggedIn={this.state.loggedIn}
           uid={this.state.uid}
         />
