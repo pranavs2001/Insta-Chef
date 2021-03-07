@@ -221,15 +221,26 @@ class Pantry extends React.Component {
           />
           <this.viewPantry/>
         </div>
-        <Tabs> 
+        <Tabs>
+          <div label="Drake"> 
+            <div className = "tab-box">
+            shake and bake, <em>Drake</em>! 
+            </div>
+          </div>  
           <div label="Gator"> 
+            <div className = "tab-box">
             See ya later, <em>Alligator</em>! 
+            </div>
           </div> 
           <div label="Croc"> 
+            <div className = "tab-box">
             After 'while, <em>Crocodile</em>! 
+            </div>
           </div> 
           <div label="Sarcosuchus"> 
-           Nothing to see here, this tab is <em>extinct</em>! 
+            <div className = "tab-box">
+            Nothing to see here, this tab is <em>extinct</em>! 
+            </div>
           </div> 
         </Tabs> 
       </div>
