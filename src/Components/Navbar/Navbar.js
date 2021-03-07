@@ -1,5 +1,6 @@
 import React from 'react';
 //import { FaRegFilePowerpoint } from 'react-icons/fa';
+import logo from "../../img/insta-chef-logo.png"
 import fire from '../SignIn/fire';
 import {
   Nav,
@@ -19,7 +20,7 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-         Home
+          <img src={logo} alt={"Insta-chef logo"} width={"70px"} height={"70px"} />
         </NavLink>
         <Bars />
         <NavMenu>
@@ -32,14 +33,9 @@ const Navbar = () => {
           <NavLink to='/Profile' activeStyle>
             Profile
           </NavLink>
-          {/* <NavLink to='/sign-up' activeStyle>
-            Sign Up
-          </NavLink> */}
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn onClick={handleLogout}>
-          <NavBtnLink to='/SignIn'> Logout </NavBtnLink>
+          <NavBtnLink to='/'> Logout </NavBtnLink>
         </NavBtn>
       </Nav>
     </>

@@ -1,5 +1,8 @@
 import requests
 import json
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
 
 class mealdbAPI(object):
@@ -68,8 +71,23 @@ if __name__ == "__main__":
         print("Reading " + a)
         meals.update(api.filter_by_section('a',a))
 
-    print("Writing results")
+    print("Writing results to file")
     result = json.dumps(meals, indent=4)
     filepath = "recipelist.json"
     with open(filepath, "w") as outfile:
         outfile.write(result)
+
+    print("Uploading recipes to firebase")
+
+    cred = credentials.Certificate("./service_credentials.json")
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://insta-chef-ba8dc-default-rtdb.firebaseio.com/'
+    })
+    ref = db.reference('/recipes_test')
+    recipes = ref.set(meals)
+
+    print("Firebase successfully updated")
+
+
+
+

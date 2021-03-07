@@ -5,10 +5,10 @@ import Hero from './Hero';
 import fire from './fire';
 import Pantry from '../Pantry/Pantry';
 import Home from '../Home/Home'
-import FavoriteRecipes from "../Profile/FavoriteRecipes";
 import Navbar from '../Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Search from '../MealDB/search';
+import Profile from "../Profile/Profile";
 
 function LoginPage() {
 
@@ -104,7 +104,7 @@ function LoginPage() {
             <Route path="/Login" component={LoginPage} />
             <Route path="/Search" component={Search} />
             <Route path="/Pantry" component={Pantry} />
-            <Route path="/Profile" component={FavoriteRecipes} />
+            <Route path="/Profile" component={Profile} />
           </Switch>
         </Router>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import data from '../../support/recipelist.json'
-import ListTiles from "../Tile/ListTiles";
+import fire from "../SignIn/fire"
+import RecipeGrid from '../Tile/RecipeGrid'
 
 class Search extends React.Component {
   constructor(props) {
@@ -8,10 +8,9 @@ class Search extends React.Component {
     this.state = {
       loaded: false,
       keyword: '',
-      recipes: data,
+      recipes: {},
       validRecipes: {},
-      // TODO: Get firebase credentials
-    }
+    };
     this.timeout =  0;
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
@@ -29,7 +28,16 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: Fetch the list of recipes from firebase
+      let pantryRef = fire.database().ref('recipes').orderByChild('items');
+      pantryRef.on('value', (snapshot) => {
+        let recipes = {};
+        snapshot.forEach((childSnapshot) => {
+          recipes[childSnapshot.key] = childSnapshot.val()
+        });
+        this.setState({
+          recipes: recipes,
+        });
+      });
   }
 
   updateSearch(value) {
@@ -74,22 +82,10 @@ class Search extends React.Component {
          placeholder={"Search for a recipe"}
          onChange={(e) => this.doSearch(e)}
         />
-        {/* <ListRecipes recipes={matchingrecipes}/> */}
-        <ListTiles recipes={matchingRecipes}/>
-        {/* <ListRecipes recipes={matchingrecipes}/> */}
+        <RecipeGrid recipes={matchingRecipes}/>
       </div>
     );
   }
 }
-
-// List all matching recipes
-// function ListRecipes(props) {
-//   return (
-//     Object.keys(props.recipes).map((id, index) =>
-//       <li key={props.recipes[index]['id']}>{props.recipes[index]['name']}</li>
-//     )
-//   );
-// }
-
 
 export default Search;

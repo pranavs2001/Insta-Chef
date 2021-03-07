@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import fire from "../SignIn/fire";
-import ListTiles from "../Tile/ListTiles";
+import RecipeGrid from "../Tile/RecipeGrid";
 
 // Display favorite recipes
-function FavoriteRecipes (props) {
+function FavoriteRecipes () {
+
   if (fire.auth().currentUser) {
     const uid = fire.auth().currentUser.uid;
     // Automatically create "other" category if it doesn't exist
@@ -17,7 +18,7 @@ function FavoriteRecipes (props) {
         })
       });
     });
-    return (<ListTiles recipes={recipeIDs}/>);
+    return (<RecipeGrid recipes={recipeIDs}/>);
   } else {
     return <p>No favorite recipes</p>
   }
