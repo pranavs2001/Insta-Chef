@@ -6,17 +6,17 @@ function SearchInPantry(props) {
   // now that we have associated recipe id's, show them in a grid
   let lists =  props.recipeIDs.map((id, index) => {
     return(
-      <div key={id} style={{ marginTop: "30px" }} >
-        <Grid container alignItems={"center"}>
+      <div key={id}>
           <Grid item xs={3}>
             <Tile recipeid={id} />
           </Grid>
-        </Grid>
       </div> 
   )})
   return (
     <div>
-      {lists}
+      <Grid container>
+        {lists}
+      </Grid>
     </div>
   )
 }
