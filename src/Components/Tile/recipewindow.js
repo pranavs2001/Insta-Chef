@@ -13,9 +13,19 @@ function ListIngredients(props) {
   )
 }
 
+function FavoriteButton(props) {
+  if (props.loggedIn) {
+    return (
+        <button className="button-style" onClick={props.toggleFavorite}>
+          {props.isFavorite ? "Add to " : "Remove from "} favorites
+        </button>
+    );
+  }
+}
+
 function RecipeWindow(props) {
 
-  if (props.loaded == false) {
+  if (props.loaded === false) {
     return (
       <p>Loading Recipe...</p>
     )
@@ -31,6 +41,11 @@ function RecipeWindow(props) {
       >
         <button className="button-style" onClick={props.closeModal}>← Close</button>
         <h1>{props.recipe.name}</h1>
+        <FavoriteButton
+          loggedIn={props.loggedIn}
+          isFavorite={props.isFavorite}
+          toggleFavorite={props.toggleFavorite}
+        />
         <h4>Category: {props.recipe.category}</h4>
         <h4>Area: {props.recipe.area}</h4>
         <a style={{display: "table-cell"}} href={props.recipe.video} target={"_blank"}>Video</a>
