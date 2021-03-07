@@ -27,7 +27,7 @@ function AddIngredModal (props) {
     {
         return (
             <div>
-                <button onClick={openModal}>Add new Ingredient</button>
+                <button style={{marginTop: "20px"}} onClick={openModal}>Add new Ingredient</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}

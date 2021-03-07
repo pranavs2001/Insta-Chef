@@ -1,7 +1,6 @@
 import React from 'react';
 import data from '../../support/recipelist.json'
-import Tile from '../Tile/tile'
-import CenteredGrid from '../Tile/RecipeGrid'
+import RecipeGrid from '../Tile/RecipeGrid'
 
 class Search extends React.Component {
   constructor(props) {
@@ -83,7 +82,7 @@ class Search extends React.Component {
 function ListTiles(props) {
   console.log('props.recipies in listTiles is: ', props.recipes);
   return (
-    <CenteredGrid recipes={props.recipes}/>
+    <RecipeGrid recipes={props.recipes}/>
   );
 }
 
