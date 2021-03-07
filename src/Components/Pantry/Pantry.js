@@ -6,6 +6,7 @@ import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
 
+
 class Pantry extends React.Component {
   constructor(props) {
     super(props);

@@ -1,10 +1,53 @@
 // import { ReactComponent } from '*.svg';
+
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import IngredientSearch from '../MealDB/ingredientsearch'
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+    // modal: {
+    //   display: 'flex',
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    // },
+    // paper: {
+    //   backgroundColor: theme.palette.background.paper,
+    //   border: '2px solid #000',
+    //   boxShadow: theme.shadows[5],
+    //   padding: theme.spacing(2, 4, 3),
+    // },
+
+    button:{
+        border: 'none',
+        outline: 'none',
+        margin: '20px',
+        width: '30%',
+        padding: '15px 15px ',
+        color: '#fff',
+        fontSize: '16px',
+        letterSpacing: '1px',
+        background: '#fa9483',
+        cursor: 'pointer',
+      }
+
+      
+  }));
+
+
+
+
+
+
+
+
+
+
 
 function AddIngredModal (props) {
     
+    const classes = useStyles();
     Modal.setAppElement(document.getElementById('root'))
 
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -27,7 +70,8 @@ function AddIngredModal (props) {
     {
         return (
             <div>
-                <button style={{marginTop: "20px"}} onClick={openModal}>Add new Ingredient</button>
+                {/* <button style={{marginTop: "20px"}} onClick={openModal}>Add new Ingredient</button> */}
+                <button className={classes.button} onClick={openModal}>Add new Ingredient</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}

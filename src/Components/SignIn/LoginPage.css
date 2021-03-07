@@ -6,7 +6,8 @@
   font-family: "Poppins", sans-serif;
 }
 
-button {
+.button {
+  border: none;
   border-radius: 7px;
   outline: none;
   width: 100%;
