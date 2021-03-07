@@ -3,7 +3,10 @@ import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
+import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
+
+
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -39,14 +42,14 @@ class Pantry extends React.Component {
       });
       // Get ingredient categories
       let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
-      console.log(categoryRef);
+      // console.log(categoryRef);
       categoryRef.on('value', (snapshot) => {
         let categories = [];
         snapshot.forEach((childSnapshot) => {
           categories.push(childSnapshot.val());
-          console.log(childSnapshot);
+          // console.log(childSnapshot);
         });
-        console.log(categories);
+        // console.log(categories);
         // Reformat category list to put "Other" at the end
         const index = categories.indexOf('Other');
         if (index !== -1) {
@@ -70,7 +73,7 @@ class Pantry extends React.Component {
    */
   addItemToPantry(ingredient, category, recipeIDs) {
     if (this.state.loggedIn) {
-      let itemRef = fire.database().ref(this.state.uid + '/pantryItems/');
+      let itemRef = fire.database().ref(this.state.uid + '/pantryItems');
       let itemsInFire = itemRef.orderByChild('items');
       let itemAlreadyInPantry = false;
       itemsInFire.on('value', (snapshot) => {
@@ -122,28 +125,26 @@ class Pantry extends React.Component {
       snapshot.forEach((childSnapshot) => {
         vals.push(childSnapshot.val());
       });
-      console.log(vals);
       vals.forEach(elem => {
         if (elem.toString() === category) {
           categoryPresent = true;
+          // console.log("Category already present")
         }
       });
     });
     // Do nothing if category is already present
-    if (categoryPresent) {
-      return;
-    }
-    console.log(category)
-    // Add category to firebase
-    let newItemRef = categoryRef.push();
-    newItemRef.set(category);
+    if (!categoryPresent) {
+      // Add category to firebase
+      let newItemRef = categoryRef.push();
+      newItemRef.set(category);
 
-    // Update local list of categories
-    let categories = this.state.categories;
-    categories.push(category);
-    this.setState({
-      categories: categories,
-    })
+      // Update local list of categories
+      let categories = this.state.categories;
+      categories.push(category);
+      this.setState({
+        categories: categories,
+      })
+    }
   }
 
 
@@ -151,7 +152,7 @@ class Pantry extends React.Component {
     if(loggedIn) {
         let ref = fire.database().ref(uid + '/pantryItems/' + key.toString());
         ref.set({item: null})
-            .then( () => {console.log(`${key} removed from pantry`);})
+            // .then( () => {console.log(`${key} removed from pantry`);})
             .catch(err => {console.log('Error: ', err);});
     } else {
         alert(`Can't remove ${key} you need to login first`)
@@ -211,12 +212,36 @@ class Pantry extends React.Component {
   render() {
     return (
       <div>
-        <AddIngredModal
-          requestAdd={this.requestAdd}
-          loggedIn={this.state.loggedIn}
-          categories={this.state.categories}
-        />
-        <this.viewPantry/>
+        <div>
+          <AddIngredModal
+           requestAdd={this.requestAdd}
+            loggedIn={this.state.loggedIn}
+            categories={this.state.categories}
+          />
+          <this.viewPantry/>
+        </div>
+        <Tabs>
+          <div label="Drake"> 
+            <div className = "tab-box">
+            shake and bake, <em>Drake</em>! 
+            </div>
+          </div>  
+          <div label="Gator"> 
+            <div className = "tab-box">
+            See ya later, <em>Alligator</em>! 
+            </div>
+          </div> 
+          <div label="Croc"> 
+            <div className = "tab-box">
+            After 'while, <em>Crocodile</em>! 
+            </div>
+          </div> 
+          <div label="Sarcosuchus"> 
+            <div className = "tab-box">
+            Nothing to see here, this tab is <em>extinct</em>! 
+            </div>
+          </div> 
+        </Tabs> 
       </div>
     );
   }
