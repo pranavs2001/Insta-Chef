@@ -30,19 +30,34 @@
 }
 
 
-.tab-list {  border-bottom: 1px solid #ccc;
+.tab-list {  border-bottom: 3px solid darksalmon;
   padding-left: 0;
 }
 
 .tab-list-item {
   display: inline-block;
   list-style: none;
-  margin-bottom: -1px;
+  margin-bottom: 0;
   padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  color:black;
+  background-color: lightslategrey;
 }
 
 .tab-list-active {
-  background-color: white;
-  border: solid #ccc;
-  border-width: 1px 1px 0 1px;
+  background-color: #4097aa;
+  border: solid darksalmon;
+  border-width: 3px 2px 0 2px;
+  cursor: pointer;
+}
+
+.tab-list-item:hover{
+  background-color: black;
+  color: white;
+}
+
+.tab-box{
+  color: black;
+  background-color: #4097aa;
 }
