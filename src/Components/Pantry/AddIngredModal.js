@@ -4,20 +4,11 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import IngredientSearch from '../MealDB/ingredientsearch'
 import { makeStyles } from '@material-ui/core/styles';
+import "./Button.css";
 
 
 const useStyles = makeStyles((theme) => ({
-    // modal: {
-    //   display: 'flex',
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-    // },
-    // paper: {
-    //   backgroundColor: theme.palette.background.paper,
-    //   border: '2px solid #000',
-    //   boxShadow: theme.shadows[5],
-    //   padding: theme.spacing(2, 4, 3),
-    // },
+
 
     button:{
         border: 'none',
@@ -30,19 +21,39 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: '1px',
         background: '#fa9483',
         cursor: 'pointer',
-      }
+
+        
+        
+      },
+
+      button1:{
+        //display:'inline-flex',
+        alignContent: 'left',
+        borderRadius: '8px',
+        borderColor: '#fa9483',
+        // outline: 'none',
+        //outline: '#fa9483',
+        margin: '0px 0px 10px 0px  ',
+        width: '5%',
+        padding: '6px 6px ',
+        // color: '#fff',
+        color:'#fa9483',
+        fontSize: '10px',
+        letterSpacing: '1px',
+        // background: '#fa9483',
+        background: '#fff',
+        cursor: 'pointer',
+      },
+
+    //   modal: {
+    //     position: 'fixed',
+    //     top: '50%',
+    //     left: '50%',
+    //     //transform: translate(-50%, -50%),
+    //   }
 
       
   }));
-
-
-
-
-
-
-
-
-
 
 
 function AddIngredModal (props) {
@@ -71,14 +82,16 @@ function AddIngredModal (props) {
         return (
             <div>
                 {/* <button style={{marginTop: "20px"}} onClick={openModal}>Add new Ingredient</button> */}
-                <button className={classes.button} onClick={openModal}>Add new Ingredient</button>
-                <Modal
+                {/* <button className={classes.button} onClick={openModal}>Add new Ingredient</button> */}
+                <button class='btn-1' onClick={openModal}>Add new Ingredient</button>
+                <Modal className={classes.modal}
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     contentLabel="Ingredient Search Box"
                 >
-                    <button onClick={closeModal}>Done</button>
+                    <button className={classes.button1} onClick={closeModal}>Done</button>
+                    {/* <button class='btn-1' onClick={closeModal}>Done</button> */}
                     <IngredientSearch
                       requestAdd={props.requestAdd}
                       categories={props.categories}

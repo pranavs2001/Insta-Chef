@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "./LoginPage.css";
 const Login = (props) => {
 
     const { 
@@ -51,7 +51,7 @@ const Login = (props) => {
                         </>
                     ): (
                         <>
-                        <button onClick={handleSignup}>Sign up</button>
+                        <button class='btn' onClick={handleSignup}>Sign up</button>
                         <p>Have an account? 
                             <span onClick={()=> setHasAccount(!hasAccount)}>
                                 Sign In
