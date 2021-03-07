@@ -3,6 +3,7 @@ import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
+import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
 
 
@@ -211,12 +212,36 @@ class Pantry extends React.Component {
   render() {
     return (
       <div>
-        <AddIngredModal
-          requestAdd={this.requestAdd}
-          loggedIn={this.state.loggedIn}
-          categories={this.state.categories}
-        />
-        <this.viewPantry/>
+        <div>
+          <AddIngredModal
+           requestAdd={this.requestAdd}
+            loggedIn={this.state.loggedIn}
+            categories={this.state.categories}
+          />
+          <this.viewPantry/>
+        </div>
+        <Tabs>
+          <div label="Drake"> 
+            <div className = "tab-box">
+            shake and bake, <em>Drake</em>! 
+            </div>
+          </div>  
+          <div label="Gator"> 
+            <div className = "tab-box">
+            See ya later, <em>Alligator</em>! 
+            </div>
+          </div> 
+          <div label="Croc"> 
+            <div className = "tab-box">
+            After 'while, <em>Crocodile</em>! 
+            </div>
+          </div> 
+          <div label="Sarcosuchus"> 
+            <div className = "tab-box">
+            Nothing to see here, this tab is <em>extinct</em>! 
+            </div>
+          </div> 
+        </Tabs> 
       </div>
     );
   }
