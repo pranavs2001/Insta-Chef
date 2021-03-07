@@ -48,7 +48,7 @@ function RecipeWindow(props) {
         <h1>{props.recipe.name}</h1>
         <h4>Category: {props.recipe.category}</h4>
         <h4>Area: {props.recipe.area}</h4>
-        <a style={{display: "table-cell"}} href={props.recipe.video} target={"_blank"}>Video</a>
+        <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
         <h4>Ingredients:</h4>
         <ListIngredients ingredients={props.recipe.ingredients}/>
         <h4>Steps:</h4>
