@@ -15,6 +15,7 @@ class Search extends React.Component {
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
     // validrecipes is a list of recipes that match the keyword
+    this.callback = this.callback.bind(this)
   }
 
   doSearch(evt){
@@ -66,6 +67,9 @@ class Search extends React.Component {
     // console.log(matches);
   }
 
+  // Dummy function for tiles to notify parents of change
+  callback() {}
+
  render() {
     // get state variables
     const keyword = this.state.keyword;
@@ -82,7 +86,7 @@ class Search extends React.Component {
          placeholder={"Search for a recipe"}
          onChange={(e) => this.doSearch(e)}
         />
-        <RecipeGrid recipes={matchingRecipes}/>
+        <RecipeGrid recipes={matchingRecipes} callback={this.callback}/>
       </div>
     );
   }
