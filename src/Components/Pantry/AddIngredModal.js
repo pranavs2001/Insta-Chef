@@ -35,16 +35,6 @@ const useStyles = makeStyles((theme) => ({
       
   }));
 
-
-
-
-
-
-
-
-
-
-
 function AddIngredModal (props) {
     
     const classes = useStyles();
@@ -70,7 +60,6 @@ function AddIngredModal (props) {
     {
         return (
             <div>
-                {/* <button style={{marginTop: "20px"}} onClick={openModal}>Add new Ingredient</button> */}
                 <button className={classes.button} onClick={openModal}>Add new Ingredient</button>
                 <Modal
                     isOpen={modalIsOpen}
