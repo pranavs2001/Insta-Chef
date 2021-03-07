@@ -42,14 +42,14 @@ class Pantry extends React.Component {
       });
       // Get ingredient categories
       let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
-      console.log(categoryRef);
+      // console.log(categoryRef);
       categoryRef.on('value', (snapshot) => {
         let categories = [];
         snapshot.forEach((childSnapshot) => {
           categories.push(childSnapshot.val());
-          console.log(childSnapshot);
+          // console.log(childSnapshot);
         });
-        console.log(categories);
+        // console.log(categories);
         // Reformat category list to put "Other" at the end
         const index = categories.indexOf('Other');
         if (index !== -1) {
@@ -127,13 +127,15 @@ class Pantry extends React.Component {
       });
       console.log(vals);
       vals.forEach(elem => {
-        if (elem.toString() === category) {
+        if (elem.toString().localeCompare(category) === 0) {
+          console.log("category's already present");
           categoryPresent = true;
         }
       });
     });
     // Do nothing if category is already present
     if (categoryPresent) {
+      console.log("category's already present");
       return;
     }
     console.log(category)

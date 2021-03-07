@@ -8,7 +8,7 @@ class IngredientListItem extends React.Component {
     this.state = {
       category: 'Other',
     };
-    console.log(props.categories)
+    // console.log(props.categories)
     // this.getMealIDs = this.getMealIDs.bind(this);
   }
 
