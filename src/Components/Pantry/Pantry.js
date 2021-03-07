@@ -5,7 +5,6 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
-import './Pantry.css';
 
 
 class Pantry extends React.Component {
