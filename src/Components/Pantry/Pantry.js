@@ -31,7 +31,6 @@ class Pantry extends React.Component {
         let items = {};
         snapshot.forEach((childSnapshot) => {
           items[childSnapshot.key] = childSnapshot.val()
-          console.log('val is: ', childSnapshot.val());
         })
         this.setState({
           items: items,

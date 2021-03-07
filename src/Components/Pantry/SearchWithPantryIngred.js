@@ -1,21 +1,33 @@
 import fire from '../SignIn/fire';
 import "firebase/database";
+import Tile from '../Tile/tile'
+import Grid from '@material-ui/core/Grid';
 
 function SearchWithPantryIngred(key, uid) {
-  console.log('key is: ', key.toString());
-  let pantryRef = fire.database().ref(uid + '/pantryItems');
-  let itemsInFire = pantryRef.orderByChild('items')
-  itemsInFire.on('value', (snapshot) => {
-    console.log('snapshot is: ', snapshot);
-    // loop through firebase
+  let recipeIDs = [];
+  let pantryRef = fire.database().ref(uid + '/pantryItems/' + key.toString());
+  let recipesForIngred = pantryRef.child('recipeIDs')
+  recipesForIngred.on('value', (snapshot) => {
+    // loop through ingredient's associated recipeIDs
     snapshot.forEach((childSnapshot) => {
-      console.log('childSnapshot val is: ', childSnapshot.val());
+      recipeIDs.push(childSnapshot.val())
     })
-  console.log('pantryRef is: ', pantryRef);
-  pantryRef.on('value', (snapshot) => {
-    const data = snapshot.val()
-    console.log('data is: ', data);
-  })})
+  })
+
+  // now that we have associated recipe id's, go to Search and use them as props for Tiles
+  return (
+    <div>
+      <div style={{ marginTop: "30px" }} >
+        <Grid container spacing={1}>
+          {recipeIDs.map((id, index) => {
+            <Grid item xs={3}>
+              <Tile recipeid={id} />
+            </Grid>
+          })}
+        </Grid>
+      </div>
+    </div>
+  )
 }
 
 export default SearchWithPantryIngred;
