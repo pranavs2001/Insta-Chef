@@ -3,6 +3,7 @@ import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
+import Tabs from "../../Components/Tabs/Tabs.js";
 
 class Pantry extends React.Component {
   constructor(props) {
@@ -217,6 +218,7 @@ class Pantry extends React.Component {
 
   render() {
     return (
+      <div>
       <div className="test">
         <div className="pantry" style={{display: "flex", justifyContent: "center"}}>
           <div className="pantryItems" style={{diplay: "inlineBlock", textAlign: "left"}}>
@@ -228,6 +230,18 @@ class Pantry extends React.Component {
           loggedIn={this.state.loggedIn}
           categories={this.state.categories}
         />
+      </div>
+      <Tabs> 
+       <div label="Gator"> 
+         See ya later, <em>Alligator</em>! 
+       </div> 
+       <div label="Croc"> 
+         After 'while, <em>Crocodile</em>! 
+       </div> 
+       <div label="Sarcosuchus"> 
+         Nothing to see here, this tab is <em>extinct</em>! 
+       </div> 
+     </Tabs> 
       </div>
     );
   }
