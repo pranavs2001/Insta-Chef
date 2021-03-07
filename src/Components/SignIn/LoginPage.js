@@ -4,6 +4,7 @@ import Login from './Login';
 import Hero from './Hero';
 import fire from './fire';
 import Pantry from '../Pantry/Pantry';
+import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Search from '../MealDB/search';
@@ -93,34 +94,19 @@ function LoginPage() {
       {/* render Welcome if the user exists, and login if the user doesn't exist */}
       {/* user exists if you've signed up or logged in */}
       {user ? (
-            <Router>
+            
       <div className="App">
+        <Router>
         <Navbar loggedIn={fire.auth().currentUser} />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/Login" component={LoginPage} />
-          <Route path="/Search" component={Search} />
-          <Route path="/Pantry" component={Pantry} />
-          
-          <p>Insta-chef</p>
-          <LoginPage />
-        </Switch>
-
-        <div>
-          {/* <Search /> */}
-        </div>
-        <div>
-          {/* <Tile recipeid={52772} /> */}
-        </div>
-
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/Login" component={LoginPage} />
+            <Route path="/Search" component={Search} />
+            <Route path="/Pantry" component={Pantry} />
+          </Switch>
+        </Router>
       </div>
-    </Router>
     
-
-
-
-
-
       ): (
         <Login //with all possible states
         email={email}
@@ -141,9 +127,4 @@ function LoginPage() {
   );
 }
 
-const Home = () => (
-  <div>
-    <h1> Home Page</h1>
-  </div>
-)
 export default LoginPage;
