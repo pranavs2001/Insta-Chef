@@ -39,14 +39,14 @@ class Pantry extends React.Component {
       });
       // Get ingredient categories
       let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
-      console.log(categoryRef);
+      // console.log(categoryRef);
       categoryRef.on('value', (snapshot) => {
         let categories = [];
         snapshot.forEach((childSnapshot) => {
           categories.push(childSnapshot.val());
-          console.log(childSnapshot);
+          // console.log(childSnapshot);
         });
-        console.log(categories);
+        // console.log(categories);
         // Reformat category list to put "Other" at the end
         const index = categories.indexOf('Other');
         if (index !== -1) {
@@ -70,7 +70,7 @@ class Pantry extends React.Component {
    */
   addItemToPantry(ingredient, category, recipeIDs) {
     if (this.state.loggedIn) {
-      let itemRef = fire.database().ref(this.state.uid + '/pantryItems/');
+      let itemRef = fire.database().ref(this.state.uid + '/pantryItems');
       let itemsInFire = itemRef.orderByChild('items');
       let itemAlreadyInPantry = false;
       itemsInFire.on('value', (snapshot) => {
@@ -122,28 +122,26 @@ class Pantry extends React.Component {
       snapshot.forEach((childSnapshot) => {
         vals.push(childSnapshot.val());
       });
-      console.log(vals);
       vals.forEach(elem => {
         if (elem.toString() === category) {
           categoryPresent = true;
+          // console.log("Category already present")
         }
       });
     });
     // Do nothing if category is already present
-    if (categoryPresent) {
-      return;
-    }
-    console.log(category)
-    // Add category to firebase
-    let newItemRef = categoryRef.push();
-    newItemRef.set(category);
+    if (!categoryPresent) {
+      // Add category to firebase
+      let newItemRef = categoryRef.push();
+      newItemRef.set(category);
 
-    // Update local list of categories
-    let categories = this.state.categories;
-    categories.push(category);
-    this.setState({
-      categories: categories,
-    })
+      // Update local list of categories
+      let categories = this.state.categories;
+      categories.push(category);
+      this.setState({
+        categories: categories,
+      })
+    }
   }
 
 
@@ -151,7 +149,7 @@ class Pantry extends React.Component {
     if(this.state.loggedIn) {
         let ref = fire.database().ref(this.state.uid + '/pantryItems/' + key.toString());
         ref.set({item: null})
-            .then( () => {console.log(`${key} removed from pantry`);})
+            // .then( () => {console.log(`${key} removed from pantry`);})
             .catch(err => {console.log('Error: ', err);});
     } else {
         alert(`Can't remove ${key} you need to login first`)

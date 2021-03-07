@@ -1,6 +1,6 @@
 import React from 'react';
 import data from '../../support/recipelist.json'
-import Tile from '../Tile/tile'
+import ListTiles from "../Tile/ListTiles";
 
 class Search extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Search extends React.Component {
   }
 
   updateSearch(value) {
-    console.log('value is: ', value);
+    // console.log('value is: ', value);
     const searchStr = value;
     let matches = [];
     // Make sure ingredient list is not empty
@@ -46,7 +46,7 @@ class Search extends React.Component {
         // }
         // console.log('name is: ', name);
         if (name.toLocaleLowerCase().includes(searchStr.toLowerCase())) {
-          console.log('name in includes if is: ', name);
+          // console.log('name in includes if is: ', name);
           matches.push({ 'id': recipeid, 'name': name });
         }
       }
@@ -55,13 +55,14 @@ class Search extends React.Component {
       keyword: value,
       validRecipes: matches,
     });
+    // console.log(matches);
   }
 
  render() {
     // get state variables
     const keyword = this.state.keyword;
-    const matchingrecipes = this.state.validRecipes;
-    console.log('matching recipies is: ', matchingrecipes);
+    const matchingRecipes = this.state.validRecipes;
+    // console.log('matching recipies is: ', matchingrecipes);
     // parameters for search bar
     const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
     return (
@@ -74,7 +75,7 @@ class Search extends React.Component {
          onChange={(e) => this.doSearch(e)}
         />
         {/* <ListRecipes recipes={matchingrecipes}/> */}
-        <ListTiles recipes={matchingrecipes}/>
+        <ListTiles recipes={matchingRecipes}/>
         {/* <ListRecipes recipes={matchingrecipes}/> */}
       </div>
     );
@@ -90,16 +91,5 @@ class Search extends React.Component {
 //   );
 // }
 
-function ListTiles(props) {
-  console.log('props.recipies in listTiles is: ', props.recipes);
-  return (
-    Object.keys(props.recipes).map((id, index) => 
-      <div>
-        <p>{id}</p>
-        <Tile recipeid={props.recipes[index]['id']}/>
-      </div>
-    )
-  );
-}
 
 export default Search;

@@ -7,14 +7,19 @@ function FavoriteRecipes (props) {
   if (fire.auth().currentUser) {
     const uid = fire.auth().currentUser.uid;
     // Automatically create "other" category if it doesn't exist
-    let pantryRef = fire.database().ref(uid + '/favorites').orderByChild('items');
+    let recipeIDs = [];
+    let pantryRef = fire.database().ref(uid + '/favorites').orderByChild('id');
     pantryRef.on('value', (snapshot) => {
-      let recipeIDs = [];
       snapshot.forEach((childSnapshot) => {
-        recipeIDs.push(childSnapshot.val())
+        recipeIDs.push({
+          'id': childSnapshot.val()['id'],
+          'name': childSnapshot.val()['name'],
+        })
       });
-      return <ListTiles recipes={recipeIDs}/>
     });
+    return (<ListTiles recipes={recipeIDs}/>);
+  } else {
+    return <p>No favorite recipes</p>
   }
 }
 
