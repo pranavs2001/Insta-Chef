@@ -13,9 +13,19 @@ function ListIngredients(props) {
   )
 }
 
+function FavoriteButton(props) {
+  if (props.loggedIn) {
+    return (
+        <button className="favorite-button" onClick={props.toggleFavorite}>
+          {props.isFavorite ? "Remove from " : "Add to "} favorites
+        </button>
+    );
+  }
+}
+
 function RecipeWindow(props) {
 
-  if (props.loaded == false) {
+  if (props.loaded === false) {
     return (
       <p>Loading Recipe...</p>
     )
@@ -30,6 +40,11 @@ function RecipeWindow(props) {
         contentLabel="Recipe Info"
       >
         <button className="button-style" onClick={props.closeModal}>← Close</button>
+        <FavoriteButton
+          loggedIn={props.loggedIn}
+          isFavorite={props.isFavorite}
+          toggleFavorite={props.toggleFavorite}
+        />
         <h1>{props.recipe.name}</h1>
         <h4>Category: {props.recipe.category}</h4>
         <h4>Area: {props.recipe.area}</h4>
@@ -37,7 +52,9 @@ function RecipeWindow(props) {
         <h4>Ingredients:</h4>
         <ListIngredients ingredients={props.recipe.ingredients}/>
         <h4>Steps:</h4>
-        <p className="steps">{props.recipe.instructions}</p>
+        {props.recipe.instructions.split('\n').map((i, index) => {
+          return <p className="steps" key={index}>{i}</p>
+        })}
       </Modal>
     );
   }

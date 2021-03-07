@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Tile from './tile'
 
 
-
 export default function RecipeGrid(props) {
   return (
       <div>

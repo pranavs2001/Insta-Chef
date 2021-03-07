@@ -7,3 +7,5 @@ insta-chef-ed314-firebase-adminsdk.json
 __pycache__/
 .firebase/
 .env
+/src/support/service_credentials.json
+/src/support/venv

@@ -1,5 +1,5 @@
 import React from 'react';
-import data from '../../support/recipelist.json'
+import fire from "../SignIn/fire"
 import RecipeGrid from '../Tile/RecipeGrid'
 
 class Search extends React.Component {
@@ -8,10 +8,9 @@ class Search extends React.Component {
     this.state = {
       loaded: false,
       keyword: '',
-      recipes: data,
+      recipes: {},
       validRecipes: {},
-      // TODO: Get firebase credentials
-    }
+    };
     this.timeout =  0;
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
@@ -29,11 +28,20 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: Fetch the list of recipes from firebase
+      let pantryRef = fire.database().ref('recipes').orderByChild('items');
+      pantryRef.on('value', (snapshot) => {
+        let recipes = {};
+        snapshot.forEach((childSnapshot) => {
+          recipes[childSnapshot.key] = childSnapshot.val()
+        });
+        this.setState({
+          recipes: recipes,
+        });
+      });
   }
 
   updateSearch(value) {
-    console.log('value is: ', value);
+    // console.log('value is: ', value);
     const searchStr = value;
     let matches = [];
     // Make sure ingredient list is not empty
@@ -46,7 +54,7 @@ class Search extends React.Component {
         // }
         // console.log('name is: ', name);
         if (name.toLocaleLowerCase().includes(searchStr.toLowerCase())) {
-          console.log('name in includes if is: ', name);
+          // console.log('name in includes if is: ', name);
           matches.push({ 'id': recipeid, 'name': name });
         }
       }
@@ -55,13 +63,14 @@ class Search extends React.Component {
       keyword: value,
       validRecipes: matches,
     });
+    // console.log(matches);
   }
 
  render() {
     // get state variables
     const keyword = this.state.keyword;
-    const matchingrecipes = this.state.validRecipes;
-    console.log('matching recipies is: ', matchingrecipes);
+    const matchingRecipes = this.state.validRecipes;
+    // console.log('matching recipies is: ', matchingrecipes);
     // parameters for search bar
     const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
     return (
@@ -73,17 +82,10 @@ class Search extends React.Component {
          placeholder={"Search for a recipe"}
          onChange={(e) => this.doSearch(e)}
         />
-        <ListTiles recipes={matchingrecipes}/>
+        <RecipeGrid recipes={matchingRecipes}/>
       </div>
     );
   }
-}
-
-function ListTiles(props) {
-  console.log('props.recipies in listTiles is: ', props.recipes);
-  return (
-    <RecipeGrid recipes={props.recipes}/>
-  );
 }
 
 export default Search;
