@@ -1,15 +1,14 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import RecipeGrid from "../Tile/RecipeGrid";
-
+import UserInfo from "./UserInfo";
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       favoriteRecipes: [],
-      userEmail: '',
-      userName: '',
+      uid: '',
     };
     this.getFavorites = this.getFavorites.bind(this);
   }
@@ -30,10 +29,11 @@ class Profile extends React.Component {
             'id': childSnapshot.val()['id'],
             'name': childSnapshot.val()['name'],
           });
-          this.setState({
-            favoriteRecipes: recipeIDs,
-          })
         });
+        this.setState({
+          favoriteRecipes: recipeIDs,
+          uid: uid,
+        })
       });
     }
   }
@@ -44,6 +44,7 @@ class Profile extends React.Component {
         <h1>Favorite Recipes</h1>
         <hr/>
         <RecipeGrid recipes={this.state.favoriteRecipes} callback={this.getFavorites}/>
+        <UserInfo/>
       </div>
     );
   }

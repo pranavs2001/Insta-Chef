@@ -108,7 +108,7 @@ class Tile extends React.Component {
       // If this recipe is already a favorite, remove it from firebase
       const uid = this.state.uid;
       if (this.state.favoriteRecipe) {
-        // console.log("Added to favorites");
+        // console.log("Removed from favorites");
         const recipeKey = this.state.recipeKey.toString();
         // console.log(recipeKey);
         let ref = fire.database().ref(this.state.uid + '/favorites/' + recipeKey);
