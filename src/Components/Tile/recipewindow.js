@@ -45,16 +45,22 @@ function RecipeWindow(props) {
           isFavorite={props.isFavorite}
           toggleFavorite={props.toggleFavorite}
         />
-        <h1>{props.recipe.name}</h1>
-        <h4>Category: {props.recipe.category}</h4>
-        <h4>Area: {props.recipe.area}</h4>
-        <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
-        <h4>Ingredients:</h4>
-        <ListIngredients ingredients={props.recipe.ingredients}/>
-        <h4>Steps:</h4>
-        {props.recipe.instructions.split('\n').map((i, index) => {
-          return <p className="steps" key={index}>{i}</p>
-        })}
+        <img style={{position: "absolute", top: "20px", right: "350px", border: "4px solid #999", 
+          marginTop: "40px"}} 
+          src={props.recipeImage} width="300px" height="300px" alt="Recipe Image" 
+        />
+        <div>
+          <h1>{props.recipe.name}</h1>
+          <h4>Category: {props.recipe.category}</h4>
+          <h4>Area: {props.recipe.area}</h4>
+          <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
+          <h4>Ingredients:</h4>
+          <ListIngredients ingredients={props.recipe.ingredients}/>
+          <h4>Steps:</h4>
+          {props.recipe.instructions.split('\n').map((i, index) => {
+            return <p className="steps" key={index}>{i}</p>
+          })}
+        </div>
       </Modal>
     );
   }
