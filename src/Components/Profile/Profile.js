@@ -30,10 +30,10 @@ class Profile extends React.Component {
             'id': childSnapshot.val()['id'],
             'name': childSnapshot.val()['name'],
           });
-          this.setState({
-            favoriteRecipes: recipeIDs,
-          })
         });
+        this.setState({
+          favoriteRecipes: recipeIDs,
+        })
       });
     }
   }
