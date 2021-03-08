@@ -9,6 +9,7 @@ class UserInfo extends React.Component {
       newName: '',
       newPassword1: '',
       newPassword2: '',
+      enteredPassword: '',
       actionMsg: '',
       requestDelete: false,
     };
@@ -46,7 +47,7 @@ class UserInfo extends React.Component {
         actionMsg: "ERROR: Passwords must match",
       });
     } else {
-      // Invalid passoword
+      // Invalid password
       if (this.state.newPassword1.length < 6) {
         this.setState({
           actionMsg: "Invalid password"
@@ -54,17 +55,24 @@ class UserInfo extends React.Component {
         return;
       }
       // Update password
-      console.log("Updating Password");
-      fire.auth().currentUser.updatePassword(this.state.newPassword1).then(() => {
-        this.setState({
-          newPassword1: '',
-          newPassword2: '',
-          actionMsg: "Password Updated",
-        });
+      console.log("Updating Password, entered password = ", this.state.enteredPassword);
+      const user =fire.auth().currentUser;
+      fire.auth().signInWithEmailAndPassword(user.email, this.state.enteredPassword).then(() => {
+        fire.auth().currentUser.updatePassword(this.state.newPassword1).then(() => {
+          this.setState({
+            newPassword1: '',
+            newPassword2: '',
+            actionMsg: "Password Updated",
+          });
+        }).catch(() => {
+          this.setState({
+            actionMsg: "Error updating password. Try signing in again"
+          });
+        })
       }).catch(() => {
         this.setState({
-          actionMsg: "Error updating password. Try signing in again"
-        });
+          actionMsg: "Entered current password is invalid",
+        })
       })
     }
   }
@@ -72,17 +80,25 @@ class UserInfo extends React.Component {
   toggleDeleteModal() {
     this.setState({
       requestDelete: !this.state.requestDelete,
+      enteredPassword: '',
     })
   }
 
   deleteAccount() {
     const user = fire.auth().currentUser;
     console.log("Deleting account");
-    user.delete().catch(() => {
-      this.setState({
-        requestDelete: false,
-        actionMsg: "Error deleting account. Try logging in again",
+    fire.auth().signInWithEmailAndPassword(user.email, this.state.enteredPassword).then(() => {
+      user.delete().catch(() => {
+        this.setState({
+          requestDelete: false,
+          actionMsg: "Error deleting account",
+        })
       })
+    }).catch(() => {
+      this.setState({
+          requestDelete: false,
+          actionMsg: "Error deleting account",
+        })
     })
 
   }
@@ -92,9 +108,7 @@ class UserInfo extends React.Component {
     const user = fire.auth().currentUser;
     return (
       <div>
-        <h1>
-          Account Info
-        </h1>
+        <h1>Account Info</h1>
         <hr/>
         <p style={{color: 'red'}}>
           {this.state.actionMsg !== '' ? this.state.actionMsg : null}
@@ -106,12 +120,7 @@ class UserInfo extends React.Component {
             <input
              value={this.state.newName}
              placeholder={"Enter name"}
-             onChange={(e) => {
-               this.setState({
-                 updatedProfile: false,
-                 newName: e.target.value,
-               });
-             }}
+             onChange={(e) => {this.setState({newName: e.target.value});}}
             />
           </p>
           <button onClick={this.updateUserName}>Update</button>
@@ -119,6 +128,15 @@ class UserInfo extends React.Component {
         <div>
           Email: {user.email}
         </div>
+        <h2>Change Password</h2>
+        <p> Current password:
+          <input
+           value={this.state.enteredPassword}
+           type="password"
+           placeholder={"Current Password"}
+           onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
+          />
+        </p>
         <div>
           <p> New password:
             <input
@@ -138,12 +156,7 @@ class UserInfo extends React.Component {
              value={this.state.newPassword2}
              type="password"
              placeholder={"Confirm Password"}
-             onChange={(e) => {
-               this.setState({
-                 updatedProfile: false,
-                 newPassword2: e.target.value,
-               });
-             }}
+             onChange={(e) => {this.setState({newPassword2: e.target.value});}}
             />
           </p>
           <button onClick={this.updatePassword}>Change Password</button>
@@ -158,6 +171,13 @@ class UserInfo extends React.Component {
             >
             <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT????</h1>
             <button onClick={this.toggleDeleteModal}>Cancel</button>
+            <p>Enter password to confirm</p>
+            <input
+             value={this.state.enteredPassword}
+             type="password"
+             placeholder={"Enter Password"}
+             onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
+            />
             <button onClick={this.deleteAccount}>
               Confirm Delete
             </button>
