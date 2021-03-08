@@ -148,6 +148,7 @@ class Tile extends React.Component {
             isFavorite={this.state.favoriteRecipe}
             toggleFavorite={this.toggleFavorite}
             loggedIn={this.state.loggedIn}
+            recipeImage={this.state.recipe.image}
           />
       </div>
 
