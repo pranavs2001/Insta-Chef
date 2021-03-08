@@ -16,6 +16,7 @@ class UserInfo extends React.Component {
     this.updateUserName = this.updateUserName.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.deleteAccount = this.deleteAccount.bind(this);
   }
 
   updateUserName() {
@@ -77,7 +78,13 @@ class UserInfo extends React.Component {
   deleteAccount() {
     const user = fire.auth().currentUser;
     console.log("Deleting account");
-    user.delete()
+    user.delete().catch(() => {
+      this.setState({
+        requestDelete: false,
+        actionMsg: "Error deleting account. Try logging in again",
+      })
+    })
+
   }
 
 
