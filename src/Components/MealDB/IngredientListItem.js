@@ -16,7 +16,7 @@ class IngredientListItem extends React.Component {
     const ingredientName = this.props.item['name'];
     const options = this.props.categories;
     return (
-      <div>
+      <>
         <td>
           <button
             className="add-button"
@@ -40,7 +40,7 @@ class IngredientListItem extends React.Component {
         <td>
           {ingredientName}
         </td>
-      </div>
+      </>
     );
   }
 }
