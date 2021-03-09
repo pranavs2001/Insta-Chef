@@ -7,7 +7,7 @@ import Pantry from '../Pantry/Pantry';
 import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
-import Search from '../MealDB/search';
+import Search from '../Search/search';
 import Profile from "../Profile/Profile";
 
 function LoginPage() {

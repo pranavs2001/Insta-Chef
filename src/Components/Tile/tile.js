@@ -1,7 +1,7 @@
 import React from 'react';
 import './tile.css';
 import RecipeWindow from './recipewindow'
-import CheckError from "../MealDB/checkerror";
+import CheckError from "../Search/checkerror";
 import fire from "../SignIn/fire";
 
 class Tile extends React.Component {
