@@ -2,6 +2,7 @@ import './LoginPage.css';
 import React, {useState, useEffect} from "react";
 import Login from './Login';
 import fire from './fire';
+import 'firebase/auth'
 import Pantry from '../Pantry/Pantry';
 import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar';
