@@ -32,6 +32,9 @@ class IngredientListItem extends React.Component {
         <td>
           {/*TODO: format dropdown*/}
           <Dropdown
+            className='select'
+            menuClassName='option'
+            placeholderClassName='choice'
             options={options}
             value={this.state.category}
             onChange={(selectedOption) => {
