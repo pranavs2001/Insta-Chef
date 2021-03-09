@@ -58,6 +58,12 @@ class Tile extends React.Component {
       }
   }
 
+  componentWillUnmount() {
+   this.setState = (state, callback) => {
+     return;
+   }
+  }
+
   processMeal(recipeInfo) {
     let ingredients = {}
     for (let i = 1; i <= 20; i++) {

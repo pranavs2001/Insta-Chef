@@ -9,7 +9,7 @@ export default function RecipeGrid(props) {
         <div style={{ marginTop: "30px" }} >
           <Grid container spacing={1}>
             {Object.keys(props.recipes).map((id, index) => (
-              <Grid item xs={3}>
+              <Grid key={props.recipes[index]['id']} item xs={3}>
                 <Tile recipeid={props.recipes[index]['id']} />
               </Grid>
             ))}
