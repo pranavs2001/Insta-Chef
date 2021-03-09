@@ -20,6 +20,17 @@
     align-self: 'center';
 }
 
+.favorite-button{
+    width: 200px;
+    height: 40px;
+    border: 4px solid #999;
+    padding: 5px;
+    font-size: 12px;
+    font-style: 4097aa;
+    text-align: center;
+    float: right;
+}
+
 .steps{
     /*color: rgb(0, 0, 0);*/
     font-size: 16px;
