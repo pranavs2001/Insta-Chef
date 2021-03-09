@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import IngredientSearch from '../MealDB/ingredientsearch'
+import IngredientSearch from '../Search/ingredientsearch'
 import { makeStyles } from '@material-ui/core/styles';
 
 

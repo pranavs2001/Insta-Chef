@@ -2,7 +2,7 @@ import React from 'react';
 import fire from "../SignIn/fire"
 import "firebase/database"
 import AddIngredModal from './AddIngredModal'
-import CheckError from "../MealDB/checkerror";
+import CheckError from "../Search/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
 class Pantry extends React.Component {
