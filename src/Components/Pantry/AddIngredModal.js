@@ -59,7 +59,7 @@ function AddIngredModal (props) {
     {
         return (
             <div>
-                <button class="btn-1" onClick={openModal}>Add new Ingredient</button>
+                <button className="btn-1" onClick={openModal}>Add new Ingredient</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}

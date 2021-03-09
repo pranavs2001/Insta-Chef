@@ -5,6 +5,10 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
+
+
+
+
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -129,6 +133,7 @@ class Pantry extends React.Component {
       });
       vals.forEach(elem => {
         if (elem.toString() === category) {
+          console.log("category alr present")
           categoryPresent = true;
           // console.log("Category already present")
         }
