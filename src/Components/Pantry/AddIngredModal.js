@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import IngredientSearch from '../MealDB/ingredientsearch'
 import { makeStyles } from '@material-ui/core/styles';
-
+import './Button.css'
 
 const useStyles = makeStyles((theme) => ({
     // modal: {
@@ -19,18 +19,18 @@ const useStyles = makeStyles((theme) => ({
     //   padding: theme.spacing(2, 4, 3),
     // },
 
-    button:{
-        border: 'none',
-        outline: 'none',
-        margin: '20px',
-        width: '30%',
-        padding: '15px 15px ',
-        color: '#fff',
-        fontSize: '16px',
-        letterSpacing: '1px',
-        background: '#fa9483',
-        cursor: 'pointer',
-      }
+    // button:{
+    //     border: 'none',
+    //     outline: 'none',
+    //     margin: '20px',
+    //     width: '30%',
+    //     padding: '15px 15px ',
+    //     color: '#fff',
+    //     fontSize: '16px',
+    //     letterSpacing: '1px',
+    //     background: '#fa9483',
+    //     cursor: 'pointer',
+    //   }
 
       
   }));
@@ -60,7 +60,7 @@ function AddIngredModal (props) {
     {
         return (
             <div>
-                <button className={classes.button} onClick={openModal}>Add new Ingredient</button>
+                <button class='btn-1' onClick={openModal}>Add new Ingredient</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
