@@ -6,7 +6,7 @@ import Tile from './tile'
 export default function RecipeGrid(props) {
   if (props.recipes.length > 0) {
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(202, 230, 240)"}}>
         <div style={{marginTop: "30px"}}>
           <Grid container spacing={1}>
             {Object.keys(props.recipes).map((id, index) => (
