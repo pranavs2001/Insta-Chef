@@ -22,6 +22,7 @@ class Profile extends React.Component {
     this.NameForm = this.NameForm.bind(this);
     this.ChangePasswordForm = this.ChangePasswordForm.bind(this);
     this.DeleteAccountForm = this.DeleteAccountForm.bind(this);
+    this.CurrentPasswordForm = this.CurrentPasswordForm.bind(this);
   }
 
   updateUserName() {
@@ -154,6 +155,19 @@ class Profile extends React.Component {
     )
   }
 
+  CurrentPasswordForm() {
+    return(
+      <p> Current password:
+            <input
+          value={this.state.enteredPassword}
+          type="password"
+          placeholder={"Current Password"}
+          onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
+        />
+      </p>
+    )
+  }
+
   DeleteAccountForm() {
     return(
       <div>
@@ -195,14 +209,7 @@ class Profile extends React.Component {
           Email: {user.email}
         </div>
         <h2>Change Password</h2>
-        <p> Current password:
-          <input
-           value={this.state.enteredPassword}
-           type="password"
-           placeholder={"Current Password"}
-           onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
-          />
-        </p>
+        <this.CurrentPasswordForm/>
         <this.ChangePasswordForm/>
         <this.DeleteAccountForm/>
       </div>
