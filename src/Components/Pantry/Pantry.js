@@ -5,6 +5,8 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
+import categorizeIngred from './CategorizeIngred'
+
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,7 @@ class Pantry extends React.Component {
       categories: ['Other'],
       uid: '',
       loggedIn: false,
+      pantryItemsPerCategory: {},
     };
     this.viewPantry = this.viewPantry.bind(this);
     this.requestAdd = this.requestAdd.bind(this);
@@ -30,7 +33,7 @@ class Pantry extends React.Component {
         let items = {};
         snapshot.forEach((childSnapshot) => {
           items[childSnapshot.key] = childSnapshot.val()
-        });
+        })
         this.setState({
           items: items,
         })
@@ -75,7 +78,7 @@ class Pantry extends React.Component {
       itemsInFire.on('value', (snapshot) => {
         // loop through firebase
         snapshot.forEach((childSnapshot) => {
-            if (childSnapshot.val().item.toString().localeCompare(ingredient) === 0) {
+            if (childSnapshot.val().item.toString().localeCompare(ingredient) == 0) {
                 itemAlreadyInPantry = true;
             }
         })
@@ -165,7 +168,7 @@ class Pantry extends React.Component {
     // Fetch the list of valid ingredients
     // console.log("Adding " + ingredient.toString() + " to pantry in category " + category.toString());
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?'
-    const params = {'i': ingredient};
+    const params = {'i': ingredient}
     fetch(url + new URLSearchParams(params))
       .then(CheckError)
       .then(result => {
@@ -188,12 +191,23 @@ class Pantry extends React.Component {
     return (ids);
   }
 
-  viewPantry() {
+  sortIngredients(){
+    const items = this.state.items;
+    const categories = this.state.categories;
+    let pantryItemsPerCategory = this.state.pantryItemsPerCategory;
+    for(const index in items)
+    {
+      pantryItemsPerCategory[categorizeIngred(items[index])].append(items[index])
+    }
+  }
+
+  viewPantry(category) {
     if (this.state.loggedIn) {
       // console.log('items in viewPantry are: ', this.state.items);
+      this.sortIngredients();
       return (
         <PantryGrid
-          ingredients={this.state.items}
+          ingredients={this.state.pantryItemsPerCategory[category]}
           removeItemFromPantry={this.removeItemFromPantry}
           loggedIn={this.state.loggedIn}
           uid={this.state.uid}
@@ -204,36 +218,25 @@ class Pantry extends React.Component {
     }
   }
 
+  sortByCategory() {
+
+  }
+
   render() {
+    //in render map through categories, label is a category and value div is viewPantry with specified category from map 
+    //loop through ingredients  returning their cateogry and then passing that viewPantry
+    //this.state.categories.map((category, index) => {}
     return (
       <div>
-        <div>
-          <AddIngredModal
-           requestAdd={this.requestAdd}
-            loggedIn={this.state.loggedIn}
-            categories={this.state.categories}
-          />
-          <this.viewPantry/>
-        </div>
         <Tabs>
-          <div label="Drake"> 
+          <div label={this.state.categories[0]} >
             <div className = "tab-box">
-            shake and bake, <em>Drake</em>! 
-            </div>
-          </div>  
-          <div label="Gator"> 
-            <div className = "tab-box">
-            See ya later, <em>Alligator</em>! 
-            </div>
-          </div> 
-          <div label="Croc"> 
-            <div className = "tab-box">
-            After 'while, <em>Crocodile</em>! 
-            </div>
-          </div> 
-          <div label="Sarcosuchus"> 
-            <div className = "tab-box">
-            Nothing to see here, this tab is <em>extinct</em>! 
+              <AddIngredModal
+              requestAdd={this.requestAdd}
+              loggedIn={this.state.loggedIn}
+              categories={this.state.categories}
+              />
+              <this.viewPantry/>
             </div>
           </div> 
         </Tabs> 
