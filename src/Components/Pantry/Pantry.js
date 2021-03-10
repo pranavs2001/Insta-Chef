@@ -20,9 +20,7 @@ class Pantry extends React.Component {
     this.requestAdd = this.requestAdd.bind(this);
     this.removeItemFromPantry = this.removeItemFromPantry.bind(this);
     this.processMealIDs = this.processMealIDs.bind(this);
-    //modal functions
-    // this.handleExit = this.handleExit.bind(this);
-    // this.handleOpen = this.handleOpen.bind(this);
+
     this.updateCategories = this.updateCategories.bind(this);
     this.removeCategory = this.removeCategory.bind(this);
     this.updateCategoryName = this.updateCategoryName.bind(this);
