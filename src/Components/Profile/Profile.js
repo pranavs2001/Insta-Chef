@@ -111,19 +111,20 @@ class Profile extends React.Component {
 
   }
 
-
   NameForm(props) {
     return(
       <div>
         <p> Name: {props.user.displayName}</p>
-        <p>
-          Update name:
-        <input
+        <p> Update name: </p>
+        <form>
+          <input
+            type="text"
+            name="name"
             value={this.state.newName}
             placeholder={"Enter name"}
             onChange={(e) => { this.setState({ newName: e.target.value }); }}
           />
-        </p>
+        </form>
         <button onClick={this.updateUserName}>Update</button>
       </div>
     )
@@ -132,8 +133,9 @@ class Profile extends React.Component {
   ChangePasswordForm(props) {
     return(
       <div>
-        <p> New password:
-              <input
+        <p> New password: </p>
+        <form>
+          <input
             value={this.state.newPassword1}
             type="password"
             placeholder={"New Password"}
@@ -143,16 +145,19 @@ class Profile extends React.Component {
                 newPassword1: e.target.value,
               });
             }}
+            autoComplete="new-password"
           />
-        </p>
-        <p> Confirm password:
-              <input
+        </form>
+        <p> Confirm password: </p>
+        <form>
+          <input
             value={this.state.newPassword2}
             type="password"
             placeholder={"Confirm Password"}
             onChange={(e) => { this.setState({ newPassword2: e.target.value }); }}
+            autoComplete="new-password"
           />
-        </p>
+        </form>
         <button onClick={this.updatePassword}>Change Password</button>
       </div>
     )
@@ -160,14 +165,18 @@ class Profile extends React.Component {
 
   CurrentPasswordForm() {
     return(
-      <p> Current password:
-            <input
-          value={this.state.enteredPassword}
-          type="password"
-          placeholder={"Current Password"}
-          onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
-        />
-      </p>
+    <div>
+      <p> Current password: </p>
+       <form>
+          <input
+            value={this.state.enteredPassword}
+            type="password"
+            placeholder={"Current Password"}
+            onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
+            autoComplete="current-password"
+          />
+      </form>
+    </div>
     )
   }
 
@@ -184,12 +193,15 @@ class Profile extends React.Component {
           <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT????</h1>
           <button onClick={this.toggleDeleteModal}>Cancel</button>
           <p>Enter password to confirm</p>
-          <input
-            value={this.state.enteredPassword}
-            type="password"
-            placeholder={"Enter Password"}
-            onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
-          />
+          <form>
+            <input
+              value={this.state.enteredPassword}
+              type="password"
+              placeholder={"Enter Password"}
+              onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
+              autoComplete="current-password"
+            />
+          </form>
           <button onClick={this.deleteAccount}>
             Confirm Delete
           </button>

@@ -24,7 +24,6 @@ class PantryGrid extends React.Component {
   }
   
   componentDidMount() {
-  
   }
 
   componentDidUpdate(prevProps) {
@@ -57,7 +56,6 @@ class PantryGrid extends React.Component {
       })
   };
 
-  //issue is that PantryGrid's ingredient's list doesn't update, on Pantry's componentDidMount
   render () {
     // console.log('ingredients in render of PantryGrid are: ', this.state.ingredients);
     return(
