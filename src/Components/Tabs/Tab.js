@@ -35,11 +35,11 @@ class Tab extends Component {
       className += " tab-list-active";
     }
 
-    if(label == "+"){
+    if(label === "+" || label === "Other"){
       xVal = "hidden";
     }
 
-    if (label !== 'Other') {
+    // if (label !== 'Other') {
       return (
         <li className={className} onClick={onClick}>
           {label}
@@ -48,13 +48,13 @@ class Tab extends Component {
           </button>
         </li>
       );
-    } else {
-      return (
-        <li className={className} onClick={onClick}>
-          {label}
-        </li>
-      );
-    }
+    // } else {
+    //   return (
+    //     <li className={className} onClick={onClick}>
+    //       {label}
+    //     </li>
+    //   );
+    // }
   }
 }
 

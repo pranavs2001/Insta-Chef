@@ -249,7 +249,7 @@ class Pantry extends React.Component {
           {Object.keys(this.state.categories).map((key, index) => {
             if (categories[key] === "+") {
               return (
-                <div label="+" onClick={() => this.handleOpen()}>
+                <div label="+">
                   <div className="tab-box">
                     <input
                     // style={BarStyling}
