@@ -151,56 +151,52 @@ class Pantry extends React.Component {
     }
   }
 
-  removeCategory(key, loggedIn) { //key is categoryKey
-    if (loggedIn) {
-      let categoryRef = fire.database().ref(this.state.uid + '/categories/' + key.toString()); // retrieve category name
-      //console.log(categoryRef);
-      let categoryDel;
-      categoryRef.on('value', (snapshot) => {
-        categoryDel = snapshot.val();
-      });
+  removeCategory(key) { //key is categoryKey
+    let categoryRef = fire.database().ref(this.state.uid + '/categories/' + key.toString()); // retrieve category name
+    //console.log(categoryRef);
+    let categoryDel;
+    categoryRef.on('value', (snapshot) => {
+      categoryDel = snapshot.val();
+    });
 
-      if (categoryDel !== "Other") { //check that we are not deleting 'Other' category
-        let pantryRef = fire.database().ref(this.state.uid + '/pantryItems').orderByChild('items'); //get list of user's ingredients
-        
-        let items = {};
-        pantryRef.on('value', (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            //console.log(childSnapshot.val().category)
-            if (childSnapshot.val().category === categoryDel) {
-              console.log("HELLOOOOOOOOOOOOOOO")
-              //console.log(childSnapshot.key.category)
-              //console.log(childSnapshot.child("category").val());
-              childSnapshot.val().category = "Other";
-              console.log(childSnapshot.val().category)
+    if (categoryDel !== "Other") { //check that we are not deleting 'Other' category
+      let pantryRef = fire.database().ref(this.state.uid + '/pantryItems').orderByChild('items'); //get list of user's ingredients
 
-              let ref = fire.database().ref(this.state.uid + '/pantryItems/' + childSnapshot.key.toString());
-              ref.set({ 
-                category: "Other",
-                item: childSnapshot.val().item,
-                recipeIDs: childSnapshot.val().recipeIDs
-              })
-                .catch(err => { console.log('Error: ', err); });
-              //console.log(childSnapshot.key.category);
-            }
-            //console.log(childSnapshot.category)
-            items[childSnapshot.key] = childSnapshot.val()
-            console.log(items[childSnapshot.key])
-          });
+      let items = {};
+      pantryRef.on('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          //console.log(childSnapshot.val().category)
+          if (childSnapshot.val().category === categoryDel) {
+            console.log("HELLOOOOOOOOOOOOOOO")
+            //console.log(childSnapshot.key.category)
+            //console.log(childSnapshot.child("category").val());
+            childSnapshot.val().category = "Other";
+            console.log(childSnapshot.val().category)
 
-          this.setState({
-            items: items,
-          });
+            let ref = fire.database().ref(this.state.uid + '/pantryItems/' + childSnapshot.key.toString());
+            ref.set({
+              category: "Other",
+              item: childSnapshot.val().item,
+              recipeIDs: childSnapshot.val().recipeIDs
+            })
+              .catch(err => { console.log('Error: ', err); });
+            //console.log(childSnapshot.key.category);
+          }
+          //console.log(childSnapshot.category)
+          items[childSnapshot.key] = childSnapshot.val()
+          console.log(items[childSnapshot.key])
         });
 
-        categoryRef.remove();
+        this.setState({
+          items: items,
+        });
+      });
 
-        //before removing category, move (can you simply modify the associated category to Other) all ingredients in current category over to the Other category
-      } else {
-        alert(`Can't remove ${key.toString()} category.`)
-      }
+      categoryRef.remove();
+
+      //before removing category, move (can you simply modify the associated category to Other) all ingredients in current category over to the Other category
     } else {
-      alert(`Can't remove ${key} you need to login first`)
+      alert(`Can't remove ${key.toString()} category.`)
     }
   }
 
@@ -265,15 +261,15 @@ class Pantry extends React.Component {
   }
 
   //Modal functions
-  handleExit(e) {
-    console.log(e);
+  handleExit() {
+    //console.log(e);
     this.setState({
       visible: false,
     });
   }
 
-  handleOpen(e) {
-    console.log(e);
+  handleOpen() {
+    //console.log(e);
     console.log(this.state.visible);
     this.setState({
       visible: true,
@@ -294,8 +290,8 @@ class Pantry extends React.Component {
           <this.viewPantry />
         </div>
 
-        <button className="tab-box" onClick={() => this.removeCategory("-MVQIbQhWOaEFcC_m_n1", true)}> Remove Category</button>
-        <Tabs>
+        <button className="tab-box" onClick={() => this.removeCategory("-MVQIbQhWOaEFcC_m_n1")}> Remove Category</button>
+        <Tabs removeCategory={this.removeCategory}>
           <div label="Drake">
             <div className="tab-box">
               Shake and bake, <em>Drake</em>!
@@ -316,10 +312,9 @@ class Pantry extends React.Component {
               Nothing to see here, this tab is <em>extinct</em>!
             </div>
           </div>
-          <button label="+" onClick={this.handleOpen}>
+          <div label="+" onClick={() => this.handleOpen()}>
             <div className="tab-box">
               <button className="tab-box" onClick={this.handleOpen}>Add category</button>
-              
               <CategoryModal
                 handleOpen={this.handleOpen}
                 handleExit={this.handleExit}
@@ -327,11 +322,11 @@ class Pantry extends React.Component {
                 updateCategories={this.updateCategories}
               />
             </div>
-          </button>
+          </div>
         </Tabs>
       </div>
     );
   }
 }
-
+//<button className="tab-box" onClick={this.handleOpen}>Add category</button>
 export default Pantry;

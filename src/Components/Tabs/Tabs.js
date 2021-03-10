@@ -13,6 +13,7 @@ class Tabs extends React.Component {
 
     this.state = {
       activeTab: this.props.children[0].props.label,
+      removeCategory: this.props.removeCategory,
     };
   }
 
@@ -39,6 +40,7 @@ class Tabs extends React.Component {
                 key={label}
                 label={label}
                 onClick={onClickTabItem}
+                removeCategory={this.state.removeCategory}
               />
             );
           })}

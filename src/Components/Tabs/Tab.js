@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Pantry from "../Pantry/Pantry";
 
 class Tab extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      removeCategory: this.props.removeCategory,
+    };
+  }
+
   static propTypes = {
     activeTab: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -14,6 +23,7 @@ class Tab extends Component {
   };
 
   render() {
+    var xVal = "visible";
     const {
       onClick,
       props: { activeTab, label },
@@ -25,10 +35,15 @@ class Tab extends Component {
       className += " tab-list-active";
     }
 
+    if(label == "+"){
+      xVal = "hidden";
+    }
+
     return (
-      <li className={className} onClick={onClick}>
-        {label}
-      </li>
+        <li className={className} onClick={onClick}>
+          {label}
+          <button style={{visibility:xVal}} onClick={() => this.state.removeCategory(label)}>x</button>
+        </li>
     );
   }
 }
