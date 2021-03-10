@@ -329,4 +329,5 @@ class Pantry extends React.Component {
   }
 }
 //<button className="tab-box" onClick={this.handleOpen}>Add category</button>
+//<button className="tab-box" onClick={() => this.removeCategory("-MVQIbQhWOaEFcC_m_n1")}> Remove Category</button>
 export default Pantry;
