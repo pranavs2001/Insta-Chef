@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import Search from '../MealDB/search';
 import Profile from "../Profile/Profile";
 import FavoriteRecipes from "../FavoriteRecipes/FavoriteRecipes";
+import Navbar2 from "../Navbar/Navbar2";
 
 function LoginPage() {
 
@@ -99,7 +100,8 @@ function LoginPage() {
             
       <div className="App">
         <Router>
-        <Navbar loggedIn={fire.auth().currentUser} />
+        {/* <Navbar loggedIn={fire.auth().currentUser} /> */}
+        <Navbar2></Navbar2>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/Login" component={LoginPage} />

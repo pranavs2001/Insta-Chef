@@ -1,0 +1,65 @@
+/* :root {
+    --primary: #1888ff;
+  }
+  
+  .btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--primary);
+  }
+  
+  .btn:hover {
+    padding: 6px 18px;
+    transition: all 0.3s ease-out;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    border: 2px solid var(--primary);
+    transition: all 0.3s ease-out;
+  } */
+
+
+
+  .btn {
+    font-family: "Poppins", monospace;
+    background: #fa9483;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 1em;
+    padding: 5px 10px;
+    border: 0;
+    transition: all 0.5s;
+    border-radius: 7px;
+    width: auto;
+    height:auto;
+    position: relative;
+}
+ 
+.btn::after{
+    font-weight: 400;
+    position: absolute;
+    left: 85%;
+    top: 0%;
+    right: 5%;
+    bottom: 0;
+    opacity: 0;
+}
+ 
+.btn:hover{
+    background: rgba(45, 67, 87, 0.9);
+    transition: all 0.5s;
+    border-radius: 10px;
+    box-shadow: 0px 6px 15px rgba(98, 114, 129, 1);
+    padding: 1rem 1rem 1rem 1rem;
+}
+ 
+.btn:hover::after{
+    opacity: 1;
+    transition: all 0.5s;
+}
