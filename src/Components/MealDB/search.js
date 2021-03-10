@@ -9,7 +9,7 @@ class Search extends React.Component {
       loaded: false,
       keyword: '',
       recipes: {},
-      validRecipes: {},
+      validRecipes: [],
     };
     this.timeout =  0;
     // recipes is the total list of recipes as fetched on loading
@@ -64,8 +64,8 @@ class Search extends React.Component {
       // Select 10 random recipes to display
       let randomRecipes = 0;
       let randomRecipeIDs = [];
-      while (randomRecipes < 10 && randomRecipeIDs.length <= recipes.length) {
-        randomRecipeIDs.push(recipes.pop(Math.floor(Math.random()*recipes.length)));
+      while (randomRecipes < 10 && randomRecipeIDs.length < recipes.length) {
+        randomRecipeIDs.push(recipes.pop(Math.floor(Math.random() * recipes.length)));
         randomRecipes += 1;
       }
       this.setState({
