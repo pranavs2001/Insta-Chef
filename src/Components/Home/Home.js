@@ -15,7 +15,7 @@ const Home = () => (
       <p> Jonathan Carlson: enjoys long walks on the beach<br /></p>
       <h2>Contact Us!</h2>
       <h>Management:<br /></h>
-      <img src={image}></img>
+      <img src={image} width={"300px"} height={"200px"} alt={"Profile Photo of Paul Eggert"}></img>
       <p>Paul Eggert:</p>
       <p>(310) 267-2254</p>
       <p>eggert@cs.ucla.edu</p>
