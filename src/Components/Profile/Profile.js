@@ -1,6 +1,12 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
+<<<<<<< HEAD
+=======
+import './profile.css'
+import { faUser, faSearch, faWindowClose, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
 import { Form } from 'react-bootstrap'
 
 class Profile extends React.Component {
@@ -19,7 +25,11 @@ class Profile extends React.Component {
     this.updatePassword = this.updatePassword.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
+<<<<<<< HEAD
     this.NameForm = this.NameForm.bind(this);
+=======
+    this.currentInfo = this.currentInfo.bind(this);
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
     this.ChangePasswordForm = this.ChangePasswordForm.bind(this);
     this.DeleteAccountForm = this.DeleteAccountForm.bind(this);
     this.CurrentPasswordForm = this.CurrentPasswordForm.bind(this);
@@ -108,6 +118,7 @@ class Profile extends React.Component {
 
   }
 
+<<<<<<< HEAD
   NameForm(props) {
     return(
       <div>
@@ -123,10 +134,38 @@ class Profile extends React.Component {
           />
         </form>
         <button onClick={this.updateUserName}>Update</button>
+=======
+  currentInfo(props) {
+    return(
+      <div>
+      <div /*className = "current_Info"*/>
+        <h3>Current Info:</h3>
+        <p1> Name: {props.user.displayName}</p1>
+        <div>
+            Email: {props.user.email}
+        </div>
+      </div>
+          <h3> Update name: </h3>
+          <body>
+            <div className="input-container">
+              <icon className= "icon"> {<FontAwesomeIcon icon={faUser} />} </icon>
+                <input
+                  className="input-field"
+                  type="text"
+                  name="name"
+                  value={this.state.newName}
+                  placeholder={"Enter name"}
+                  onChange={(e) => { this.setState({ newName: e.target.value }); }}
+                />
+            </div>
+          </body>
+          <button onClick={this.updateUserName}>Change Username</button>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
       </div>
     )
   }
 
+<<<<<<< HEAD
   ChangePasswordForm(props) {
     return(
       <div>
@@ -154,6 +193,42 @@ class Profile extends React.Component {
             onChange={(e) => { this.setState({ newPassword2: e.target.value }); }}
             autoComplete="new-password"
           />
+=======
+
+  ChangePasswordForm(props) {
+    return(
+      <div>
+        <form>
+          <div className="input-container">
+            <icon className= "icon"> {<FontAwesomeIcon icon={faKey} />} </icon>
+            <input
+              className = "input-field"
+              value={this.state.newPassword1}
+              type="password"
+              placeholder={"New Password"}
+              onChange={(e) => {
+                this.setState({
+                  updatedProfile: false,
+                  newPassword1: e.target.value,
+                });
+              }}
+              autoComplete="new-password"
+            />
+          </div>
+        </form>
+        <form>
+          <div className="input-container">
+            <icon className= "icon"> {<FontAwesomeIcon icon={faKey} />} </icon>
+            <input
+              className = "input-field"
+              value={this.state.newPassword2}
+              type="password"
+              placeholder={"Confirm Password"}
+              onChange={(e) => { this.setState({ newPassword2: e.target.value }); }}
+              autoComplete="new-password"
+            />
+          </div>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
         </form>
         <button onClick={this.updatePassword}>Change Password</button>
       </div>
@@ -163,15 +238,27 @@ class Profile extends React.Component {
   CurrentPasswordForm() {
     return(
     <div>
+<<<<<<< HEAD
       <p> Current password: </p>
        <form>
           <input
+=======
+      <form>
+       <div className="input-container">
+            <icon className= "icon"> {<FontAwesomeIcon icon={faKey} />} </icon>
+          <input
+            className = "input-field"
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
             value={this.state.enteredPassword}
             type="password"
             placeholder={"Current Password"}
             onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
             autoComplete="current-password"
           />
+<<<<<<< HEAD
+=======
+        </div>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
       </form>
     </div>
     )
@@ -180,6 +267,10 @@ class Profile extends React.Component {
   DeleteAccountForm() {
     return(
       <div>
+<<<<<<< HEAD
+=======
+        <h3>Delete Acount:</h3>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
         <button onClick={this.toggleDeleteModal}>DELETE ACCOUNT</button>
         <Modal
               isOpen={this.state.requestDelete}
@@ -187,6 +278,7 @@ class Profile extends React.Component {
               // onRequestClose={closeModal}
               contentLabel="Request delete account"
           >
+<<<<<<< HEAD
           <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT????</h1>
           <button onClick={this.toggleDeleteModal}>Cancel</button>
           <p>Enter password to confirm</p>
@@ -198,6 +290,23 @@ class Profile extends React.Component {
               onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
               autoComplete="current-password"
             />
+=======
+          <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT?</h1>
+          <button onClick={this.toggleDeleteModal}>Cancel</button>
+          <h1>Enter password to confirm:</h1>
+          <form>
+            <div className="input-container">
+              <icon className= "icon"> {<FontAwesomeIcon icon={faKey} />} </icon>
+              <input
+                className = "input-field"
+                value={this.state.enteredPassword}
+                type="password"
+                placeholder={"Enter Password"}
+                onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
+                autoComplete="current-password"
+              />
+            </div>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
           </form>
           <button onClick={this.deleteAccount}>
             Confirm Delete
@@ -210,6 +319,7 @@ class Profile extends React.Component {
   render() {
     const user = fire.auth().currentUser;
     return (
+<<<<<<< HEAD
       <div>
         <h1>Account Info</h1>
         <hr/>
@@ -224,6 +334,21 @@ class Profile extends React.Component {
         <this.CurrentPasswordForm/>
         <this.ChangePasswordForm/>
         <this.DeleteAccountForm/>
+=======
+      <div className="main-profile-box">
+        <div>
+          <h1>Account Info</h1>
+          <hr/>
+          <p style={{color: 'red'}}>
+            {this.state.actionMsg !== '' ? this.state.actionMsg : null}
+          </p>
+          <this.currentInfo user={user}/>
+          <h3>Change Password:</h3>
+          <this.CurrentPasswordForm/>
+          <this.ChangePasswordForm/>
+          <this.DeleteAccountForm/>
+        </div>
+>>>>>>> b567e5044c88203ad2830b3750ed83f3438b887f
       </div>
     );
   }
