@@ -60,13 +60,12 @@ class PantryGrid extends React.Component {
     // console.log('ingredients in render of PantryGrid are: ', this.state.ingredients);
     return(
       <div key={this.state.ingredients} >
-        <div style={{ marginTop: "30px" }} >
+        <div className="GridContainer">
           <Grid container spacing={1}>
             {Object.keys(this.state.ingredients).map((key, id) => (
               <Grid key={key} item xs={3}>
-                <div>
-                  {/*className={classes.button}*/}
-                  <button onClick={() => this.getRecipeIDs(key)}> 
+                <div className="GridElement">
+                  <button className="SearchButton" onClick={() => this.getRecipeIDs(key)}>
                     Search {<FontAwesomeIcon icon={faSearch} />}
                   </button>
                   <SearchInPantryModal
@@ -78,11 +77,10 @@ class PantryGrid extends React.Component {
                     uid={this.state.uid}
                     recipeIDs={this.state.recipeIDs}
                   />
-                  {/* className={classes.button} */}
-                  <button onClick={() => this.state.removeItemFromPantry(key, this.state.loggedIn, this.state.uid)}>
+                  <span className="IngredientItem"> {this.state.ingredients[key].item} </span>
+                  <button className="RemoveButton" onClick={() => this.state.removeItemFromPantry(key, this.state.loggedIn, this.state.uid)}>
                     Remove {<FontAwesomeIcon icon={faWindowClose} />}
                   </button>
-                  <li style={{marginBottom: "10px"}} key={key}>{this.state.ingredients[key].item}</li>
                 </div>
               </Grid>
             ))}
