@@ -83,7 +83,7 @@ if __name__ == "__main__":
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://insta-chef-ba8dc-default-rtdb.firebaseio.com/'
     })
-    ref = db.reference('/recipes_test')
+    ref = db.reference('/recipes')
     recipes = ref.set(meals)
 
     print("Firebase successfully updated")
