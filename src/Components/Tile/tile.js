@@ -12,7 +12,6 @@ class Tile extends React.Component {
       loaded: false,
       recipeOpen: false,
       loggedIn: false,
-      uid: '',
       favoriteRecipe: false,
       recipeKey: null,
     };
@@ -53,7 +52,6 @@ class Tile extends React.Component {
         });
         this.setState({
           loggedIn: true,
-          uid: uid,
         })
       }
   }
@@ -106,22 +104,18 @@ class Tile extends React.Component {
   }
 
   toggleFavorite() {
+    console.log(this.state);
     if (this.state.loggedIn) {
-      // Toggle the state variable
-      this.setState({
-        favoriteRecipe: !this.state.favoriteRecipe,
-      });
       // If this recipe is already a favorite, remove it from firebase
-      const uid = this.state.uid;
+      const uid = fire.auth().currentUser.uid;
       if (this.state.favoriteRecipe) {
         // console.log("Removed from favorites");
         const recipeKey = this.state.recipeKey.toString();
         // console.log(recipeKey);
-        let ref = fire.database().ref(this.state.uid + '/favorites/' + recipeKey);
+        let ref = fire.database().ref(uid + '/favorites/' + recipeKey);
         ref.set({item: null})
             .catch(err => {console.log('Error: ', err);});
-        // Notify the parent of a removed favorite
-        this.props.callback();
+        this.setState({recipeKey: ''})
       } else {
         // add the recipe to Firebase
         let itemRef = fire.database().ref(uid + '/favorites');
@@ -131,10 +125,16 @@ class Tile extends React.Component {
           'name': this.state.recipe['name'],
         });
         this.setState({
-          recipeKey: newItemRef,
+          recipeKey: newItemRef.key,
         });
         // console.log("Removed from favorites");
       }
+      // Notify the parent of an update to the list of favorites
+      this.props.callback();
+      // Toggle the state variable
+      this.setState({
+        favoriteRecipe: !this.state.favoriteRecipe,
+      });
     }
   }
 
