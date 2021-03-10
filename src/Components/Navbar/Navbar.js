@@ -30,6 +30,9 @@ const Navbar = () => {
           <NavLink to='/Pantry'>
             Pantry
           </NavLink>
+          <NavLink to='/Favorites'>
+            Favorites
+          </NavLink>
           <NavLink to='/Profile'>
             Profile
           </NavLink>

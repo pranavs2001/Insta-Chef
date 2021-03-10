@@ -9,6 +9,7 @@ import Navbar from '../Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import Search from '../MealDB/search';
 import Profile from "../Profile/Profile";
+import FavoriteRecipes from "../FavoriteRecipes/FavoriteRecipes";
 
 function LoginPage() {
 
@@ -104,6 +105,7 @@ function LoginPage() {
             <Route path="/Login" component={LoginPage} />
             <Route path="/Search" component={Search} />
             <Route path="/Pantry" component={Pantry} />
+            <Route path="/Favorites" component={FavoriteRecipes} />
             <Route path="/Profile" component={Profile} />
           </Switch>
         </Router>
