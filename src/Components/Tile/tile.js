@@ -104,7 +104,7 @@ class Tile extends React.Component {
   }
 
   toggleFavorite() {
-    console.log(this.state);
+    // console.log(this.state);
     if (this.state.loggedIn) {
       // If this recipe is already a favorite, remove it from firebase
       const uid = fire.auth().currentUser.uid;
