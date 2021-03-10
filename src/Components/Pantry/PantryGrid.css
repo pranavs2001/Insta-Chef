@@ -16,3 +16,8 @@ button {
     background: #fff;
     cursor: pointer;
 }
+
+.ingredient-tile {
+    border: 2px solid #999;
+    background: #fa9483;
+}

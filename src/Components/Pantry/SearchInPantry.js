@@ -4,21 +4,30 @@ import Grid from '@material-ui/core/Grid';
 function SearchInPantry(props) {
   // console.log('props.recipeIDs in SearchInPantry are: ', props.recipeIDs);
   // now that we have associated recipe id's, show them in a grid
-  let lists =  props.recipeIDs.map((id, index) => {
-    return(
-      <div key={id}>
+  if (props.recipeIDs !== undefined) {
+    let lists = props.recipeIDs.map((id, index) => {
+      return (
+        <div key={id}>
           <Grid item xs={3}>
-            <Tile recipeid={id} />
+            <Tile recipeid={id}/>
           </Grid>
-      </div> 
-  )})
-  return (
-    <div>
-      <Grid container>
-        {lists}
-      </Grid>
-    </div>
-  )
+        </div>
+      )
+    });
+    return (
+      <div>
+        <Grid container>
+          {lists}
+        </Grid>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <p>No matching recipes</p>
+      </div>
+    )
+  }
 }
 
 export default SearchInPantry;

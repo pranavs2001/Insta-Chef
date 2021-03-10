@@ -5,39 +5,25 @@ import AddIngredModal from './AddIngredModal'
 import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
-import categorizeIngred from './CategorizeIngred'
 
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {},
+      items: {'Other': {}},
       categories: ['Other'],
       uid: '',
       loggedIn: false,
-      pantryItemsPerCategory: {},
     };
-    this.viewPantry = this.viewPantry.bind(this);
     this.requestAdd = this.requestAdd.bind(this);
+    this.removeItemFromPantry = this.removeItemFromPantry.bind(this);
     this.processMealIDs = this.processMealIDs.bind(this);
   }
 
   componentDidMount() {
-    //get latest pantry items
     //if user is logged in
     if (fire.auth().currentUser) {
       let uid = fire.auth().currentUser.uid;
-      // Automatically create "other" category if it doesn't exist
-      let pantryRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
-      pantryRef.on('value', (snapshot) => {
-        let items = {};
-        snapshot.forEach((childSnapshot) => {
-          items[childSnapshot.key] = childSnapshot.val()
-        })
-        this.setState({
-          items: items,
-        })
-      });
       // Get ingredient categories
       let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
       // console.log(categoryRef);
@@ -53,12 +39,24 @@ class Pantry extends React.Component {
         if (index !== -1) {
           categories.splice(index, 1);
         }
+        // Automatically create "other" category if it doesn't exist
         categories.push("Other");
+        categories.push("Dairy");
         this.setState({
           categories: categories,
           uid: uid,
           loggedIn: true,
         });
+      });
+      //get latest pantry items
+      let pantryRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
+      pantryRef.on('value', (snapshot) => {
+        let items = {};
+        snapshot.forEach((childSnapshot) => {
+          items[childSnapshot.key] = childSnapshot.val()
+        });
+        // console.log(items);
+        this.sortIngredients(items);
       });
     }
   }
@@ -67,7 +65,7 @@ class Pantry extends React.Component {
    * addItemToPantry: add an item to the user's pantry, if the item is already present alert the user
    * @param {string} ingredient to be added to the user's pantry
    * @param {string} category to which this ingredient belongs
-   * @param {string} recipeIDs of recipes in which this ingredient is used
+   * @param {[string]} recipeIDs of recipes in which this ingredient is used
    */
   addItemToPantry(ingredient, category, recipeIDs) {
     // console.log('ingredient in addItemToPantry is: ', ingredient);
@@ -78,7 +76,7 @@ class Pantry extends React.Component {
       itemsInFire.on('value', (snapshot) => {
         // loop through firebase
         snapshot.forEach((childSnapshot) => {
-            if (childSnapshot.val().item.toString().localeCompare(ingredient) == 0) {
+            if (childSnapshot.val().item.toString() === ingredient) {
                 itemAlreadyInPantry = true;
             }
         })
@@ -87,6 +85,13 @@ class Pantry extends React.Component {
         alert(`${ingredient} is already in your pantry`);
         return;
       }
+
+      const newItem = {
+        item: ingredient,
+        category: category,
+        recipeIDs: recipeIDs,
+      };
+
       // add the item to Firebase
       let newItemRef = itemRef.push();
       newItemRef.set({
@@ -95,71 +100,60 @@ class Pantry extends React.Component {
         recipeIDs: recipeIDs,
       });
 
-      // add the item to Pantry's state
-      let key = newItemRef.key;
-      let items = this.state.items;
-      items[key] = {
-        item: ingredient,
-        category: category,
-        recipeIDs: recipeIDs,
-      };
-      // console.log('items are: ', items);
-      this.setState({
-        items: items,
-      });
-
       // See if category needs to be added to pantry
       this.updateCategories(category);
+      // console.log('items are: ', items);
+      this.sortIngredients({newItem});
+
+
     }
   }
 
   updateCategories(category) {
     // Search database to see if category exists
-    console.log("categories are ", this.state.categories);
-    let categoryRef = fire.database().ref(this.state.uid + '/categories/');
-    let categoriesInFire = categoryRef.orderByChild('items');
+    // let categoryRef = fire.database().ref(this.state.uid + '/categories/');
+    // let categoriesInFire = categoryRef.orderByChild('items');
+    let currentCategories = this.state.categories;
     let categoryPresent = false;
-    categoriesInFire.on('value', (snapshot) => {
-      let vals = [];
-      snapshot.forEach((childSnapshot) => {
-        vals.push(childSnapshot.val());
-
-        if (childSnapshot.val().toString().localeCompare(category) === 0) {
-          console.log("childSnapshot already present");
-          categoryPresent = true;
-        }
-
-      });
-      vals.forEach(elem => {
-        if (elem.toString() === category) {
-          console.log("category alr present")
-          categoryPresent = true;
-          // console.log("Category already present")
-        }
-      });
+    Object.keys(currentCategories).map((key, index) => {
+      if (currentCategories[key] === category) {
+        categoryPresent = true;
+      }
     });
     // Do nothing if category is already present
-    if (!categoryPresent) {
+    // console.log("Category already present: ", categoryPresent);
+    if (categoryPresent !== true) {
       // Add category to firebase
+      let categoryRef = fire.database().ref(this.state.uid + '/categories/');
       let newItemRef = categoryRef.push();
       newItemRef.set(category);
 
       // Update local list of categories
       let categories = this.state.categories;
       categories.push(category);
+      let items = this.state.items;
+      items[category] = {};
       this.setState({
         categories: categories,
+        items: items,
       })
     }
   }
 
 
-  removeItemFromPantry(key, loggedIn, uid) {
-    if(loggedIn) {
+  removeItemFromPantry(key, category) {
+    // console.log("Removing ", key);
+    if(this.state.loggedIn) {
+        const uid = fire.auth().currentUser.uid;
         let ref = fire.database().ref(uid + '/pantryItems/' + key.toString());
         ref.set({item: null})
             // .then( () => {console.log(`${key} removed from pantry`);})
             .catch(err => {console.log('Error: ', err);});
+        const items = this.state.items;
+        delete items[category][key];
+        this.setState({
+          items: items,
+        });
     } else {
       alert(`Can't remove ${key} you need to login first`)
     }
@@ -175,7 +169,7 @@ class Pantry extends React.Component {
     // Fetch the list of valid ingredients
     // console.log("Adding " + ingredient.toString() + " to pantry in category " + category.toString());
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?'
-    const params = {'i': ingredient}
+    const params = {'i': ingredient};
     fetch(url + new URLSearchParams(params))
       .then(CheckError)
       .then(result => {
@@ -198,55 +192,54 @@ class Pantry extends React.Component {
     return (ids);
   }
 
-  sortIngredients(){
-    const items = this.state.items;
-    const categories = this.state.categories;
-    let pantryItemsPerCategory = this.state.pantryItemsPerCategory;
-    for(const index in items)
-    {
-      pantryItemsPerCategory[categorizeIngred(items[index])].append(items[index])
-    }
-  }
-
-  viewPantry(category) {
-    if (this.state.loggedIn) {
-      // console.log('items in viewPantry are: ', this.state.items);
-      this.sortIngredients();
-      return (
-        <PantryGrid
-          ingredients={this.state.pantryItemsPerCategory[category]}
-          removeItemFromPantry={this.removeItemFromPantry}
-          loggedIn={this.state.loggedIn}
-          uid={this.state.uid}
-        />
-      )
-    } else {
-      return null;
-    }
-  }
-
-  sortByCategory() {
-
+  sortIngredients(items){
+    // const categories = this.state.categories;
+    let currentItems = this.state.items;
+    Object.keys(items).map((key, index) => {
+      const category = items[key]['category'];
+      // console.log(category, key, currentItems[category][key], index);
+      // For some reason, there is always an extra entry named 'newitem'
+      if (key !== 'newItem' && currentItems[category][key] === undefined) {
+        currentItems[category][key] = {
+          name: items[key]['item'],
+          recipeIDs: items[key]['recipeIDs'],
+        };
+      }
+    });
+    // console.log(currentItems);
+    this.setState({
+      items: currentItems,
+    });
   }
 
   render() {
     //in render map through categories, label is a category and value div is viewPantry with specified category from map 
     //loop through ingredients  returning their cateogry and then passing that viewPantry
     //this.state.categories.map((category, index) => {}
+    // console.log(this.state.categories);
     return (
       <div>
         <Tabs>
-          <div label={this.state.categories[0]} >
-            <div className = "tab-box">
-              <AddIngredModal
-              requestAdd={this.requestAdd}
-              loggedIn={this.state.loggedIn}
-              categories={this.state.categories}
-              />
-              <this.viewPantry/>
-            </div>
-          </div>
+          {Object.keys(this.state.categories).map((key, index) => {
+            // const category = this.state.categories[key];
+            return (
+              <div label={this.state.categories[key]}>
+                <div className="tab-box">
+                  <PantryGrid
+                    ingredients={this.state.items[this.state.categories[key]]}
+                    category={this.state.categories[key]}
+                    removeItemFromPantry={this.removeItemFromPantry}
+                  />
+                </div>
+              </div>
+            )
+          })}
         </Tabs>
+        <AddIngredModal
+          requestAdd={this.requestAdd}
+          loggedIn={this.state.loggedIn}
+          categories={this.state.categories}
+        />
       </div>
     );
   }
