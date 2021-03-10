@@ -26,15 +26,22 @@ code {
   padding: 5%;
 }
 
-.box-pantry{
+.box-home{
   background-color: rgb(68, 157, 173);
   padding: 10%;
+  height: 75vh;
 }
 
-.box-pantry h2{
+.box-home h2{
   color: darksalmon;
   font-size: 300%;
   letter-spacing: .25em;
+  text-align: center;
+}
+
+.box-home h{
+  color: darksalmon;
+  font-size: 200%;
   text-align: center;
 }
 

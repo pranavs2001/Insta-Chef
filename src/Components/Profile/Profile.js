@@ -2,6 +2,8 @@ import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
 import './profile.css'
+import { faSearch, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form } from 'react-bootstrap'
 
 class Profile extends React.Component {
@@ -199,22 +201,22 @@ class Profile extends React.Component {
   render() {
     const user = fire.auth().currentUser;
     return (
-      <div className = "main-profile-box">
-      <div>
-        <h1>Account Info</h1>
-        <hr/>
-        <p style={{color: 'red'}}>
-          {this.state.actionMsg !== '' ? this.state.actionMsg : null}
-        </p>
-        <this.NameForm user={user}/>
+      <div className="main-profile-box">
         <div>
-          Email: {user.email}
+          <h1>Account Info</h1>
+          <hr/>
+          <p style={{color: 'red'}}>
+            {this.state.actionMsg !== '' ? this.state.actionMsg : null}
+          </p>
+          <this.NameForm user={user}/>
+          <div>
+            Email: {user.email}
+          </div>
+          <h2>Change Password</h2>
+          <this.CurrentPasswordForm/>
+          <this.ChangePasswordForm/>
+          <this.DeleteAccountForm/>
         </div>
-        <h2>Change Password</h2>
-        <this.CurrentPasswordForm/>
-        <this.ChangePasswordForm/>
-        <this.DeleteAccountForm/>
-      </div>
       </div>
     );
   }
