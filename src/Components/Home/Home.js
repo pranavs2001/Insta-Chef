@@ -1,10 +1,10 @@
 const Home = () => (
   <div>
-    <div class="box-1">
+    <div className="box-1">
       <h1>INSTA CHEF</h1>
     </div>
 
-    <div class="box-pantry">
+    <div className="box-pantry">
       <h2>About Our Staff:</h2>
       <p> Drake Cote: hates coffee but was a barista<br /></p>
       <p> Solaine Zhao: frolocks through meadows in nature<br /></p>
