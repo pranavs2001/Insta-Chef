@@ -1,6 +1,7 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
+import { Form } from 'react-bootstrap'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Profile extends React.Component {
     this.updatePassword = this.updatePassword.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
+    this.NameForm = this.NameForm.bind(this);
   }
 
   updateUserName() {
@@ -104,6 +106,23 @@ class Profile extends React.Component {
   }
 
 
+  NameForm(props) {
+    return(
+      <div>
+        <p> Name: {props.user.displayName}</p>
+        <p>
+          Update name:
+        <input
+            value={this.state.newName}
+            placeholder={"Enter name"}
+            onChange={(e) => { this.setState({ newName: e.target.value }); }}
+          />
+        </p>
+        <button onClick={this.updateUserName}>Update</button>
+      </div>
+    )
+  }
+
   render() {
     const user = fire.auth().currentUser;
     return (
@@ -113,18 +132,7 @@ class Profile extends React.Component {
         <p style={{color: 'red'}}>
           {this.state.actionMsg !== '' ? this.state.actionMsg : null}
         </p>
-        <div>
-          <p> Name: {user.displayName}</p>
-          <p>
-            Update name:
-            <input
-             value={this.state.newName}
-             placeholder={"Enter name"}
-             onChange={(e) => {this.setState({newName: e.target.value});}}
-            />
-          </p>
-          <button onClick={this.updateUserName}>Update</button>
-        </div>
+        <this.NameForm user={user}/>
         <div>
           Email: {user.email}
         </div>
