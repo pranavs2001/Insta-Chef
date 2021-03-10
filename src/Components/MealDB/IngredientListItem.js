@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import Dropdown from 'react-dropdown'
 import './ingredientSearch.css'
 
@@ -13,6 +13,10 @@ class IngredientListItem extends React.Component {
   }
 
   render() {
+
+
+
+
     const ingredientName = this.props.item['name'];
     const options = this.props.categories;
     return (
@@ -28,6 +32,9 @@ class IngredientListItem extends React.Component {
         <td>
           {/*TODO: format dropdown*/}
           <Dropdown
+            className='select'
+            menuClassName='option'
+            placeholderClassName='choice'
             options={options}
             value={this.state.category}
             onChange={(selectedOption) => {
