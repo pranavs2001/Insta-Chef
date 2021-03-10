@@ -1,7 +1,7 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
-import './profile.css'
+// import './profile.css'
 import { faUser, faSearch, faWindowClose, faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form } from 'react-bootstrap'
