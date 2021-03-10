@@ -6,7 +6,7 @@ import CheckError from "../MealDB/checkerror";
 import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid';
 import Modal from 'react-modal';
-import CategoryModal from'./CategoryModal';
+import CategoryModal from './CategoryModal';
 
 class Pantry extends React.Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class Pantry extends React.Component {
     this.handleExit = this.handleExit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.updateCategories = this.updateCategories.bind(this);
+    this.removeCategory = this.removeCategory.bind(this);
   }
 
   componentDidMount() {
@@ -150,6 +151,58 @@ class Pantry extends React.Component {
     }
   }
 
+  removeCategory(key, loggedIn) { //key is categoryKey
+    if (loggedIn) {
+      let categoryRef = fire.database().ref(this.state.uid + '/categories/' + key.toString()); // retrieve category name
+      //console.log(categoryRef);
+      let categoryDel;
+      categoryRef.on('value', (snapshot) => {
+        categoryDel = snapshot.val();
+      });
+
+      if (categoryDel !== "Other") { //check that we are not deleting 'Other' category
+        let pantryRef = fire.database().ref(this.state.uid + '/pantryItems').orderByChild('items'); //get list of user's ingredients
+        
+        let items = {};
+        pantryRef.on('value', (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            //console.log(childSnapshot.val().category)
+            if (childSnapshot.val().category === categoryDel) {
+              console.log("HELLOOOOOOOOOOOOOOO")
+              //console.log(childSnapshot.key.category)
+              //console.log(childSnapshot.child("category").val());
+              childSnapshot.val().category = "Other";
+              console.log(childSnapshot.val().category)
+
+              let ref = fire.database().ref(this.state.uid + '/pantryItems/' + childSnapshot.key.toString());
+              ref.set({ 
+                category: "Other",
+                item: childSnapshot.val().item,
+                recipeIDs: childSnapshot.val().recipeIDs
+              })
+                .catch(err => { console.log('Error: ', err); });
+              //console.log(childSnapshot.key.category);
+            }
+            //console.log(childSnapshot.category)
+            items[childSnapshot.key] = childSnapshot.val()
+            console.log(items[childSnapshot.key])
+          });
+
+          this.setState({
+            items: items,
+          });
+        });
+
+        categoryRef.remove();
+
+        //before removing category, move (can you simply modify the associated category to Other) all ingredients in current category over to the Other category
+      } else {
+        alert(`Can't remove ${key.toString()} category.`)
+      }
+    } else {
+      alert(`Can't remove ${key} you need to login first`)
+    }
+  }
 
   removeItemFromPantry(key, loggedIn, uid) {
     if (loggedIn) {
@@ -240,6 +293,8 @@ class Pantry extends React.Component {
           />
           <this.viewPantry />
         </div>
+
+        <button className="tab-box" onClick={() => this.removeCategory("-MVQIbQhWOaEFcC_m_n1", true)}> Remove Category</button>
         <Tabs>
           <div label="Drake">
             <div className="tab-box">
@@ -261,17 +316,18 @@ class Pantry extends React.Component {
               Nothing to see here, this tab is <em>extinct</em>!
             </div>
           </div>
-          <div label="+">
+          <button label="+" onClick={this.handleOpen}>
             <div className="tab-box">
               <button className="tab-box" onClick={this.handleOpen}>Add category</button>
-              <CategoryModal 
-              handleOpen={this.handleOpen}
-              handleExit={this.handleExit}
-              visible={this.state.visible}
-              updateCategories={this.updateCategories}
+              
+              <CategoryModal
+                handleOpen={this.handleOpen}
+                handleExit={this.handleExit}
+                visible={this.state.visible}
+                updateCategories={this.updateCategories}
               />
             </div>
-          </div>
+          </button>
         </Tabs>
       </div>
     );
