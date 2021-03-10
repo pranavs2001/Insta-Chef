@@ -1,6 +1,7 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
+import './profile.css'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -107,6 +108,7 @@ class Profile extends React.Component {
   render() {
     const user = fire.auth().currentUser;
     return (
+      <div className = "main-profile-box">
       <div>
         <h1>Account Info</h1>
         <hr/>
@@ -183,6 +185,7 @@ class Profile extends React.Component {
             </button>
           </Modal>
         </div>
+      </div>
       </div>
     );
   }
