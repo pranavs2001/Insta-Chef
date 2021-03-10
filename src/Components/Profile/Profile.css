@@ -1,0 +1,46 @@
+.main-profile-box{
+    background-color: rgb(202, 230, 240);
+    height: 100vh;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+* {box-sizing: border-box;}
+
+/* Style the input container */
+.input-container {
+  display: block;
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+/* Style the form icons */
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Style the input fields */
+.input-field {
+  width: 50%;
+  height: 43px;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 4px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+
+
+.current_Info{
+    border: 5px outset black;
+    width: 50%;
+    margin: auto;
+}

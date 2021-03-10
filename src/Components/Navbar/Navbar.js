@@ -24,13 +24,16 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to='/Search' activeStyle>
+          <NavLink to='/Search'>
             Search
           </NavLink>
-          <NavLink to='/Pantry' activeStyle>
+          <NavLink to='/Pantry'>
             Pantry
           </NavLink>
-          <NavLink to='/Profile' activeStyle>
+          <NavLink to='/Favorites'>
+            Favorites
+          </NavLink>
+          <NavLink to='/Profile'>
             Profile
           </NavLink>
         </NavMenu>

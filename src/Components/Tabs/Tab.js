@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Pantry from "../Pantry/Pantry";
+import './Tab.css'
 
 class Tab extends Component {
 

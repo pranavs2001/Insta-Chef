@@ -1,6 +1,9 @@
 import React from 'react';
 import fire from "../SignIn/fire"
 import RecipeGrid from '../Tile/RecipeGrid'
+import './search.css'
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Search extends React.Component {
   constructor(props) {
@@ -11,21 +14,10 @@ class Search extends React.Component {
       recipes: {},
       validRecipes: [],
     };
-    this.timeout =  0;
     // recipes is the total list of recipes as fetched on loading
     // recipes is a dictionary mapping a recipe id to a recipe name
     // validrecipes is a list of recipes that match the keyword
     this.callback = this.callback.bind(this)
-  }
-
-  doSearch(evt){
-    var modSearchText = evt.target.value + "  "; // this is the search text
-    var searchText = evt.target.value;
-    if(this.timeout) clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      this.updateSearch(modSearchText);
-      this.updateSearch(searchText);
-    }, 1);
   }
 
   componentDidMount() {
@@ -64,7 +56,7 @@ class Search extends React.Component {
       // Select 10 random recipes to display
       let randomRecipes = 0;
       let randomRecipeIDs = [];
-      while (randomRecipes < 10 && randomRecipeIDs.length < recipes.length) {
+      while (randomRecipes < 12 && randomRecipeIDs.length < recipes.length) {
         randomRecipeIDs.push(recipes.pop(Math.floor(Math.random() * recipes.length)));
         randomRecipes += 1;
       }
@@ -97,7 +89,8 @@ class Search extends React.Component {
         validRecipes: matches,
       });
     } else {
-      this.getRandomRecipes()
+      this.setState({keyword: ''});
+      this.getRandomRecipes();
     }
   }
 
@@ -110,15 +103,14 @@ class Search extends React.Component {
     const keyword = this.state.keyword;
     // console.log('matching recipies is: ', matchingrecipes);
     // parameters for search bar
-    const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh"}}>
+        <FontAwesomeIcon icon={faSearch} style={{paddingRight: "5px"}} size= "lg"/>
         <input
-         style={BarStyling}
          key="recipeSearch"
          value={keyword}
          placeholder={"Search for a recipe"}
-         onChange={(e) => this.doSearch(e)}
+         onChange={(e) => this.updateSearch(e.target.value)}
         />
         <RecipeGrid recipes={this.state.validRecipes} callback={this.callback}/>
       </div>
