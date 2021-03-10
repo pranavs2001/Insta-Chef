@@ -102,7 +102,7 @@ class Search extends React.Component {
     // parameters for search bar
     const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(202, 230, 240)"}}>
         <input
          style={BarStyling}
          key="recipeSearch"
