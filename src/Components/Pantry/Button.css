@@ -11,10 +11,6 @@
     border-radius: 10px;
     width: auto;
     position: relative;
- 
- 
- 
- 
 }
  
 .btn-1::after{
@@ -35,12 +31,9 @@
     border-radius: 10px;
     box-shadow: 0px 6px 15px rgba(98, 114, 129, 1);
     padding: 1.3rem 3.3rem 1.3rem 1.3rem;
-  
- 
 }
  
 .btn-1:hover::after{
     opacity: 1;
     transition: all 0.5s;
- 
 }

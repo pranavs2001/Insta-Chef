@@ -10,7 +10,6 @@ class Tabs extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       activeTab: this.props.children[0].props.label,
     };
@@ -55,4 +54,8 @@ class Tabs extends React.Component {
 }
 
 export default Tabs;
+
+/* Sourced from
+https://www.digitalocean.com/community/tutorials/react-tabs-component
+ */
 
