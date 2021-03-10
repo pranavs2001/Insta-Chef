@@ -1,4 +1,4 @@
-import image from "../../img/eggert.jpeg"
+import image from "../../img/eggert.png"
 
 const Home = () => (
   <div>
