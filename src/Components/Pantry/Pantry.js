@@ -25,7 +25,7 @@ class Pantry extends React.Component {
     if (fire.auth().currentUser) {
       let uid = fire.auth().currentUser.uid;
       // Get ingredient categories
-      let categoryRef = fire.database().ref(this.state.uid + '/categories').orderByValue();
+      let categoryRef = fire.database().ref(uid + '/categories');
       // console.log(categoryRef);
       categoryRef.on('value', (snapshot) => {
         let categories = [];
@@ -33,7 +33,6 @@ class Pantry extends React.Component {
           categories.push(childSnapshot.val());
           // console.log(childSnapshot);
         });
-        // console.log(categories);
         // Reformat category list to put "Other" at the end
         const index = categories.indexOf('Other');
         if (index !== -1) {
@@ -41,9 +40,14 @@ class Pantry extends React.Component {
         }
         // Automatically create "other" category if it doesn't exist
         categories.push("Other");
-        categories.push("Dairy");
+        // categories.push("Dairy");
+        const items = {};
+        for (const category of categories) {
+          items[category] = {};
+        }
         this.setState({
           categories: categories,
+          items: items,
           uid: uid,
           loggedIn: true,
         });
@@ -195,9 +199,9 @@ class Pantry extends React.Component {
   sortIngredients(items){
     // const categories = this.state.categories;
     let currentItems = this.state.items;
-    Object.keys(items).map((key, index) => {
+    for (const key in items) {
       const category = items[key]['category'];
-      // console.log(category, key, currentItems[category][key], index);
+      // console.log(currentItems, currentItems[category][key], index);
       // For some reason, there is always an extra entry named 'newitem'
       if (key !== 'newItem' && currentItems[category][key] === undefined) {
         currentItems[category][key] = {
@@ -205,7 +209,7 @@ class Pantry extends React.Component {
           recipeIDs: items[key]['recipeIDs'],
         };
       }
-    });
+    };
     // console.log(currentItems);
     this.setState({
       items: currentItems,

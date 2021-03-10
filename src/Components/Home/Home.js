@@ -9,10 +9,10 @@ const Home = () => (
     <div className="box-home">
       <h2>About Our Staff:</h2>
       <p> Drake Cote: hates coffee but was a barista<br /></p>
-      <p> Solaine Zhao: frolocks through meadows in nature<br /></p>
+      <p> Solaine Zhao: frolicks through meadows in nature<br /></p>
       <p> Bradley Schulz: was once awake past 1 AM<br /></p>
       <p> Pranav Srinivasan: loves to dunk on Bradley<br /></p>
-      <p> Jonathan Carlson: loves long walks on the beach<br /></p>
+      <p> Jonathan Carlson: enjoys long walks on the beach<br /></p>
       <h2>Contact Us!</h2>
       <h>Management:<br /></h>
       <img src={image}></img>
