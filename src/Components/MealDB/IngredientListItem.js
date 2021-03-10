@@ -13,12 +13,12 @@ class IngredientListItem extends React.Component {
   }
 
   render() {
-
-
-
-
     const ingredientName = this.props.item['name'];
-    const options = this.props.categories;
+    let options = this.props.categories;
+    let index = options.indexOf('+');
+    if (index !== -1) {
+      options.splice(index, 1);
+    }
     return (
       <>
         <td>

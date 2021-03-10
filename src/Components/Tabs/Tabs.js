@@ -31,13 +31,13 @@ class Tabs extends React.Component {
         <ol className="tab-list">
           {children.map((child) => {
             const { label } = child.props;
-
             return (
               <Tab
                 activeTab={activeTab}
                 key={label}
                 label={label}
                 onClick={onClickTabItem}
+                removeCategory={this.props.removeCategory}
               />
             );
           })}
