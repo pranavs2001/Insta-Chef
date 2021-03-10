@@ -12,7 +12,6 @@ class Tabs extends React.Component {
     super(props);
     this.state = {
       activeTab: this.props.children[0].props.label,
-      removeCategory: this.props.removeCategory,
     };
   }
 
@@ -32,14 +31,13 @@ class Tabs extends React.Component {
         <ol className="tab-list">
           {children.map((child) => {
             const { label } = child.props;
-
             return (
               <Tab
                 activeTab={activeTab}
                 key={label}
                 label={label}
                 onClick={onClickTabItem}
-                removeCategory={this.state.removeCategory}
+                removeCategory={this.props.removeCategory}
               />
             );
           })}

@@ -39,12 +39,22 @@ class Tab extends Component {
       xVal = "hidden";
     }
 
-    return (
+    if (label !== 'Other') {
+      return (
         <li className={className} onClick={onClick}>
           {label}
-          <button style={{visibility:xVal}} onClick={() => this.state.removeCategory(label)}>x</button>
+          <button style={{visibility: xVal}} onClick={() => this.state.removeCategory(label)}>
+            x
+          </button>
         </li>
-    );
+      );
+    } else {
+      return (
+        <li className={className} onClick={onClick}>
+          {label}
+        </li>
+      );
+    }
   }
 }
 
