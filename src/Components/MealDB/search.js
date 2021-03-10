@@ -1,6 +1,9 @@
 import React from 'react';
 import fire from "../SignIn/fire"
 import RecipeGrid from '../Tile/RecipeGrid'
+import './search.css'
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Search extends React.Component {
   constructor(props) {
@@ -100,11 +103,10 @@ class Search extends React.Component {
     const keyword = this.state.keyword;
     // console.log('matching recipies is: ', matchingrecipes);
     // parameters for search bar
-    const BarStyling = {width:"20rem", height: "2rem", background:"#F2F1F9", border:"bold", padding:"0.5rem"};
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh"}}>
+        <FontAwesomeIcon icon={faSearch} style={{paddingRight: "5px"}} size= "lg"/>
         <input
-         style={BarStyling}
          key="recipeSearch"
          value={keyword}
          placeholder={"Search for a recipe"}

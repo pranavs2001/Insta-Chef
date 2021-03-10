@@ -47,14 +47,24 @@ function RecipeWindow(props) {
         />
         <div>
           <h1>{props.recipe.name}</h1>
-          <img style={{ position: "relative", border: "4px solid #999" }}
-            src={props.recipeImage} width="300px" height="300px" alt="Recipe Image"
-          />
-          <h4>Category: {props.recipe.category}</h4>
-          <h4>Area: {props.recipe.area}</h4>
-          <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
-          <h4>Ingredients:</h4>
-          <ListIngredients ingredients={props.recipe.ingredients}/>
+          <table>
+            <tbody>
+              <tr>
+                <td className="recipe-details">
+                  <h4>Category: {props.recipe.category}</h4>
+                  <h4>Area: {props.recipe.area}</h4>
+                  <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
+                  <h4>Ingredients:</h4>
+                  <ListIngredients ingredients={props.recipe.ingredients}/>
+                </td>
+                <td>
+                  <img className="recipe-image"
+                    src={props.recipeImage} width="300px" height="300px" alt="Recipe Image"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <h4>Steps:</h4>
           {props.recipe.instructions.split('\n').map((i, index) => {
             return <p className="steps" key={index}>{i}</p>
