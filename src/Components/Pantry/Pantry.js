@@ -7,8 +7,6 @@ import Tabs from "../../Components/Tabs/Tabs.js";
 import PantryGrid from './PantryGrid'
 
 
-
-
 class Pantry extends React.Component {
   constructor(props) {
     super(props);
@@ -218,7 +216,6 @@ class Pantry extends React.Component {
   render() {
     return (
       <div>
-        <p>{this.state.categories}</p>
         <div>
           <AddIngredModal
             requestAdd={this.requestAdd}
