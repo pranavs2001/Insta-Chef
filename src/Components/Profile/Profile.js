@@ -1,7 +1,7 @@
 import React from 'react'
 import fire from "../SignIn/fire";
 import Modal from 'react-modal';
-import './profile.css'
+import './Profile.css'
 import { faUser, faSearch, faWindowClose, faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form } from 'react-bootstrap'
@@ -114,7 +114,7 @@ class Profile extends React.Component {
   currentInfo(props) {
     return(
       <div>
-      <div /*className = "current_Info"*/>
+      <div>
         <h3>Current Info:</h3>
         <p1> Name: {props.user.displayName}</p1>
         <div>
@@ -140,9 +140,8 @@ class Profile extends React.Component {
     )
   }
 
-
   ChangePasswordForm(props) {
-    return(
+    return (
       <div>
         <form>
           <div className="input-container">
@@ -181,22 +180,22 @@ class Profile extends React.Component {
   }
 
   CurrentPasswordForm() {
-    return(
-    <div>
-      <form>
-       <div className="input-container">
+    return (
+      <div>
+        <form>
+          <div className="input-container">
             <icon className= "icon"> {<FontAwesomeIcon icon={faKey} />} </icon>
-          <input
-            className = "input-field"
-            value={this.state.enteredPassword}
-            type="password"
-            placeholder={"Current Password"}
-            onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
-            autoComplete="current-password"
-          />
-        </div>
-      </form>
-    </div>
+            <input
+              className = "input-field"
+              value={this.state.enteredPassword}
+              type="password"
+              placeholder={"Current Password"}
+              onChange={(e) => { this.setState({ enteredPassword: e.target.value }); }}
+              autoComplete="current-password"
+            />
+          </div>
+        </form>
+      </div>
     )
   }
 
