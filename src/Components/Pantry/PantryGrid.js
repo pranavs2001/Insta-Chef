@@ -18,14 +18,6 @@ class PantryGrid extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if(prevProps.ingredients !== this.props.ingredients) {
-  //     this.setState({
-  //       ingredients: this.props.ingredients
-  //     })
-  //   }
-  // }
-
   render () {
     const items = this.props.ingredients;
     // console.log(items);
@@ -41,7 +33,6 @@ class PantryGrid extends React.Component {
           <Grid container spacing={1}>
             {Object.keys(items).map((key, id) => (
               <Grid key={key} item xs={3}>
-                  {/*className={classes.button}*/}
                   <IngredientTile
                     name={items[key].name}
                     recipeIDs={items[key].recipeIDs}
@@ -49,7 +40,6 @@ class PantryGrid extends React.Component {
                     category={this.props.category}
                     removeItem={this.props.removeItemFromPantry}
                   />
-                  {/* className={classes.button} */}
               </Grid>
             ))}
           </Grid>

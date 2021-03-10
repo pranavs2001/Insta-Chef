@@ -213,15 +213,15 @@ class Pantry extends React.Component {
   }
 
   render() {
-    //in render map through categories, label is a category and value div is viewPantry with specified category from map 
-    //loop through ingredients  returning their cateogry and then passing that viewPantry
-    //this.state.categories.map((category, index) => {}
-    // console.log(this.state.categories);
     return (
-      <div>
+      <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh" }} >
+        <AddIngredModal
+          requestAdd={this.requestAdd}
+          loggedIn={this.state.loggedIn}
+          categories={this.state.categories}
+        />
         <Tabs>
           {Object.keys(this.state.categories).map((key, index) => {
-            // const category = this.state.categories[key];
             return (
               <div label={this.state.categories[key]}>
                 <div className="tab-box">
@@ -235,11 +235,6 @@ class Pantry extends React.Component {
             )
           })}
         </Tabs>
-        <AddIngredModal
-          requestAdd={this.requestAdd}
-          loggedIn={this.state.loggedIn}
-          categories={this.state.categories}
-        />
       </div>
     );
   }

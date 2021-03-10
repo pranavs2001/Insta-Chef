@@ -10,20 +10,21 @@ button {
     padding: 3px 3px;
     /* // color: '#fff', */
     color: #fa9483;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 1px;
     /* // background: '#fa9483', */
     background: #fff;
     cursor: pointer;
 }
 
-.GridElement {
-    width: 95%;
-    height: 100%;
+.IngredientTile {
+    width: 100%;
+    height: 70%;
     border: 4px solid darkgrey; 
     text-align: center;
     border-radius: 30px;
     vertical-align: center;
+    background-color: white;
 }
 
 .GridContainer {
@@ -39,8 +40,5 @@ button {
 .RemoveButton {
     float: right;
     margin-right: 10px;
-}
-
-.IngredientItem {
-    color: darkgrey;
+    margin-bottom: 50px;
 }

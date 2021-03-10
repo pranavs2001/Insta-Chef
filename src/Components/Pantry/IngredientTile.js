@@ -24,9 +24,9 @@ function IngredientTile (props) {
       setIsOpen(false);
   }
   return(
-    <div className="ingredient-tile">
-      <div style={{marginBottom: "10px"}}>{props.name}</div>
-      <button onClick={openModal}>
+    <div className="IngredientTile">
+      <div style={{marginBottom: "5px"}}>{props.name}</div>
+      <button className="SearchButton" onClick={openModal}>
         View Recipes {<FontAwesomeIcon icon={faSearch} />}
       </button>
       <Modal
@@ -41,7 +41,7 @@ function IngredientTile (props) {
         <h1>Recipes for {props.name}</h1>
         <SearchInPantry recipeIDs={props.recipeIDs}/>
       </Modal>
-      <button onClick={() => {props.removeItem(props.itemKey, props.category)}}>
+      <button className="RemoveButton" onClick={() => {props.removeItem(props.itemKey, props.category)}}>
         Remove {<FontAwesomeIcon icon={faWindowClose}/>}
       </button>
     </div>

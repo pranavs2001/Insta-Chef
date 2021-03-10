@@ -18,11 +18,11 @@
   border: solid darksalmon;
   border-width: 3px 2px 0 2px;
   cursor: pointer;
-  color: #15CDFC
+  color: white
 }
 
 .tab-list-item:hover{
-  background-color: black;
+  background-color: rgb(65, 82, 100);
   color: white;
 }
 
