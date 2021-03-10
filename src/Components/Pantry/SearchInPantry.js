@@ -1,5 +1,6 @@
 import Tile from '../Tile/tile'
 import Grid from '@material-ui/core/Grid';
+import './PantryGrid.css'
 
 function SearchInPantry(props) {
   // console.log('props.recipeIDs in SearchInPantry are: ', props.recipeIDs);
@@ -8,7 +9,7 @@ function SearchInPantry(props) {
     let lists = props.recipeIDs.map((id, index) => {
       return (
         <div key={id}>
-          <Grid item xs={3}>
+          <Grid style={{margin: "20px"}} item xs={20}>
             <Tile recipeid={id}/>
           </Grid>
         </div>

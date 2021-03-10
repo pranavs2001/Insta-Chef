@@ -57,7 +57,7 @@ function RecipeWindow(props) {
                   <h4>Ingredients:</h4>
                   <ListIngredients ingredients={props.recipe.ingredients}/>
                 </td>
-                <td style={{"align":"end"}}>
+                <td>
                   <img className="recipe-image"
                     src={props.recipeImage} width="300px" height="300px" alt="Recipe Image"
                   />

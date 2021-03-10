@@ -1,7 +1,7 @@
 /*style sheet for recipe instructions*/
 
 .tile_front{
-    width: 100px;
+    width: 200px;
     height: 200px;
     border: 4px solid #999; 
     padding: 5px;
@@ -17,7 +17,7 @@
     font-size: 12px;
     font-style: 4097aa;
     text-align: center;
-    align-self: 'center';
+    align-self: center;
 }
 
 .favorite-button{
@@ -32,13 +32,15 @@
 }
 
 .recipe-details {
-    vertical-align: "top";
+    vertical-align: top;
     /*padding: 50px;*/
 }
 
 .recipe-image {
     align-items: end;
-    border: "4px solid #999";
+    border: 4px solid #999;
+    margin-left: 200%;
+    /* float: right; */
 }
 
 .steps{
