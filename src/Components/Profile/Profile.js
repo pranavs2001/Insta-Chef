@@ -20,6 +20,8 @@ class Profile extends React.Component {
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
     this.NameForm = this.NameForm.bind(this);
+    this.ChangePasswordForm = this.ChangePasswordForm.bind(this);
+    this.DeleteAccountForm = this.DeleteAccountForm.bind(this);
   }
 
   updateUserName() {
@@ -123,6 +125,62 @@ class Profile extends React.Component {
     )
   }
 
+  ChangePasswordForm(props) {
+    return(
+      <div>
+        <p> New password:
+              <input
+            value={this.state.newPassword1}
+            type="password"
+            placeholder={"New Password"}
+            onChange={(e) => {
+              this.setState({
+                updatedProfile: false,
+                newPassword1: e.target.value,
+              });
+            }}
+          />
+        </p>
+        <p> Confirm password:
+              <input
+            value={this.state.newPassword2}
+            type="password"
+            placeholder={"Confirm Password"}
+            onChange={(e) => { this.setState({ newPassword2: e.target.value }); }}
+          />
+        </p>
+        <button onClick={this.updatePassword}>Change Password</button>
+      </div>
+    )
+  }
+
+  DeleteAccountForm() {
+    return(
+      <div>
+        <button onClick={this.toggleDeleteModal}>DELETE ACCOUNT</button>
+        <Modal
+              isOpen={this.state.requestDelete}
+              // onAfterOpen={afterOpenModal}
+              // onRequestClose={closeModal}
+              contentLabel="Request delete account"
+          >
+          <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT????</h1>
+          <button onClick={this.toggleDeleteModal}>Cancel</button>
+          <p>Enter password to confirm</p>
+          <input
+            value={this.state.enteredPassword}
+            type="password"
+            placeholder={"Enter Password"}
+            onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
+          />
+          <button onClick={this.deleteAccount}>
+            Confirm Delete
+          </button>
+        </Modal>
+      </div>
+    )
+  }
+
   render() {
     const user = fire.auth().currentUser;
     return (
@@ -145,52 +203,8 @@ class Profile extends React.Component {
            onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
           />
         </p>
-        <div>
-          <p> New password:
-            <input
-             value={this.state.newPassword1}
-             type="password"
-             placeholder={"New Password"}
-             onChange={(e) => {
-               this.setState({
-                 updatedProfile: false,
-                 newPassword1: e.target.value,
-               });
-             }}
-            />
-          </p>
-          <p> Confirm password:
-            <input
-             value={this.state.newPassword2}
-             type="password"
-             placeholder={"Confirm Password"}
-             onChange={(e) => {this.setState({newPassword2: e.target.value});}}
-            />
-          </p>
-          <button onClick={this.updatePassword}>Change Password</button>
-        </div>
-        <div>
-          <button onClick={this.toggleDeleteModal}>DELETE ACCOUNT</button>
-          <Modal
-                isOpen={this.state.requestDelete}
-                // onAfterOpen={afterOpenModal}
-                // onRequestClose={closeModal}
-                contentLabel="Request delete account"
-            >
-            <h1>ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT????</h1>
-            <button onClick={this.toggleDeleteModal}>Cancel</button>
-            <p>Enter password to confirm</p>
-            <input
-             value={this.state.enteredPassword}
-             type="password"
-             placeholder={"Enter Password"}
-             onChange={(e) => {this.setState({enteredPassword: e.target.value});}}
-            />
-            <button onClick={this.deleteAccount}>
-              Confirm Delete
-            </button>
-          </Modal>
-        </div>
+        <this.ChangePasswordForm/>
+        <this.DeleteAccountForm/>
       </div>
     );
   }
