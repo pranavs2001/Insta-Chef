@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.4565c562.chunk.css",
-    "main.js": "/static/js/main.8048a624.chunk.js",
-    "main.js.map": "/static/js/main.8048a624.chunk.js.map",
+    "main.css": "/static/css/main.38fc9a50.chunk.css",
+    "main.js": "/static/js/main.f9955f2a.chunk.js",
+    "main.js.map": "/static/js/main.f9955f2a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.80626bb5.js",
     "runtime-main.js.map": "/static/js/runtime-main.80626bb5.js.map",
-    "static/js/2.6cd70565.chunk.js": "/static/js/2.6cd70565.chunk.js",
-    "static/js/2.6cd70565.chunk.js.map": "/static/js/2.6cd70565.chunk.js.map",
+    "static/js/2.e4251376.chunk.js": "/static/js/2.e4251376.chunk.js",
+    "static/js/2.e4251376.chunk.js.map": "/static/js/2.e4251376.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.4565c562.chunk.css.map": "/static/css/main.4565c562.chunk.css.map",
-    "static/js/2.6cd70565.chunk.js.LICENSE.txt": "/static/js/2.6cd70565.chunk.js.LICENSE.txt"
+    "static/css/main.38fc9a50.chunk.css.map": "/static/css/main.38fc9a50.chunk.css.map",
+    "static/js/2.e4251376.chunk.js.LICENSE.txt": "/static/js/2.e4251376.chunk.js.LICENSE.txt",
+    "static/media/insta-chef-logo.c929835d.png": "/static/media/insta-chef-logo.c929835d.png"
   },
   "entrypoints": [
     "static/js/runtime-main.80626bb5.js",
-    "static/js/2.6cd70565.chunk.js",
-    "static/css/main.4565c562.chunk.css",
-    "static/js/main.8048a624.chunk.js"
+    "static/js/2.e4251376.chunk.js",
+    "static/css/main.38fc9a50.chunk.css",
+    "static/js/main.f9955f2a.chunk.js"
   ]
 }
