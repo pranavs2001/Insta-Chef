@@ -9,8 +9,8 @@ import Navbar from '../Navbar/Navbar';
 import Search from '../MealDB/search';
 import Profile from "../Profile/Profile";
 import FavoriteRecipes from "../FavoriteRecipes/FavoriteRecipes";
+import Navbar2 from "../Navbar/Navbar2";
 import './LoginPage.css';
-
 function LoginPage() {
 
   //set up the initial states//
@@ -96,7 +96,8 @@ function LoginPage() {
             
       <div className="App">
         <Router>
-        <Navbar loggedIn={fire.auth().currentUser} />
+        {/* <Navbar loggedIn={fire.auth().currentUser} /> */}
+        <Navbar2></Navbar2>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/Login" component={LoginPage} />
