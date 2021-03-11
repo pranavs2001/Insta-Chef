@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './Tab.css'
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Tab extends React.Component {
 
@@ -50,7 +52,7 @@ class Tab extends React.Component {
       <li className={className} onClick={onClick}>
         {label}
         <button style={{visibility: xVal}} onClick={() => this.state.removeCategory(label)}>
-          x
+          <FontAwesomeIcon icon={faWindowClose} />
         </button>
       </li>
     );
