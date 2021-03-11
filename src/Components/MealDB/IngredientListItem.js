@@ -13,7 +13,7 @@ class IngredientListItem extends React.Component {
 
   render() {
     const ingredientName = this.props.item['name'];
-    let options = this.props.categories;
+    let options = this.props.categories.slice();
     // The "+" category is present for creation of tabs but unwanted here
     let index = options.indexOf('+');
     // Safety check

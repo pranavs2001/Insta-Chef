@@ -136,7 +136,7 @@ class Pantry extends React.Component {
 
 
   removeCategory(category) {
-    // Do not delete the "Other" catgory
+    // Do not delete the "Other" category
     if (category !== "Other") {
       let uid = fire.auth().currentUser.uid;
       let items = this.state.items;
