@@ -13,7 +13,7 @@ code {
 }
 
 .box-1 h1 {
-  font-size: 1000%;
+  font-size: 400%;
   line-height: 100%;
   letter-spacing: .25em;
   text-align: center;
@@ -29,6 +29,7 @@ code {
 .box-home{
   background-color: rgb(68, 157, 173);
   padding: 10%;
+  height: 100vh;
 }
 
 .box-home h2{

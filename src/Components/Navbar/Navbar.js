@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-          <img src={logo} alt={"Insta-chef logo"} width={"70px"} height={"70px"} />
+          <img src={logo} alt={"Insta-Chef logo"} width={"70px"} height={"70px"} />
         </NavLink>
         <Bars />
         <NavMenu>

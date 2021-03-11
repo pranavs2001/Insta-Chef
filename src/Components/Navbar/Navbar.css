@@ -148,7 +148,8 @@
       transition: 250ms;
     }
   
-    button {
+    /*TODO: fix navbar by moving this rule to hierarchically within the navbar superclass*/
+    /* button {
       display: none;
-    }
+    } */
   }
