@@ -1,19 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core';
-import { faSearch, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "firebase/database";
-import './PantryGrid.css'
 import IngredientTile from "./IngredientTile";
+import './PantryGrid.css'
 
 class PantryGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      // ingredients: props.ingredients,
       test: false,
     }
   }

@@ -3,14 +3,20 @@ import Grid from '@material-ui/core/Grid';
 import './PantryGrid.css'
 
 function SearchInPantry(props) {
-  // console.log('props.recipeIDs in SearchInPantry are: ', props.recipeIDs);
   // now that we have associated recipe id's, show them in a grid
+
+  // Callback function to make favoriting recipes work
+  function callback() {
+
+  }
+
+  // Some ingredients have no associated recipes
   if (props.recipeIDs !== undefined) {
     let lists = props.recipeIDs.map((id, index) => {
       return (
         <div key={id}>
           <Grid style={{margin: "20px"}} item xs={20}>
-            <Tile recipeid={id}/>
+            <Tile recipeid={id} callback={callback}/>
           </Grid>
         </div>
       )

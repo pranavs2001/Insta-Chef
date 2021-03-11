@@ -1,5 +1,3 @@
-// import { ReactComponent } from '*.svg';
-
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import IngredientSearch from '../MealDB/ingredientsearch'
@@ -7,9 +5,8 @@ import "./Button.css"
 
 
 function AddIngredModal (props) {
-    
    
-    Modal.setAppElement(document.getElementById('root'))
+    Modal.setAppElement(document.getElementById('root'));
 
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -27,6 +24,7 @@ function AddIngredModal (props) {
         setIsOpen(false);
     }
 
+    // Do nothing if user is not logged in
     if(props.loggedIn)
     {
         return (
@@ -38,8 +36,7 @@ function AddIngredModal (props) {
                     onRequestClose={closeModal}
                     contentLabel="Ingredient Search Box"
                 >
-                    <button onClick={closeModal}>Done</button>
-                    <h3>Add New Ingredient</h3>
+                    <h3>Add New Ingredient <button onClick={closeModal}>Done</button> </h3>
                     <IngredientSearch
                       requestAdd={props.requestAdd}
                       categories={props.categories}

@@ -28,6 +28,7 @@ class Profile extends React.Component {
     this.CurrentPasswordForm = this.CurrentPasswordForm.bind(this);
   }
 
+  // Update a user's name in firebase
   updateUserName() {
     const user = fire.auth().currentUser;
     if (this.state.newName !== '') {
@@ -48,6 +49,7 @@ class Profile extends React.Component {
     }
   }
 
+  // Change a user's password
   updatePassword() {
     // Non-matching passwords
     if (this.state.newPassword1 !== this.state.newPassword2) {
@@ -63,8 +65,8 @@ class Profile extends React.Component {
         return;
       }
       // Update password
-      console.log("Updating Password, entered password = ", this.state.enteredPassword);
       const user =fire.auth().currentUser;
+      // authenticate
       fire.auth().signInWithEmailAndPassword(user.email, this.state.enteredPassword).then(() => {
         fire.auth().currentUser.updatePassword(this.state.newPassword1).then(() => {
           this.setState({
@@ -85,6 +87,7 @@ class Profile extends React.Component {
     }
   }
 
+  // Toggle the modal window to delete a profile
   toggleDeleteModal() {
     this.setState({
       requestDelete: !this.state.requestDelete,
@@ -92,9 +95,11 @@ class Profile extends React.Component {
     })
   }
 
+  // Delete a user's account
   deleteAccount() {
     const user = fire.auth().currentUser;
     console.log("Deleting account");
+    // authenticate
     fire.auth().signInWithEmailAndPassword(user.email, this.state.enteredPassword).then(() => {
       user.delete().catch(() => {
         this.setState({
@@ -116,31 +121,29 @@ class Profile extends React.Component {
       <div>
       <div>
         <h3>Current Info:</h3>
-        <p1> Name: {props.user.displayName}</p1>
+        <p> Name: {props.user.displayName}</p>
         <div>
             Email: {props.user.email}
         </div>
       </div>
-          <h3> Update name: </h3>
-          <body>
-            <div className="input-container">
-              <icon className= "icon"> {<FontAwesomeIcon icon={faUser} />} </icon>
-                <input
-                  className="input-field"
-                  type="text"
-                  name="name"
-                  value={this.state.newName}
-                  placeholder={"Enter name"}
-                  onChange={(e) => { this.setState({ newName: e.target.value }); }}
-                />
-            </div>
-          </body>
-          <button onClick={this.updateUserName}>Change Username</button>
+        <h3> Update name: </h3>
+          <div className="input-container">
+            <icon className= "icon"> {<FontAwesomeIcon icon={faUser} />} </icon>
+              <input
+                className="input-field"
+                type="text"
+                name="name"
+                value={this.state.newName}
+                placeholder={"Enter name"}
+                onChange={(e) => { this.setState({ newName: e.target.value }); }}
+              />
+          </div>
+        <button onClick={this.updateUserName}>Change Username</button>
       </div>
     )
   }
 
-  ChangePasswordForm(props) {
+  ChangePasswordForm() {
     return (
       <div>
         <form>

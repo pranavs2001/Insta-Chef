@@ -22,6 +22,6 @@ const Home = () => (
       <p>Fax: (310) 794-5056</p>
     </div>
   </div>
-)
+);
 
 export default Home;

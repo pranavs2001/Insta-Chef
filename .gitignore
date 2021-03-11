@@ -9,3 +9,4 @@ __pycache__/
 .env
 /src/support/service_credentials.json
 /src/support/venv
+/src/support/recipelist.json

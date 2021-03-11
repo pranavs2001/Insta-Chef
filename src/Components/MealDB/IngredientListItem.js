@@ -1,21 +1,22 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import Dropdown from 'react-dropdown'
 import './ingredientSearch.css'
 
 class IngredientListItem extends React.Component {
   constructor(props) {
     super(props);
+    // Category of the item as selected by the dropdown menu
     this.state = {
       category: 'Other',
     };
-    // console.log(props.categories)
-    // this.getMealIDs = this.getMealIDs.bind(this);
   }
 
   render() {
     const ingredientName = this.props.item['name'];
-    let options = this.props.categories;
+    let options = this.props.categories.slice();
+    // The "+" category is present for creation of tabs but unwanted here
     let index = options.indexOf('+');
+    // Safety check
     if (index !== -1) {
       options.splice(index, 1);
     }
@@ -30,7 +31,6 @@ class IngredientListItem extends React.Component {
           </button>
         </td>
         <td>
-          {/*TODO: format dropdown*/}
           <Dropdown
             className='select'
             menuClassName='option'

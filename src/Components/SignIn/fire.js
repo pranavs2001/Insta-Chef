@@ -9,7 +9,7 @@ const config = {
   storageBucket: "insta - chef - ba8dc.appspot.com",
   messagingSenderId: "969126881676",
   appId: "1: 969126881676: web: 33a9b90818260362118ea9"
-}
+};
 
 const fire = firebase.initializeApp(config);
 

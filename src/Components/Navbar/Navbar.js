@@ -1,5 +1,4 @@
 import React from 'react';
-//import { FaRegFilePowerpoint } from 'react-icons/fa';
 import logo from "../../img/insta-chef-logo.png"
 import fire from '../SignIn/fire';
 import {
@@ -13,7 +12,8 @@ import {
 
 const handleLogout = () => {
   fire.auth().signOut();
-}
+};
+
 const Navbar = () => {
 
   return (
@@ -45,5 +45,5 @@ const Navbar = () => {
   );
        
 };
-//
+
 export default Navbar;
