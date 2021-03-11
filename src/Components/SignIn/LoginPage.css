@@ -29,6 +29,29 @@
   justify-content: flex-end;
 }
 
+.loginContainer {
+  background: #2D4057;
+  padding: 10%;
+  margin: auto;
+}
+
+.emailLabel {
+  color: white;
+}
+
+.passwordLabel {
+  color: white;
+}
+
+.loginSpan {
+  color: white;
+  margin: 10px;
+}
+
+.accountStatusParagraph {
+  color: white;
+}
+/*
 .login .loginContainer {
   padding: 60px;
   margin: auto;
@@ -42,15 +65,16 @@
     background: radial-gradient(
     ellipse at left bottom,
     /* rgba(28, 42, 54, 0.9) 30% */
-    rgba(98, 114, 129, 1) 10%,
+    /* rgba(98, 114, 129, 1) 10%, */
     /* rgba(70, 112, 150, 1) 0%, */
-    rgba(45, 67, 87, 0.9) 60%,
+    /* rgba(45, 67, 87, 0.9) 60%, */
     /* rgba(70, 112, 150, 0.9) 59%, */
-    rgba(28, 42, 54, 1) 100%
-  );
+    /* rgba(28, 42, 54, 1) 100% */
+  /* ); */
 
-  box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
-}
+  /* box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
+} */
+*/
 
 .login .loginContainer label {
   color: white;
@@ -103,7 +127,6 @@
 .CreateAccountHeader {
   color: #fff;
   margin-bottom: 5%;
-  float: right;
 }
 
 .Insta-Chef-Logo {

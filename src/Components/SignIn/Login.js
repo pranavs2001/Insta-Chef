@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../img/insta-chef-logo.png'
+import { Button } from 'react-bootstrap'
 
 const Login = (props) => {
 
@@ -19,11 +20,12 @@ const Login = (props) => {
 
     <section className="login">
       <div className="loginContainer">
+      {/* <div className="loginContainer"> */}
         <div className="CreateAccountHeader">
           <img className="Insta-Chef-Logo" src={logo} alt="Insta-Chef logo" />
           <h1> Create your Insta-Chef Account </h1>
         </div>
-        <label>
+        <label className="emailLabel">
           Email
         </label>
         <input
@@ -34,7 +36,7 @@ const Login = (props) => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <p className="errorMsg"> {emailError} </p>
-        <label> Password </label>
+        <label className="passwordLabel"> Password </label>
         <input
           type="password"
           required
@@ -44,22 +46,31 @@ const Login = (props) => {
         <p className="errorMsg">
           {passwordError}
         </p>
-        <div className="btnContainer">
+        {/* <div className="btnContainer"> */}
+        <div>
           {hasAccount ? (
             <>
-              <button className={"LoginButton"}onClick={handleLogin}>Sign In</button>
-              <p>Don't have an account?
+            <Button onClick={handleLogin}> Sign In</Button>
+              {/* <button className={"LoginButton"}onClick={handleLogin}>Sign In</button> */}
+              <p className="accountStatusParagraph">Don't have an account?
+              {/* toggle the state when you click the span*/}
                 <span
-                  onClick={() => setHasAccount(!hasAccount)}> {/* toggle the state when you click the span*/}
+                  onClick={() => setHasAccount(!hasAccount)}
+                  className="loginSpan"
+                > 
                   Sign up
                 </span>
               </p>
             </>
           ) : (
             <>
-              <button className={"LoginButton"} onClick={handleSignup}>Sign up</button>
-              <p>Have an account?
-                <span onClick={() => setHasAccount(!hasAccount)}>
+              <Button onClick={handleSignup}> Sign up</Button>
+              {/* <button className={"LoginButton"} onClick={handleSignup}>Sign up</button> */}
+                <p className="accountStatusParagraph"> Have an account?
+                <span 
+                  onClick={() => setHasAccount(!hasAccount)}
+                  className="loginSpan"
+                >
                   Sign In
                 </span>
               </p>
