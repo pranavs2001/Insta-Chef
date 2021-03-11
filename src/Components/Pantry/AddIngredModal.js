@@ -1,43 +1,12 @@
-// import { ReactComponent } from '*.svg';
-
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import IngredientSearch from '../MealDB/ingredientsearch'
 import "./Button.css"
 
-// const useStyles = makeStyles((theme) => ({
-//     // modal: {
-//     //   display: 'flex',
-//     //   alignItems: 'center',
-//     //   justifyContent: 'center',
-//     // },
-//     // paper: {
-//     //   backgroundColor: theme.palette.background.paper,
-//     //   border: '2px solid #000',
-//     //   boxShadow: theme.shadows[5],
-//     //   padding: theme.spacing(2, 4, 3),
-//     // },
-
-//     button:{
-//         border: 'none',
-//         outline: 'none',
-//         margin: '20px',
-//         width: '30%',
-//         padding: '15px 15px ',
-//         color: '#fff',
-//         fontSize: '16px',
-//         letterSpacing: '1px',
-//         background: '#fa9483',
-//         cursor: 'pointer',
-//       }
-
-      
-//   }));
 
 function AddIngredModal (props) {
-    
    
-    Modal.setAppElement(document.getElementById('root'))
+    Modal.setAppElement(document.getElementById('root'));
 
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -55,6 +24,7 @@ function AddIngredModal (props) {
         setIsOpen(false);
     }
 
+    // Do nothing if user is not logged in
     if(props.loggedIn)
     {
         return (

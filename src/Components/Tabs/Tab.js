@@ -1,14 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import './Tab.css'
 
-class Tab extends Component {
+class Tab extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       removeCategory: this.props.removeCategory,
     };
+  }
+
+  // Prevent memory leaks
+  componentWillUnmount() {
+   this.setState = (state, callback) => {
+     return;
+   }
   }
 
   static propTypes = {
@@ -39,22 +46,14 @@ class Tab extends Component {
       xVal = "hidden";
     }
 
-    // if (label !== 'Other') {
-      return (
-        <li className={className} onClick={onClick}>
-          {label}
-          <button style={{visibility: xVal}} onClick={() => this.state.removeCategory(label)}>
-            x
-          </button>
-        </li>
-      );
-    // } else {
-    //   return (
-    //     <li className={className} onClick={onClick}>
-    //       {label}
-    //     </li>
-    //   );
-    // }
+    return (
+      <li className={className} onClick={onClick}>
+        {label}
+        <button style={{visibility: xVal}} onClick={() => this.state.removeCategory(label)}>
+          x
+        </button>
+      </li>
+    );
   }
 }
 

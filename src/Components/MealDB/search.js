@@ -1,9 +1,9 @@
 import React from 'react';
 import fire from "../SignIn/fire"
 import RecipeGrid from '../Tile/RecipeGrid'
-import './search.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './search.css'
 
 class Search extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class Search extends React.Component {
         }
       });
 
-      // Select 10 random recipes to display
+      // Select 12 random recipes to display
       let randomRecipes = 0;
       let randomRecipeIDs = [];
       while (randomRecipes < 12 && randomRecipeIDs.length < recipes.length) {
@@ -67,20 +67,14 @@ class Search extends React.Component {
   }
 
   updateSearch(value) {
-    // console.log('value is: ', value);
-    const searchStr = value;
     // Make sure ingredient list is not empty
-    if (searchStr !== '') {
+    if (value !== '') {
       let matches = [];
       const recipeList = this.state.recipes;
+      // Check all recipes for matches
       for (const recipeid in recipeList) {
         const name = recipeList[recipeid];
-        // if (name.toLocaleLowerCase().startsWith(searchStr.toLowerCase())) {
-        //   matches.push({'id': recipeid, 'name': name});
-        // }
-        // console.log('name is: ', name);
-        if (name.toLocaleLowerCase().includes(searchStr.toLowerCase())) {
-          // console.log('name in includes if is: ', name);
+        if (name.toLocaleLowerCase().includes(value.toLowerCase())) {
           matches.push({ 'id': recipeid, 'name': name });
         }
       }
@@ -89,6 +83,7 @@ class Search extends React.Component {
         validRecipes: matches,
       });
     } else {
+      // Get random recipes if search string is empty
       this.setState({keyword: ''});
       this.getRandomRecipes();
     }
@@ -98,11 +93,9 @@ class Search extends React.Component {
   callback() {
   }
 
- render() {
+  render() {
     // get state variables
     const keyword = this.state.keyword;
-    // console.log('matching recipies is: ', matchingrecipes);
-    // parameters for search bar
     return (
       <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh"}}>
         <FontAwesomeIcon icon={faSearch} style={{paddingRight: "5px"}} size= "lg"/>

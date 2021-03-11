@@ -1,15 +1,15 @@
-import './LoginPage.css';
 import React, {useState, useEffect} from "react";
-import Login from './Login';
+import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import fire from './fire';
 import 'firebase/auth'
+import Login from './Login';
 import Pantry from '../Pantry/Pantry';
 import Home from '../Home/Home'
 import Navbar from '../Navbar/Navbar';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import Search from '../MealDB/search';
 import Profile from "../Profile/Profile";
 import FavoriteRecipes from "../FavoriteRecipes/FavoriteRecipes";
+import './LoginPage.css';
 
 function LoginPage() {
 
@@ -25,12 +25,12 @@ function LoginPage() {
   const clearInputs = () => {
     setEmail('');
     setPassword('');
-  }
+  };
 
   const clearErrors = () => {
     setEmailError('');
     setPasswordError('');
-  }
+  };
 
   const handleLogin = () => {
     clearErrors();
@@ -46,9 +46,10 @@ function LoginPage() {
           case "auth/wrong-password":
             setPasswordError(err.message);
             break;
+          default: break;
         }
       });
-  }
+  };
 
   const handleSignup = () => {
     clearErrors();
@@ -66,11 +67,11 @@ function LoginPage() {
             break;
         }
       });
-  }
+  };
 
   const handleLogout = () => {
     fire.auth().signOut();
-  }
+  };
 
   const authListener = () => {
     fire.auth().onAuthStateChanged(user => {
@@ -82,19 +83,15 @@ function LoginPage() {
         setUser("");
       }
     });
-  }
+  };
 
   useEffect(() =>{
     authListener()             //listen to events
-  }, [])
+  }, []);
 
 
   return (
     <div className="LoginPage">
-      {/* <p>Insta-chef</p>
-      <Search /> */}
-      {/* render Welcome if the user exists, and login if the user doesn't exist */}
-      {/* user exists if you've signed up or logged in */}
       {user ? (
             
       <div className="App">
