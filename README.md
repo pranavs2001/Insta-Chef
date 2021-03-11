@@ -19,6 +19,9 @@ This should open up a window in your preferred browser running the Insta-Chef ap
 Note that not all browsers have been tested. 
 The following browsers have been tested:
 - Chrome
+- Brave
+- Edge
+- Safari
 
 ## Using the App
 All users must be signed in to use the app. 
