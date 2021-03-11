@@ -22,6 +22,7 @@ The following browsers have been tested:
 - Brave
 - Edge
 - Safari
+- Firefox
 
 ## Using the App
 All users must be signed in to use the app. 
