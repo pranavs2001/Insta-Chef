@@ -47,21 +47,21 @@ const Login = (props) => {
         <div className="btnContainer">
           {hasAccount ? (
             <>
-              <button onClick={handleLogin}>Sign In</button>
+              <button className={"LoginButton"}onClick={handleLogin}>Sign In</button>
               <p>Don't have an account?
                 <span
                   onClick={() => setHasAccount(!hasAccount)}> {/* toggle the state when you click the span*/}
                   Sign up
-                            </span>
+                </span>
               </p>
             </>
           ) : (
             <>
-              <button onClick={handleSignup}>Sign up</button>
+              <button className={"LoginButton"} onClick={handleSignup}>Sign up</button>
               <p>Have an account?
                 <span onClick={() => setHasAccount(!hasAccount)}>
-                                    Sign In
-                            </span>
+                  Sign In
+                </span>
               </p>
             </>
           )}
