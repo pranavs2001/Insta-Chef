@@ -23,45 +23,47 @@ class Tile extends React.Component {
   }
 
   componentDidMount() {
-    // Fetch the list of valid ingredients
+    // Fetch the information for this specified recipe id
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?';
     const params = { 'i': this.props.recipeid };
     fetch(url + new URLSearchParams(params))
-      .then(CheckError)
-      .then(result => {
-        const recipeinfo = result['meals'][0];
-        this.processMeal(recipeinfo);
-      })
-      .catch(error => console.log(error));
+    .then(CheckError)
+    .then(result => {
+      const recipeinfo = result['meals'][0];
+      this.processMeal(recipeinfo);
+    })
+    .catch(error => console.log(error));
 
-      // See if this recipe is a user's favorite recipe
-      if (fire.auth().currentUser) {
-        let uid = fire.auth().currentUser.uid;
-        // Automatically create "other" category if it doesn't exist
-        let recipeRef = fire.database().ref(uid + '/favorites').orderByChild('items');
-        recipeRef.on('value', (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            if (this.props.recipeid === childSnapshot.val()['id']) {
-              this.setState({
-                favoriteRecipe: true,
-                recipeKey: childSnapshot.key,
-              });
-            }
-            // console.log(childSnapshot.val()['id'], this.props.recipeid)
-          })
-        });
-        this.setState({
-          loggedIn: true,
+    // Check if this recipe has been favorited by the user
+    if (fire.auth().currentUser) {
+      let uid = fire.auth().currentUser.uid;
+      let recipeRef = fire.database().ref(uid + '/favorites').orderByChild('items');
+      recipeRef.on('value', (snapshot) => {
+        // check this recipe against all the recipes in the favorite list
+        snapshot.forEach((childSnapshot) => {
+          if (this.props.recipeid === childSnapshot.val()['id']) {
+            this.setState({
+              favoriteRecipe: true,
+              recipeKey: childSnapshot.key,
+            });
+          }
         })
-      }
+      });
+      // register the user as logged in so the "Add New Ingredient" button appears
+      this.setState({
+        loggedIn: true,
+      })
+    }
   }
 
+  // Prevent memory leaks
   componentWillUnmount() {
    this.setState = (state, callback) => {
      return;
    }
   }
 
+  // Extract the relevant recipe information
   processMeal(recipeInfo) {
     let ingredients = {};
     for (let i = 1; i <= 20; i++) {
@@ -104,17 +106,16 @@ class Tile extends React.Component {
   }
 
   toggleFavorite() {
-    // console.log(this.state);
     if (this.state.loggedIn) {
       // If this recipe is already a favorite, remove it from firebase
       const uid = fire.auth().currentUser.uid;
       if (this.state.favoriteRecipe) {
-        // console.log("Removed from favorites");
+        // remove the recipe from firebase
         const recipeKey = this.state.recipeKey.toString();
-        // console.log(recipeKey);
         let ref = fire.database().ref(uid + '/favorites/' + recipeKey);
         ref.set({item: null})
             .catch(err => {console.log('Error: ', err);});
+        // Set the locally stored recipe key to null
         this.setState({recipeKey: ''})
       } else {
         // add the recipe to Firebase
@@ -124,12 +125,13 @@ class Tile extends React.Component {
           'id': this.props.recipeid,
           'name': this.state.recipe['name'],
         });
+        // Save the recipe's key in firebase
         this.setState({
           recipeKey: newItemRef.key,
         });
-        // console.log("Removed from favorites");
       }
       // Notify the parent of an update to the list of favorites
+      // This is used only by the "favorites" tab
       this.props.callback();
       // Toggle the state variable
       this.setState({
@@ -138,8 +140,7 @@ class Tile extends React.Component {
     }
   }
 
-  render() {//button composed of image, the name of recipe, then link
-
+  render() {
     return (
       <div>
         <button className="tile-front" onClick={this.openRecipe}>
@@ -159,10 +160,8 @@ class Tile extends React.Component {
             recipeImage={this.state.recipe.image}
           />
       </div>
-
-
     );
-        }
+  }
 }
 
 export default Tile;

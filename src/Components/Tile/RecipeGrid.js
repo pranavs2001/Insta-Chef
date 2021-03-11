@@ -2,8 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Tile from './tile'
 
-
-export default function RecipeGrid(props) {
+function RecipeGrid(props) {
   if (props.recipes.length > 0) {
     return (
       <div style={{ backgroundColor: "rgb(202, 230, 240)"}}>
@@ -24,3 +23,5 @@ export default function RecipeGrid(props) {
     )
   }
 }
+
+export default RecipeGrid;

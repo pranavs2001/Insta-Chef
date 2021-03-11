@@ -17,6 +17,7 @@ class Pantry extends React.Component {
       visible: false,
       newCategory: '',
     };
+
     this.requestAdd = this.requestAdd.bind(this);
     this.removeItemFromPantry = this.removeItemFromPantry.bind(this);
     this.processMealIDs = this.processMealIDs.bind(this);
@@ -29,6 +30,7 @@ class Pantry extends React.Component {
   componentDidMount() {
     //if user is logged in
     if (fire.auth().currentUser) {
+      // Get the user's pantry items
       let uid = fire.auth().currentUser.uid;
       let pantryRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
       pantryRef.on('value', (snapshot) => {
@@ -36,9 +38,9 @@ class Pantry extends React.Component {
         snapshot.forEach((childSnapshot) => {
           items[childSnapshot.key] = childSnapshot.val()
         });
-        // console.log(items);
         this.sortIngredients(items);
       });
+      // Register that the user has logged in
       this.setState({
         loggedIn: true,
       })
@@ -52,7 +54,6 @@ class Pantry extends React.Component {
    */
   requestAdd(ingredient, category) {
     // Fetch the list of valid ingredients
-    // console.log("Adding " + ingredient.toString() + " to pantry in category " + category.toString());
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
     const params = { 'i': ingredient };
     fetch(url + new URLSearchParams(params))
@@ -71,7 +72,6 @@ class Pantry extends React.Component {
    * @param {[string]} recipeIDs of recipes in which this ingredient is used
    */
   addItemToPantry(ingredient, category, recipeIDs) {
-    // console.log('ingredient in addItemToPantry is: ', ingredient);
     if (this.state.loggedIn) {
       const uid = fire.auth().currentUser.uid;
       let itemRef = fire.database().ref(uid + '/pantryItems');
@@ -98,7 +98,6 @@ class Pantry extends React.Component {
       // add the item to Firebase
       let newItemRef = itemRef.push();
       newItemRef.set(newItem);
-      // console.log('items are: ', items);
       this.sortIngredients({newItem});
     }
   }
@@ -109,6 +108,7 @@ class Pantry extends React.Component {
    */
   updateCategories(category) {
     let categories = this.state.categories;
+    // Remove the default "Other" and "+" tabs
     let index = categories.indexOf('Other');
     if (index !== -1) {
       categories.splice(index, 1);
@@ -117,12 +117,14 @@ class Pantry extends React.Component {
     if (index !== -1) {
       categories.splice(index, 1);
     }
+    // Add the category to the list of categories and items, if necessary
     let items = this.state.items;
     if (categories.indexOf(category) === -1 && category !== '') {
-      console.log("Adding category: " + category.toString());
       categories.push(category);
       items[category] = {};
     }
+    // Sort the categories and add back in the "Other" and "+" categories
+    // Note: The "+" tab is a category to make the tabs generate properly
     categories.sort();
     categories.push("Other");
     categories.push("+");
@@ -132,12 +134,13 @@ class Pantry extends React.Component {
     })
   }
 
-  // TODO: Switch tabs when removing category
-  removeCategory(category) { //key is categoryKey
-    if (category !== "Other") { //check that we are not deleting 'Other' category
+
+  removeCategory(category) {
+    // Do not delete the "Other" catgory
+    if (category !== "Other") {
       let uid = fire.auth().currentUser.uid;
-      // let pantryRef = fire.database().ref(uid + '/pantryItems').orderByChild('items');
       let items = this.state.items;
+      // Reassign every item to the "Other" category (both locally and in Firebase)
       for (const itemKey in items[category]) {
         if (itemKey !== 'newItem') {
           const itemRef = fire.database().ref(uid + '/pantryItems/' + itemKey);
@@ -145,6 +148,7 @@ class Pantry extends React.Component {
           items["Other"][itemKey] = items[category][itemKey];
         }
       }
+      // Delete the category from the local list
       items[category] = undefined;
       let categories = this.state.categories;
       let index = categories.indexOf(category);
@@ -161,20 +165,25 @@ class Pantry extends React.Component {
     }
   }
 
+  /**
+   * removeItemFromPantry: remove an item from a user's pantry
+   * @param key {string} the firebase key for this item
+   * @param category {string} the category for this item
+   */
   removeItemFromPantry(key, category) {
-    // console.log("Removing ", key);
     if(this.state.loggedIn) {
-        const uid = fire.auth().currentUser.uid;
-        let ref = fire.database().ref(uid + '/pantryItems/' + key.toString());
-        ref.set({item: null})
-            // .then( () => {console.log(`${key} removed from pantry`);})
-            .catch(err => {console.log('Error: ', err);});
-        const items = this.state.items;
-        delete items[category][key];
-        this.setState({
-          items: items,
-        });
-        //TODO: Delete category if this item was the only one
+      // remove from firebase
+      const uid = fire.auth().currentUser.uid;
+      let ref = fire.database().ref(uid + '/pantryItems/' + key.toString());
+      ref.set({item: null})
+          .catch(err => {console.log('Error: ', err);});
+      // remove locally
+      const items = this.state.items;
+      delete items[category][key];
+      this.setState({
+        items: items,
+      });
+      //TODO: Delete category if this item was the only one
     } else {
       alert(`Can't remove ${key} you need to login first`)
     }
@@ -193,20 +202,24 @@ class Pantry extends React.Component {
     return (ids);
   }
 
+  /**
+   * sortIngredients: sort the ingredients into their corresponding categories and save to the state
+   * @param items {{}} - a dictionary of items
+   * Each item is a dictionary with a key, name, and corresponding recipe IDs
+   */
   sortIngredients(items){
-    // const categories = this.state.categories;
-    // console.log(items, this.state.items, this.state.categories);
     let currentItems = this.state.items;
     let categories = this.state.categories;
+    // Add each item
     for (const key in items) {
-      // console.log(categories);
+      // Sometimes an item named 'newItem' appears
       if (key !== 'newItem') {
         const category = items[key]['category'];
-        // console.log(items, currentItems, currentItems[category][key]);
-        // Create sub-dictionary if not already defined
+        // Add local category if it doesn't already exist
         if (currentItems[category] === undefined) {
           currentItems[category] = {};
         }
+        // Add to list of items
         currentItems[category][key] = {
           name: items[key]['item'],
           recipeIDs: items[key]['recipeIDs'],
@@ -214,27 +227,24 @@ class Pantry extends React.Component {
         // Add to list of categories if not already present
         if (categories.indexOf(category) === -1) {
           categories.push(category);
-          // console.log("Adding category", category)
         }
       }
     }
-    // console.log(currentItems);
+    // Update the state
     this.setState({
       items: currentItems,
       categories: categories,
     });
-    // console.log(categories);
+    // Order the categories
     this.updateCategories('');
   }
 
+  // Used to adding a new user-defined category
   updateCategoryName(value) {
-    this.setState({
-      newCategory: value,
-    });
+    this.setState({newCategory: value,});
   }
 
   render() {
-    // console.log(this.state.categories, this.state.items);
     const categories = this.state.categories;
     return (
       <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh" }} >
