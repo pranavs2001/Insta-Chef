@@ -2,9 +2,9 @@
     background: #4097aa;
     height: 80px;
     display: flex;
-    justify-content: space-between;
-    padding: 0.5rem calc((100vw - 1000px) / 2);
-    z-index: 10;
+    justify-content: center;
+    /* padding: 0.5rem calc((100vw - 1000px) / 2);
+    z-index: 10; */
     align-items: center;
     font-size: 1.2rem;
   }
@@ -44,17 +44,13 @@
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
-
   }
 
-  .nav-links.active{
-    background-color: #15cdfc;
-  }
-  
-  .nav-links:hover {
+  .nav-links:hover{
     background-color: rgba(45, 67, 87, 0.9);;
     border-radius: 4px;
     transition: all 0.2s ease-out;
+    
   }
   
   .fa-bars {
@@ -105,6 +101,8 @@
       background-color: rgba(98, 114, 129, 1);;
       border-radius: 0;
     }
+
+    
   
     .navbar-logo {
       position: absolute;
@@ -137,7 +135,8 @@
       margin: 2rem auto;
       border-radius: 4px;
       width: 80%;
-      background: rgba(98, 114, 129, 1);
+      background: #fa9483;
+      /* background: rgba(98, 114, 129, 1); */
       text-decoration: none;
       color: #fff;
       font-size: 1.5rem;
@@ -145,7 +144,7 @@
   
     .nav-links-mobile:hover {
       background: #fff;
-      color: rgba(98, 114, 129, 1);
+      color: #fa9483;
       transition: 250ms;
     }
   

@@ -63,7 +63,7 @@ function Button() {
               Home
             </Link>
           </li> */}
-          <li
+          {/* <li
             className='nav-item'
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -76,6 +76,24 @@ function Button() {
               Profile <i className='fas fa-caret-down' />
             </Link>
             {dropdown && <Dropdown />}
+          </li> */}
+          <li className='nav-item'>
+            <Link
+              to='/Profile'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Profile
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/Favorites'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Favorites
+            </Link>
           </li>
           <li className='nav-item'>
             <Link
