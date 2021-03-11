@@ -66,8 +66,7 @@ function AddIngredModal (props) {
                     onRequestClose={closeModal}
                     contentLabel="Ingredient Search Box"
                 >
-                    <button onClick={closeModal}>Done</button>
-                    <h3>Add New Ingredient</h3>
+                    <h3>Add New Ingredient <button onClick={closeModal}>Done</button> </h3>
                     <IngredientSearch
                       requestAdd={props.requestAdd}
                       categories={props.categories}
