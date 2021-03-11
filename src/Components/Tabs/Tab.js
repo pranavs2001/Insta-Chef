@@ -51,7 +51,7 @@ class Tab extends React.Component {
     return (
       <li className={className} onClick={onClick}>
         {label}
-        <button style={{visibility: xVal}} onClick={() => this.state.removeCategory(label)}>
+        <button style={{visibility: xVal, marginLeft: "10px"}} onClick={() => this.state.removeCategory(label)}>
           <FontAwesomeIcon icon={faWindowClose} />
         </button>
       </li>
