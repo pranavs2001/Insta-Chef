@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../../img/insta-chef-logo.png'
 
 const Login = (props) => {
 
@@ -18,6 +19,10 @@ const Login = (props) => {
 
     <section className="login">
       <div className="loginContainer">
+        <div className="CreateAccountHeader">
+          <img className="Insta-Chef-Logo" src={logo} alt="Insta-Chef logo" />
+          <h1> Create your Insta-Chef Account </h1>
+        </div>
         <label>
           Email
         </label>

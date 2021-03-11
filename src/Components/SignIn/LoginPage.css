@@ -99,6 +99,18 @@
   font-size: 16px;
 }
 
+.CreateAccountHeader {
+  color: #fff;
+  margin-bottom: 5%;
+  float: right;
+
+}
+
+.Insta-Chef-Logo {
+  width: 70px; 
+  height: 70px;
+}
+
 .hero {
   width: 100%;
   min-height: 100vh;
