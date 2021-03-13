@@ -9,11 +9,6 @@ class mealdbAPI(object):
     def __init__(self):
         self.server = 'https://www.themealdb.com/api/json/v1/1/'
         # Get the base list of ingredients, areas, and meal categories
-        self.set_lists()
-
-    # Pull the lists of ingredients, areas, and categories
-    # Do this once to avoid repeated requests for the same information
-    def set_lists(self):
         self.ingredients = self.get_ingredients()
         self.areas = self.get_areas()
         self.categories = self.get_categories()
@@ -57,6 +52,7 @@ class mealdbAPI(object):
 
 
 if __name__ == "__main__":
+    # Get recipes by category
     api = mealdbAPI()
     categories = api.categories
     print("Getting Recipes by Categories")
@@ -65,25 +61,27 @@ if __name__ == "__main__":
         print("Reading " + c)
         meals.update(api.filter_by_section('c',c))
 
+    # Get recipes by area
     areas = api.areas
     print("Getting Recipes by Areas")
     for a in areas:
         print("Reading " + a)
         meals.update(api.filter_by_section('a',a))
 
+    # Save results to a local file
     print("Writing results to file")
     result = json.dumps(meals, indent=4)
     filepath = "recipelist.json"
     with open(filepath, "w") as outfile:
         outfile.write(result)
 
+    # Upload recipe list to firebase
     print("Uploading recipes to firebase")
-
     cred = credentials.Certificate("./service_credentials.json")
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://insta-chef-ba8dc-default-rtdb.firebaseio.com/'
     })
-    ref = db.reference('/recipes_test')
+    ref = db.reference('/recipes')
     recipes = ref.set(meals)
 
     print("Firebase successfully updated")

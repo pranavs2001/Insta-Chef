@@ -19,6 +19,25 @@ This should open up a window in your preferred browser running the Insta-Chef ap
 Note that not all browsers have been tested. 
 The following browsers have been tested:
 - Chrome
+- Brave
+- Edge
+- Safari
+- Firefox
+
+## Using the App
+All users must be signed in to use the app. 
+If a user is not signed in, they will be prompted to either sign in or create an account
+An email and password are necessary to create an account. The password must be at least 6 characters.
+
+Once a user has created an account, they will be able to:
+- Save ingredients to their pantry
+- Save recipes to their list of favorites
+- Organize their pantry into categories
+
+The categories in a user's pantry can be defined by the user. 
+However, every user has an "Other" category that acts as the default.
+Also note that a user must save an ingredient to a category after they create it 
+in order to have it saved as a member of their list of categories.
 
 ## Servicing Firebase
 NOTE: service account credentials are needed to perform this maintenance.

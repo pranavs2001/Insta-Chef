@@ -41,7 +41,6 @@ class FavoriteRecipes extends React.Component {
     return (
       <div style={{ backgroundColor: "rgb(202, 230, 240)", height: "100vh"}}>
         <h1>Favorite Recipes</h1>
-        {/* <hr/> */}
         <RecipeGrid recipes={this.state.favoriteRecipes} callback={this.getFavorites}/>
       </div>
     );

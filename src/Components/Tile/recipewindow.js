@@ -2,17 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import './recipewindow.css';
 
-
-// Modal.setAppElement(document.getElementById('root'))
-
-function ListIngredients(props) {
-  return (
-    Object.keys(props.ingredients).map((name, index) =>
-      <li key={index}>{name}: {props.ingredients[name]}</li>
-    )
-  )
-}
-
+// Button to toggle whether a user wants to save an recipe to their favorites
 function FavoriteButton(props) {
   if (props.loggedIn) {
     return (
@@ -24,7 +14,7 @@ function FavoriteButton(props) {
 }
 
 function RecipeWindow(props) {
-
+  // Wait while loading the recipe from TheMealDB
   if (props.loaded === false) {
     return (
       <p>Loading Recipe...</p>
@@ -55,7 +45,9 @@ function RecipeWindow(props) {
                   <h4>Area: {props.recipe.area}</h4>
                   <h4>Video: {<a href={props.recipe.video} target={"_blank"}>Link</a>}</h4>
                   <h4>Ingredients:</h4>
-                  <ListIngredients ingredients={props.recipe.ingredients}/>
+                  {Object.keys(props.recipe.ingredients).map((name, index) =>
+                    <li key={index}>{name}: {props.recipe.ingredients[name]}</li>
+                  )}
                 </td>
                 <td>
                   <img className="recipe-image"

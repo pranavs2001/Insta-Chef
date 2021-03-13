@@ -32,7 +32,7 @@ function ShowIngredients (props) {
 
 class IngredientSearch extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       baseIngredients: {},
       validIngredients: {},
@@ -43,8 +43,8 @@ class IngredientSearch extends React.Component {
 
   componentDidMount() {
     // Fetch the list of valid ingredients
-    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?'
-    const params = {'i': 'list'}
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?';
+    const params = {'i': 'list'};
     fetch(url + new URLSearchParams(params))
       .then(CheckError)
       .then(result => {
@@ -58,12 +58,8 @@ class IngredientSearch extends React.Component {
     // Process the list of ingredients
     let ingredients = {};
     for (const item in ingredientList) {
-      const ingredientData = ingredientList[item]
-      const data = {
-        'id': ingredientData['idIngredient'],
-        // 'description': ingredientData['strDescription'],
-      }
-      ingredients[ingredientData['strIngredient']] = data
+      const ingredientData = ingredientList[item];
+      ingredients[ingredientData['strIngredient']] = {'id': ingredientData['idIngredient']};
     }
     // Set the state
     this.setState({
@@ -79,6 +75,7 @@ class IngredientSearch extends React.Component {
     // Make sure ingredient list is not empty
     if (searchStr != '') {
       const ingredientList = this.state.baseIngredients;
+      // Find matching ingredients
       for (const ingredient in ingredientList) {
         if (ingredient.toLocaleLowerCase().startsWith(searchStr.toLowerCase())) {
           matches.push({'name': ingredient, 'id': ingredientList[ingredient]['id']});
