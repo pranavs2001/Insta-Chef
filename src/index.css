@@ -30,6 +30,7 @@ code {
   background-color: rgb(68, 157, 173);
   padding: 10%;
   height: 100vh;
+  padding: 0;
 }
 
 .box-home h2{

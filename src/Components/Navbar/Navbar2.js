@@ -47,36 +47,13 @@ function Button() {
   return (
     <>
       <nav className='navbar'>
-      <NavLink to='/'>
+        <NavLink to='/'>
           <img src={logo} alt={"Insta-chef logo"} width={"70px"} height={"70px"} onClick={closeMobileMenu}  />
         </NavLink>
-        {/* <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          EPIC
-          <i class='fab fa-firstdraft' />
-        </Link> */}
         <div className='menu-icon' onClick={handleClick}>
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
         </div>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          {/* <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-              Home
-            </Link>
-          </li> */}
-          {/* <li
-            className='nav-item'
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
-            <Link
-              to='/Profile'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Profile <i className='fas fa-caret-down' />
-            </Link>
-            {dropdown && <Dropdown />}
-          </li> */}
           <li className='nav-item'>
             <Link
               to='/Profile'
