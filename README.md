@@ -2,6 +2,8 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pranavs2001/Insta-Chef/blob/main/LICENSE)
 
+Insta-Chef is a website that enables you to discover new recipes for your culinary desires, based on ingredients you have on hand!
+
 ## Installation 
 The easiest way to run this project is to run it locally. 
 Installation can be done with the following three shell commands
