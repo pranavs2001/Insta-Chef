@@ -5,12 +5,16 @@
 Insta-Chef is a website that enables you to discover new recipes for your culinary desires, using ingredients you already have in your kitchen!
 ## Screenshots from the Insta-Chef website
 - The Search tab
+
 ![Search tab](assets/Search.png)
 - The Favorites tab
+
 ![Favorites tab](assets/Favorites.png)
 - The Pantry tab
+
 ![Pantry tab](assets/Pantry.png)
 - The Profile Tab
+
 ![Profile tab](assets/Profile.png)
 - The homepage
 ![Homepage tab](assets/Homepage.png)
