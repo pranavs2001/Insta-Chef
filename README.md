@@ -1,4 +1,6 @@
-# Insta-Chef
+# [Insta-Chef](http://insta-chef-ba8dc.web.app/) 
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pranavs2001/Insta-Chef/blob/main/LICENSE)
 
 ## Installation 
 The easiest way to run this project is to run it locally. 
