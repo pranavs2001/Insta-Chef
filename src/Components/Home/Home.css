@@ -1,7 +1,3 @@
-/* :root {
-    --desktop-width: ;
-} */
-
 .profile-img-container{
     padding-bottom: 1.2em;
     padding-right: 1.2em;
@@ -18,7 +14,7 @@
     border-radius: 4px;
 }
 
-.board-member-grid{
+.member-grid{
     grid-template-columns: 50% 50%;
     font-size: 1.2em;
     @media (max-width: 850px) {
@@ -26,14 +22,15 @@
     }
 }
 
-.team-member-content{
+.member-content{
     word-wrap: break-word;
+    text-align: left;
     @media (max-width: 850px) {
         > h3 {
             font-size: 1em;
         }
 
-        > .team-member-position {
+        > .member-position {
             font-size: .75em;
         }
     }
@@ -45,18 +42,13 @@
 }
 
 
-.team-profile {
-    @media (max-width: 850px) {
-        margin: 50px auto;
-    }
-}
-
 .grid-row {
     display: flex;
     justify-content: flex-start;
-    width: 100%;
+    width: 50%;
     height: 100%;
     padding: 5%;
+    float: left;
 }
 
 .grid-col{
@@ -67,8 +59,7 @@
     }
 }
 
-.team-row {
-    @media (max-width: 850px) {
-        flex-flow: column nowrap;
-    }
+.management {
+    background-color: rgb(68, 157, 173);
+    height: 50vh;
 }

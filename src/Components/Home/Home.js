@@ -17,7 +17,7 @@ const Home = () => (
       <p> Bradley Schulz: was once awake past 1 AM<br /></p>
       <p> Pranav Srinivasan: loves to dunk on Bradley<br /></p>
   
-      <div className="board-member-grid">
+      <div className="member-grid">
         <div className="grid-row" id="jonathan">
           <div className="grid-col">
             <div className="profile-img-container">
@@ -25,11 +25,11 @@ const Home = () => (
             </div>
           </div>
           <div className="grid-col">
-            <div className="team-member-content">
+            <div className="member-content">
               <h3> Jonathan Carlson
                 <span className="pronouns"> (he/him) </span>
               </h3>
-              <p className="team-member-position">
+              <p className="member-position">
                 Developer
               </p>
               <a target="_blank" rel="noopener noreferrer" href="mailto:jonathanbcarlson@gmail.com">
@@ -42,20 +42,42 @@ const Home = () => (
             </div>
           </div>
         </div>
+        
+        <div className="grid-row" id="pranav">
+          <div className="grid-col">
+            <div className="profile-img-container">
+              <img className="profile-img" src={jonathanProfilePhoto} alt="picture of Jonathan Carlson " />
+            </div>
+          </div>
+          <div className="grid-col">
+            <div className="member-content">
+              <h3> Jonathan Carlson
+                <span className="pronouns"> (he/him) </span>
+              </h3>
+              <p className="member-position">
+                Developer
+              </p>
+              <a target="_blank" rel="noopener noreferrer" href="mailto:jonathanbcarlson@gmail.com">
+                {<FontAwesomeIcon icon={faEnvelope} style={{ paddingRight: "5px" }} size="lg" />}
+                jonathanbcarlson@gmail.com</a>
+              <p />
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/jonathanbcarlson">
+                <i class="fab fa-github fa-1x" style={{ paddingRight: "5px" }} ></i>
+              jonathanbcarlson</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* <div className="personalInfo">
-        <img src={jonathanProfilePhoto} width="75px"alt="Jonathan Carlson Profile Image"/>
-        <a href="https://jonathanbcarlson.github.io/" >Jonathan Carlson</a>
-        <span>: enjoys long walks on the beach<br /></span>
-      </div> */}
       <h2>Contact Us!</h2>
-      <h>Management:<br /></h>
-      <img src={eggertProfilePhoto} width={"300px"} height={"200px"} alt={"Profile Photo of Paul Eggert"}></img>
-      <p>Paul Eggert:</p>
-      <p>(310) 267-2254</p>
-      <p>eggert@cs.ucla.edu</p>
-      <p>Fax: (310) 794-5056</p>
+      <div class="management">
+        <h>Management:<br /></h>
+        <img src={eggertProfilePhoto} width={"300px"} height={"200px"} alt={"Profile Photo of Paul Eggert"}></img>
+        <p>Paul Eggert:</p>
+        <p>(310) 267-2254</p>
+        <p>eggert@cs.ucla.edu</p>
+        <p>Fax: (310) 794-5056</p>
+      </div>
     </div>
   </div>
 );
