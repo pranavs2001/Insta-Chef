@@ -32,18 +32,13 @@ const Home = () => (
               <p className="team-member-position">
                 Developer
               </p>
-              <ul>
-                <li>
-                  <a target="_blank" rel="noopener noreferrer" href="mailto:jonathanbcarlson@gmail.com">
-                    {<FontAwesomeIcon icon={faEnvelope} style={{ paddingRight: "5px" }} size="lg" />}
-                    jonathanbcarlson@gmail.com</a>
-                </li>
-                <li>
-                  <a target="_blank" rel="noopener noreferrer" href="https://github.com/jonathanbcarlson">
-                    <i class="fab fa-github fa-1x" style={{ paddingRight: "5px" }} ></i>
-                  jonathanbcarlson</a>
-                </li>
-              </ul>
+              <a target="_blank" rel="noopener noreferrer" href="mailto:jonathanbcarlson@gmail.com">
+                {<FontAwesomeIcon icon={faEnvelope} style={{ paddingRight: "5px" }} size="lg" />}
+                jonathanbcarlson@gmail.com</a>
+              <p/>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/jonathanbcarlson">
+                <i class="fab fa-github fa-1x" style={{ paddingRight: "5px" }} ></i>
+              jonathanbcarlson</a>
             </div>
           </div>
         </div>

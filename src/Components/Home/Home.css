@@ -3,7 +3,6 @@
 } */
 
 .profile-img-container{
-    padding-top: 1.2em;
     padding-bottom: 1.2em;
     padding-right: 1.2em;
     width: 6em;
@@ -17,17 +16,6 @@
     width: 100%;
     height: auto;
     border-radius: 4px;
-}
-
-.team-member-grid {
-    height: 100%;
-    max-width: 100%;
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-
-    @media (max-width: 850px) {
-        grid-template-columns: 100%;
-    }
 }
 
 .board-member-grid{
@@ -56,10 +44,19 @@
     }
 }
 
+
 .team-profile {
     @media (max-width: 850px) {
         margin: 50px auto;
     }
+}
+
+.grid-row {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
 }
 
 .grid-col{
@@ -67,7 +64,7 @@
         .team-member-content{
             width: 40vw;
         }
-    }   
+    }
 }
 
 .team-row {
