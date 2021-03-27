@@ -126,6 +126,10 @@
       font-size: 2rem;
     }
   
+    .hide-on-mobile {
+      display: none;
+    }
+
     .nav-links-mobile {
 
         

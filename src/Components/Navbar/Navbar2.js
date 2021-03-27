@@ -40,7 +40,7 @@ function Navbar2() {
 function Button() {
   return (
     <Link onClick= {handleLogout}>
-      <button className='btn'>Logout</button>
+      <button className='btn hide-on-mobile'>Logout</button>
     </Link>
   );
 }

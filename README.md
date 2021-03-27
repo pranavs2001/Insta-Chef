@@ -17,7 +17,8 @@ Insta-Chef is a website that enables you to discover new recipes for your culina
 
 ![Profile tab](assets/Profile.png)
 - The homepage
-![Homepage tab](assets/Homepage.png)
+
+<!-- ![Homepage tab](assets/Homepage.png) -->
 ## Installation 
 The easiest way to run this project is to run it locally. 
 Installation can be done with the following three shell commands
