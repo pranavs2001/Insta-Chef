@@ -1,5 +1,24 @@
-# Insta-Chef
+# [Insta-Chef](http://insta-chef-ba8dc.web.app/) 
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pranavs2001/Insta-Chef/blob/main/LICENSE)
+
+Insta-Chef is a website that enables you to discover new recipes for your culinary desires, using ingredients you already have in your kitchen!
+## Screenshots from the Insta-Chef website
+- The Search tab
+
+![Search tab](assets/Search.png)
+- The Favorites tab
+
+![Favorites tab](assets/Favorites.png)
+- The Pantry tab
+
+![Pantry tab](assets/Pantry.png)
+- The Profile Tab
+
+![Profile tab](assets/Profile.png)
+- The Homepage
+
+![Homepage tab](assets/Homepage.png)
 ## Installation 
 The easiest way to run this project is to run it locally. 
 Installation can be done with the following three shell commands
