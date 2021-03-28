@@ -34,17 +34,17 @@
             font-size: .75em;
         }
     }
-    /* @media (min-width: 850px) {
-        > p {
-            margin: 0;
-        }
-    } */
 }
 
 .profile-link {
     display: inline-block;
-    /* overflow-wrap: break-word; */
+    /* margin: .1em; */
     word-break: break-all;
+}
+
+.profile-link-list {
+    list-style-type: none;
+    padding: 0;
 }
 
 
