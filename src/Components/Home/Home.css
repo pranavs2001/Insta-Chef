@@ -17,6 +17,7 @@
 .member-grid{
     grid-template-columns: 50% 50%;
     font-size: 1.2em;
+    background-color: rgb(68, 157, 173);
     @media (max-width: 850px) {
         grid-template-columns: 100%;
     }
@@ -34,13 +35,32 @@
             font-size: .75em;
         }
     }
-    @media (min-width: 850px) {
+    /* @media (min-width: 850px) {
         > p {
             margin: 0;
         }
+    } */
+}
+
+.profile-link {
+    display: inline-block;
+    /* overflow-wrap: break-word; */
+    word-break: break-all;
+}
+
+
+@media only screen and (max-width: 400px) {
+    .grid-row {
+        float: none;
     }
 }
 
+
+@media only screen and (min-width: 1000px) {
+    .grid-row {
+        float: left;
+    }
+}
 
 .grid-row {
     display: flex;
@@ -48,18 +68,20 @@
     width: 50%;
     height: 100%;
     padding: 5%;
-    float: left;
+    /* background-color: rgb(68, 157, 173); */
 }
 
 .grid-col{
     @media(max-width: 850px){
-        .team-member-content{
+        .member-content{
             width: 40vw;
         }
     }
 }
 
 .management {
+    margin-top: 60%;
     background-color: rgb(68, 157, 173);
-    height: 50vh;
+    height: 60vh;
+    text-align: center;
 }
