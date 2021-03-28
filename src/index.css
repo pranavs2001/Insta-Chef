@@ -30,17 +30,20 @@ code {
   background-color: rgb(68, 157, 173);
   padding: 10%;
   height: 100vh;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 }
 
 .box-home h2{
-  color: darksalmon;
+  color: white;
   font-size: 300%;
   letter-spacing: .25em;
   text-align: center;
 }
 
 .box-home h{
-  color: darksalmon;
+  color: white;
   font-size: 200%;
   text-align: center;
 }

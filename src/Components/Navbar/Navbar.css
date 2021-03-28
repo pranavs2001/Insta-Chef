@@ -126,9 +126,11 @@
       font-size: 2rem;
     }
   
-    .nav-links-mobile {
+    .hide-on-mobile {
+      display: none;
+    }
 
-        
+    .nav-links-mobile {
       display: block;
       text-align: center;
       padding: 1.5rem;
