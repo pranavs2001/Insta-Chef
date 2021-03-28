@@ -12,11 +12,11 @@ const Home = () => (
     </div>
 
     <div className="box-home">
-      <h2>About Our Staff:</h2>
-      <p> Drake Cote: hates coffee but was a barista<br /></p>
+      <h2>Our Team:</h2>
+      {/* <p> Drake Cote: hates coffee but was a barista<br /></p>
       <p> Solaine Zhao: frolicks through meadows in nature<br /></p>
       <p> Bradley Schulz: was once awake past 1 AM<br /></p>
-      <p> Pranav Srinivasan: loves to dunk on Bradley<br /></p>
+      <p> Pranav Srinivasan: loves to dunk on Bradley<br /></p> */}
   
       <div className="member-grid">
         <div className="grid-row" id="jonathan">

@@ -17,7 +17,6 @@
 .member-grid{
     grid-template-columns: 50% 50%;
     font-size: 1.2em;
-    background-color: rgb(68, 157, 173);
     @media (max-width: 850px) {
         grid-template-columns: 100%;
     }
@@ -53,12 +52,18 @@
     .grid-row {
         float: none;
     }
+    .management {
+        margin-top: 10%;
+    }
 }
 
 
 @media only screen and (min-width: 1000px) {
     .grid-row {
         float: left;
+    }
+    .management {
+        margin-top: 60%;
     }
 }
 
@@ -68,7 +73,6 @@
     width: 50%;
     height: 100%;
     padding: 5%;
-    /* background-color: rgb(68, 157, 173); */
 }
 
 .grid-col{
@@ -80,8 +84,5 @@
 }
 
 .management {
-    margin-top: 60%;
-    background-color: rgb(68, 157, 173);
-    height: 60vh;
     text-align: center;
 }
