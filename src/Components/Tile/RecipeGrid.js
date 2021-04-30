@@ -19,7 +19,7 @@ function RecipeGrid(props) {
     )
   } else {
     return (
-      <p>No Matching Recipes</p>
+      <p style={{marginTop: "1.5%"}}>No Matching Recipes</p>
     )
   }
 }
